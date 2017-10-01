@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Virginia</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education | University of Virginia</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@virginia.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">Batch download IPEDS survey files</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/downloadipeds" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+         
+        <a href="https://github.com/btskinner/downloadipeds/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    </p>
+<h2 id="purpose">Purpose</h2>
+
+<p>Use this script to batch download <a href="http://nces.ed.gov/ipeds/">Integrated Postsecondary Education Data System (IPEDS)</a> files. The downloaded files are not unzipped or processed in any way. This script simply saves you the trouble of having to point and click your way through the data center.</p>
+
+<p>Only those files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> will be downloaded. The default behavior is to download each of the following files into their own subdirectories:</p>
+
+<ol>
+  <li>Data file</li>
+  <li>Dictionary file</li>
+</ol>
+
+<p>You can also choose to download other data versions and/or program files:</p>
+
+<ol>
+  <li>Data file (STATA version)</li>
+  <li>STATA program file (default if you ask for STATA version data)</li>
+  <li>SPSS program file</li>
+  <li>SAS program file</li>
+</ol>
+
+<h3 id="important-note">IMPORTANT NOTE</h3>
+
+<p>The default behavior is to download <strong>ALL OF IPEDS</strong>. If you don’t want everything, modify <code class="highlighter-rouge">ipeds_file_list.txt</code> to include only those files that you want. Simply erase those you don’t want, keeping one file name per row.</p>
+
+<p>You also have the option of whether you wish to overwrite existing files.
+If you do, change the <code class="highlighter-rouge">overwrite</code> option to <code class="highlighter-rouge">TRUE</code>. The default behavior is
+to only download files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
+
+<h2 id="to-run">To Run</h2>
+
+<p>For the default options, run the script <code class="highlighter-rouge">downloadipeds.R</code> as is. It will create subdirectories as needed to store data and program files. You may wish to place the folder in its own directory. Just make sure that <code class="highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For example, let’s say you place both files in a directory called <code class="highlighter-rouge">ipeds</code>:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>./ipeds
+|__ downloadipeds.R
+|__ ipeds_file_list.txt
+</code></pre>
+</div>
+
+<p>If you run it with the default options, two new subdirectories will be created, one for the <code class="highlighter-rouge">data</code> files and one for the <code class="highlighter-rouge">dictionary</code> files. Using the above example, your directory will look like this after it is finished:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>./ipeds
+|__ downloadipeds.R
+|__ ipeds_file_list.txt
+|__ /data
+|   |__ HD2015.zip
+|   |__ IC2015.zip
+|   |__ &lt;...&gt;
+|
+|__ /dictionary
+    |__ HD2015_Dict.zip
+    |__ IC2015_Dict.zip
+    |__ &lt;...&gt;
+</code></pre>
+</div>
+
+<p>To download other program scripts or Stata versions of the data, change the following commands in <code class="highlighter-rouge">downloadipeds.R</code> from <code class="highlighter-rouge">FALSE</code> to <code class="highlighter-rouge">TRUE</code>:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>## -----------------------------------------------------------------------------
+## CHOOSE WHAT YOU WANT (TRUE == Yes, FALSE == No)
+## -----------------------------------------------------------------------------
+
+## default
+primary_data = TRUE
+dictionary = TRUE
+
+## STATA version
+## (NB: downloading Stata version of data will also get Stata program files)
+stata_data = FALSE
+
+## other program files
+prog_spss = FALSE
+prog_sas  = FALSE
+
+## overwrite already downloaded files
+overwrite = FALSE
+</code></pre>
+</div>
+
+<p>To change output directory, modify <code class="highlighter-rouge">out_dir</code> (default is the current directory):</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>## -----------------------------------------------------------------------------
+## CHOOSE OUTPUT DIRECTORY (DEFAULT == '.', which is current directory)
+## -----------------------------------------------------------------------------
+
+out_dir = '.'
+
+</code></pre>
+</div>
+
+<h2 id="data-size">Data size</h2>
+
+<p>As of 1 April 2017, downloading all IPEDS files (setting all options to 	<code class="highlighter-rouge">TRUE</code>) requires approximately 1.52 GB of disk space. Granted, you probably don’t need both regular and Stata versions of the data files (which are the bulk of the directory size). Here are the approximate subdirectory file sizes if you download all data files from all years:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Subdirectory</th>
+      <th style="text-align: center">Approximate Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./data</code></td>
+      <td style="text-align: center">790.4 MB</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./dictionary</code></td>
+      <td style="text-align: center">17.4 MB</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./sas_prog</code></td>
+      <td style="text-align: center">5.2 MB</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./spss_prog</code></td>
+      <td style="text-align: center">5.0 MB</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./stata_data</code></td>
+      <td style="text-align: center">693.7 MB</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">./stata_prog</code></td>
+      <td style="text-align: center">5.8 MB</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="combine">Combine</h2>
+
+<p>To combine multiple IPEDS data files into a single dataset, you may find the following script useful: <a href="https://gist.github.com/btskinner/f42c87507169d0ba773c">Combine IPEDS</a></p>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">© 2017. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>

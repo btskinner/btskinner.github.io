@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Virginia</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education | University of Virginia</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@virginia.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">Randomize labels for experiment using Python</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/randomizelabel" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+         
+        <a href="https://github.com/btskinner/randomizelabel/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    </p>
+<h2 id="purpose">Purpose</h2>
+
+<p>The purpose of this script is to:</p>
+
+<ol>
+  <li>randomize a list of participants into treatment and control groups</li>
+  <li>create a label for each participant that can be affixed to his or her experimental materials</li>
+  <li>create a master table that links each participant to his or her assignment</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The script may be used for any randomized control trial (RCT) in which participants are known ahead of time, who may be nested within groups, and who have observable and known characteristics upon which further stratification is required.</p>
+
+<p>This script assumes that treatment and control group members will receive different materials but are unaware of the difference, that is, the materials themselves will not indicate experimental condition. It’s important, therefore, that each participant gets the correct materials, especially if participants take part in the experiment concurrently. As part of its randomization routine, this script automatically creates labels that can be affixed to the proper materials ahead of time.</p>
+
+<h2 id="supplementary-file-requirements">Supplementary file requirements</h2>
+
+<ol>
+  <li>
+<a href="https://raw.githubusercontent.com/reingart/pyfpdf/master/tools/pdflabels.py">Requires this code</a> in the same directory saved as <code class="highlighter-rouge">pdflabels.py</code>. If not found, the script automatically downloads and saves the file.</li>
+  <li>Requires a <code class="highlighter-rouge">*.csv</code> file with participant names and any information required if sampling should be blocked within groups (e.g., classroom id, student gender, student race or ethnicity)</li>
+</ol>
+
+<h2 id="to-use">To Use</h2>
+
+<h3 id="initialize">Initialize</h3>
+
+<p>In terminal (works on OS X…not tested in other systems), navigate to the script directory and type:</p>
+
+<div class="language-bash highlighter-rouge">
+<pre class="highlight"><code>./randomizelabel.py
+</code></pre>
+</div>
+
+<p>or, if you want to set the Python interpreter manually:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>python&lt;3&gt; randomizelabel.py
+</code></pre>
+</div>
+
+<p>Note that this script requires Python 3.x.</p>
+
+<h2 id="choose-task">Choose task</h2>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-----------------------
+What do you want to do?
+-----------------------
+
+( 1 ) Randomize and make labels
+( 2 ) Generate labels from prior randomization
+
+CHOICE: 
+</code></pre>
+</div>
+<p>If you’ve already randomized a roster and simply want to reprint the labels, choose the second option (see instructions below).</p>
+
+<h2 id="1-randomize-and-make-labels">(1) Randomize and make labels</h2>
+
+<h3 id="locate-csv-file">Locate <code class="highlighter-rouge">*.csv</code> file</h3>
+
+<p>You will be prompted for the location of the <code class="highlighter-rouge">*.csv</code> file. The script will first search the local directory for all <code class="highlighter-rouge">*.csv</code> files and list them:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>------------------------------------------------------------
+Which CSV file contains the names of those to be randomized?
+------------------------------------------------------------
+
+( 1 ) fakeclasslist.csv
+( 2 ) File not in this directory
+
+CHOICE: 
+</code></pre>
+</div>
+<p>If you place the names file in the same directory, you can just choose it from here. If you don’t, you should select the number for <code class="highlighter-rouge">File not in this directory</code>. You will then be prompted with:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Please give path to CSV file:
+</code></pre>
+</div>
+
+<p>You can give the full or relative paths. For example, each of the below should work:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/Users/&lt;username&gt;/randomizelabel/fakeclasslist.csv
+~/randomizelabel/fakeclasslist.csv
+./randomizelabel/fakeclasslist.csv
+</code></pre>
+</div>
+
+<h3 id="set-seed">Set seed</h3>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Give integer seed of at least 6 digits:
+</code></pre>
+</div>
+<p>This seed is saved as <code class="highlighter-rouge">seed.txt</code> in the working directory. If you lose all assignment files, but have the roster and seed, you should be able to reproduce the same assignments.</p>
+
+<h3 id="choose-primary-unit-of-randomization">Choose primary unit of randomization</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>---------------------------------------------
+Which column contains the randomization unit?
+---------------------------------------------
+
+( 1 ) classid
+( 2 ) id
+( 3 ) name
+( 4 ) gender
+( 5 ) racecat
+
+CHOICE: 
+</code></pre>
+</div>
+<p><em>NB: Randomization unit column cannot contain duplicate values.</em></p>
+
+<h3 id="decide-if-you-want-to-block-randomize">Decide if you want to block randomize</h3>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>------------------------------------
+Should random assignment be blocked?
+------------------------------------
+
+( 1 ) Yes
+( 2 ) No
+
+CHOICE: 
+</code></pre>
+</div>
+<p>If you choose <code class="highlighter-rouge">yes</code> then:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>----------------------------------------
+On which column(s) do you wish to block?
+----------------------------------------
+
+( 1 ) classid
+( 2 ) id
+( 3 ) name
+( 4 ) gender
+( 5 ) racecat
+</code></pre>
+</div>
+<p>You may choose more than one category. Separate multiple choices with a space.</p>
+
+<p><em>NB: You cannot block on the primary randomization unit.</em></p>
+
+<h3 id="check-your-options">Check your options</h3>
+
+<p>To make that you get what you are expecting, the program will give you some descriptive information about your randomization choices. For example, if you chose to randomize on <code class="highlighter-rouge">id</code>, group on <code class="highlighter-rouge">classid</code>, and stratify across <code class="highlighter-rouge">gender</code> and <code class="highlighter-rouge">racecat</code>, you will see the following:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>================================================================================
+
+For the randomization unit: id
+
+................................................................................
+
+Number of unique values = 400
+
+================================================================================
+
+
+================================================================================
+
+For the grouping category: classid
+
+................................................................................
+
+Number of unique values = 17
+Unique values: 
+
+ENGL101.01
+ENGL101.02
+ENGL101.03
+ENGL101.04
+ENGL101.05
+ENGL101.06
+ENGL101.07
+ENGL101.08
+ENGL101.09
+ENGL101.10
+ENGL101.11
+ENGL101.12
+ENGL101.13
+ENGL101.14
+ENGL101.15
+ENGL101.16
+ENGL101.17
+
+================================================================================
+
+
+================================================================================
+
+For the stratification category: gender
+
+................................................................................
+
+Number of unique values = 2
+Unique values: 
+
+Female
+Male
+
+================================================================================
+
+
+================================================================================
+
+For the stratification category: racecat
+
+................................................................................
+
+Number of unique values = 3
+Unique values: 
+
+1
+2
+3
+
+================================================================================
+
+
+</code></pre>
+</div>
+
+<h3 id="decide-the-number-of-treatment-groups">Decide the number of treatment groups</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-------------------------------------------------
+How many treatment conditions, excluding control?
+-------------------------------------------------
+
+( 1 ) 1
+( 2 ) 2
+( 3 ) 3
+( 4 ) 4
+( 5 ) 5
+
+CHOICE: 
+</code></pre>
+</div>
+
+<h3 id="choose-the-type-of-labels">Choose the type of labels</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>--------------------------
+Which labels will you use?
+--------------------------
+
+( 1 ) Apli-01277
+( 2 ) Avery-3422
+( 3 ) Avery-5160
+( 4 ) Avery-5161
+( 5 ) Avery-5162
+( 6 ) Avery-5163
+( 7 ) Avery-5164
+( 8 ) Avery-8600
+( 9 ) Avery-L7163
+
+CHOICE: 
+</code></pre>
+</div>
+
+<h3 id="choose-what-you-want-on-the-labels">Choose what you want on the labels</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>---------------------------------------
+What do you want on the printed labels?
+---------------------------------------
+
+( 1 ) classid
+( 2 ) id
+( 3 ) name
+( 4 ) gender
+( 5 ) racecat
+
+CHOICE: 
+</code></pre>
+</div>
+
+<p>Separate multiple options with a space keeping in mind that the order matters. For example, <code class="highlighter-rouge">3 2 1</code>, would gives labels that showed:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>&lt;name&gt;
+&lt;id&gt;
+&lt;classid&gt;
+</code></pre>
+</div>
+
+<h2 id="output">Output</h2>
+
+<p>Two primary files are placed in the working directory:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">assignment.csv</code></li>
+  <li>
+<code class="highlighter-rouge">assignmentlabels_*.pdf</code> sheets with the labels</li>
+</ol>
+
+<h4 id="assignmentcsv"><code class="highlighter-rouge">assignment.csv</code></h4>
+
+<p>Is a long file that contains, the randomization column and the treatment condition. Example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">assign</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">q4NSkKLNNags</td>
+      <td style="text-align: center">C</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">NRIL0Ewhq8A5</td>
+      <td style="text-align: center">T</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">UXCFYfIM6JGn</td>
+      <td style="text-align: center">T</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MMNjGO4CtvlL</td>
+      <td style="text-align: center">T</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5Pe8c9rHidi8</td>
+      <td style="text-align: center">C</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For merging purposes, it’s probably a good idea to randomize using a uniquely identifiable variable.</p>
+
+<h4 id="assignmentlabels_csv"><code class="highlighter-rouge">assignmentlabels_*.csv</code></h4>
+
+<p>There will be one <code class="highlighter-rouge">*.pdf</code> for the labels for each experimental group. If you only have one treatment and one control, the you will have two files:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>assignmentlabels_T.csv
+assignmentlabels_C.csv
+</code></pre>
+</div>
+
+<p>If you have, for example, two treatment groups and one control, you will have:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>assignmentlabels_T1.csv
+assignmentlabels_T2.csv
+assignemntlabels_C.csv
+</code></pre>
+</div>
+
+<p>The labels themselves <strong>will not</strong> indicate experimental group status (for obvious reasons) so this printing scheme will mitigate mix ups. The number of pages for each group will depend on the types of labels choosen.</p>
+
+<h2 id="2-generate-labels-from-prior-randomization">(2) Generate labels from prior randomization</h2>
+
+<p>If you have already randomized your roster and want to reprint the labels, choose the second option from the first prompt. You will be asked:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-----------------------------------
+Which CSV file contains the roster?
+-----------------------------------
+
+( 1 ) assignment.csv
+( 2 ) fakeclasslist.csv
+( 3 ) File not in this directory
+
+CHOICE: 
+</code></pre>
+</div>
+<p>which should be the original roster file, and,</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>---------------------------------------
+Which CSV file contains the assignment?
+---------------------------------------
+
+( 1 ) assignment.csv
+( 2 ) fakeclasslist.csv
+( 3 ) File not in this directory
+
+CHOICE: 
+</code></pre>
+</div>
+<p>which should be the <code class="highlighter-rouge">assigment.csv</code> file generated the first time. These two files will be merged on the randomization column. After these steps, you will once again be asked to choose the types of labels and what you want printed on them.</p>
+
+<h3 id="adjustments-to-labels">Adjustments to labels</h3>
+
+<p>When reprinting labels, you will able to adjust the printing placement of the labels as well as the font size.</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-----------------------------------------------------
+Do you want to adjust label margins and/or font size?
+-----------------------------------------------------
+
+( 1 ) Yes
+( 2 ) No
+</code></pre>
+</div>
+<p>If you say yes, you will get the following options:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Please enter horizontal adjustment (negative number for left): 
+Please enter vertical adjustment (negative number for up):
+Please enter font size from 7 to 15 (default is 11):
+</code></pre>
+</div>
+<p>Horizontal/vertical adjustments are additive. A positive number moves the labels to the right and down. Negative numbers are reverse the direction. Units are in millimeters.</p>
+
+<p>Font size must be one of the following options: <code class="highlighter-rouge">7, 8, 9, 10, 11, 12, 13, 14, 15</code>.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+  <li>Originators and contributors to <a href="https://code.google.com/p/pyfpdf/">PyFPDF</a>
+</li>
+  <li>
+<a href="http://listofrandomnames.com/">List of random names</a> and <a href="https://ryouready.wordpress.com/2008/12/18/generate-random-string-name/">Mark Heckmann at ryouready</a> for helping me generate my fake class data</li>
+</ul>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">© 2017. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
