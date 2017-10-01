@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Virginia</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education | University of Virginia</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@virginia.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">StataKnitr</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/stataknitr" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+         
+        <a href="https://github.com/btskinner/stataknitr/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    </p>
+<p>Unlike many of the other programming languages that knitr supports, Stata doesn’t work as well when trying to compile literate programming documents. Other discussions about this issue and potential solutions can be found <a href="https://hopstat.wordpress.com/2014/01/11/stata-markdown-2/">here</a>, <a href="https://github.com/amarder/stata-tutorial">here</a>, and <a href="http://www.ssc.wisc.edu/~hemken/Stataworkshops/Stata%20and%20R%20Markdown/Statalinux.html">here</a>.</p>
+
+<p>The biggest problem of using Stata with knitr is that each chunk is treated as its own do file and run in independent Stata sessions through the command line. This means that changes aren’t persistent across chunks and strange behaviors occur, assuming the document compiles at all. One can attempt to set up a <code class="highlighter-rouge">profile.do</code> file to help with persistence, but I had trouble with it.</p>
+
+<p>StataKnitr comes from my attempt to knit a Stata do file into an HTML file. My solution is to run the Stata do file using a bash chunk in knitr and then parse the resulting log file with an R helper function I wrote called <code class="highlighter-rouge">logparse()</code>. Images are aligned with another R function, <code class="highlighter-rouge">alignfigure()</code>. The resulting workflow isn’t as smooth as one might desire, but it works well for making a nice presentation of Stata code and output when that is required.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>This method requires:</p>
+
+<ul>
+  <li>a do that can be run from top to bottom and is well commented with unique comments</li>
+  <li>a log file of the session</li>
+  <li>the ability to run Stata from the <a href="http://www.stata.com/support/faqs/unix/batch-mode/">command line (batch mode)</a>
+</li>
+  <li>
+<a href="http://cran.r-project.org/web/packages/rmarkdown/"><code class="highlighter-rouge">rmarkdown</code></a> package in R</li>
+  <li>
+<code class="highlighter-rouge">stataknitrhelper.r</code> be accessible by the rmarkdown file (the default is to have it in the same directory)</li>
+</ul>
+
+<blockquote>
+  <h5 id="note">NOTE</h5>
+  <p>I have an OS X system, so I suspect it will work on other *NIX systems. I’m not sure about Windows.</p>
+</blockquote>
+
+<h2 id="set-up">Set up</h2>
+
+<h3 id="construct-your-stata-do-file">Construct your stata do file</h3>
+
+<p>It must run from top to bottom without error and save a log of the output. Also, every section that you want displayed should have a unique comment. <code class="highlighter-rouge">demo.do</code> is an example:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>// log stata session with *.log file
+log using "demo.log", replace
+
+// load data
+webuse school, clear
+
+// create nominal income variable; summarize
+gen inc = exp(loginc)
+summarize inc
+
+// list observations inc
+list obs inc
+
+// close log and exit
+log close                               
+exit
+</code></pre>
+</div>
+
+<h3 id="construct-your-knitr-rmd-file">Construct your knitr rmd file</h3>
+
+<h4 id="call-do-file">Call do file</h4>
+
+<p>After setting any knitr chunk options that you want, call your do file with a knitr chunk that uses <code class="highlighter-rouge">engine = 'bash'</code> in the options:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="c1">## run accompanying .do file to get log file for parsing   
+</span><span class="n">stata</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="n">demo.do</span><span class="w">
+</span></code></pre>
+</div>
+
+<blockquote>
+  <h5 id="note-1">NOTE</h5>
+  <p>Your command line Stata call may be different from <code class="highlighter-rouge">stata</code>. If you have StataSE or StataMP and you haven’t created a symlink using <code class="highlighter-rouge">stata</code>, you may need to call the command with <code class="highlighter-rouge">stata-se</code> or <code class="highlighter-rouge">stata-mp</code>.</p>
+</blockquote>
+
+<h4 id="store-log-file">Store log file</h4>
+
+<p>Store the log file in an object in the next knitr chunk:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="c1">## save log file in object
+</span><span class="n">lf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'demo.log'</span><span class="w">
+</span></code></pre>
+</div>
+
+<h4 id="parse-log">Parse log</h4>
+
+<p>To get the chunk you want, use <code class="highlighter-rouge">logparse()</code> wraped with <code class="highlighter-rouge">writeLines()</code> to grab the relevant part of the log file and print to output. The R function will take line numbers, but it’s easiest to use with unique comments. If the comments aren’t unique, the function should still run, but with undesired output:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">start</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'load data'</span><span class="w">
+</span><span class="n">end</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'create nominal income variable; summarize'</span><span class="w">
+</span><span class="n">writeLines</span><span class="p">(</span><span class="n">logparse</span><span class="p">(</span><span class="n">lf</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<blockquote>
+  <h5 id="note-2">NOTE</h5>
+  <p>The default option for <code class="highlighter-rouge">logparse()</code> is to drop the first and last lines when printing the pulled section. This is so the first and last comment aren’t printed to the console when the comments are placed above, rather than inline with, the relevant code. If you use inline comments or want to show the first and last lines, set the <code class="highlighter-rouge">logparse</code> option <code class="highlighter-rouge">include = TRUE</code>.</p>
+</blockquote>
+
+<h2 id="set-up-with-graphics">Set up with graphics</h2>
+
+<p>When called from the command line, Stata can only produce graphics in <code class="highlighter-rouge">*.ps</code> and <code class="highlighter-rouge">*.eps</code> format. I couldn’t get rmarkdown to work with these files. To work around this, I include code at the beginning of the knitr document (in the BASH chunk just below the <code class="highlighter-rouge">stata ... </code> call) that uses <a href="http://www.imagemagick.org/script/index.php">ImageMagick</a> to convert the EPS files to PNG:</p>
+
+<div class="language-bash highlighter-rouge">
+<pre class="highlight"><code><span class="c">## convert plots used in this file to png</span>
+<span class="nv">plotlist</span><span class="o">=(</span><span class="k">*</span>.eps<span class="o">)</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="k">${</span><span class="nv">plotlist</span><span class="p">[@]</span><span class="k">}</span>;
+<span class="k">do
+</span><span class="nv">base</span><span class="o">=</span><span class="k">${</span><span class="nv">i</span><span class="p">%.eps</span><span class="k">}</span>
+convert -density <span class="nv">$dpi</span> -flatten <span class="nv">$base</span>.eps <span class="nv">$base</span>.png;
+<span class="k">done</span>
+</code></pre>
+</div>
+
+<p>This code finds all EPS files in the directory and converts them to PNG files with the same name. For it to work, the YAML frontmatter needs to include the <code class="highlighter-rouge">params:dpi</code> option and the following line in the first knitr setup chunk:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="c1">## set yaml params in environment
+</span><span class="n">Sys.setenv</span><span class="p">(</span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">dpi</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>To get files of different size, change the current density value of <code class="highlighter-rouge">150</code> to whatever you want in the <code class="highlighter-rouge">params</code> option of <code class="highlighter-rouge">rmarkdown::render()</code> (see below).</p>
+
+<h3 id="do-file-setup-for-plots">Do file setup for plots</h3>
+
+<p>Make sure your do file exports images using the <code class="highlighter-rouge">graph export</code> command:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>// create scatter of years by loginc; export to file
+scatter years loginc, name(sc_yearsXloginc)
+graph export "sc_yearsXloginc.eps", name(sc_yearsXloginc) replace
+</code></pre>
+</div>
+
+<h3 id="call-plot-in-document">Call plot in document</h3>
+
+<p>Call the plot in the rmarkdown document either with the standard <code class="highlighter-rouge">![]</code> command or, if you want to align it, using <code class="highlighter-rouge">alignfigure()</code> wrapped in <code class="highlighter-rouge">writeLines()</code> and using the <code class="highlighter-rouge">results = 'asis'</code> chunk option. Here is an example using the <code class="highlighter-rouge">demo_plots.rmd</code>:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="n">alignfigure</span><span class="p">(</span><span class="s1">'sc_yearsXloginc.png'</span><span class="p">,</span><span class="w"> </span><span class="s1">'center'</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="run">Run</h2>
+
+<p>To run, open an R session in the same directory as your RMD file and run <code class="highlighter-rouge">rmarkdown::render()</code>. Here’s an example using <code class="highlighter-rouge">demo.rmd</code>:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>If you want to change the size of the image, you need to pass the change in the <code class="highlighter-rouge">render</code> options:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>See the files in <code class="highlighter-rouge">demo_html</code> for examples HTML output.</p>
+
+<h2 id="styling-options">Styling options</h2>
+
+<p>Because Stata, unlike R, repeats the command in the output, I didn’t want to echo the command as well. This means, by default, all the output code chunks were the same color as the backgroud. To add contrast, I change the CSS with the <code class="highlighter-rouge">custom.css</code> file. You can change as you like or remove the call from the YAML to use the default settings.</p>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">© 2017. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
