@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include header.html %}
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
+      <h6 class="site-subtitle"><a href="{{ site.schoolurl }}/">{{ site.subtitle }}</a></h6>
+      <nav class="site-nav">
+	<a href="{{ site.baseurl }}/publications/" class="{% if page.url == '/publications/' %}active{% endif %}">Publications</a>
+        <a href="{{ site.baseurl }}/presentations/" class="{% if page.url == '/presentations/' %}active{% endif %}">Presentations</a>
+        <a href="{{ site.baseurl }}/working/" class="{% if page.url == '/working/' %}active{% endif %}">Working</a>
+        <a href="{{ site.baseurl }}/teaching/" class="{% if page.url == '/teaching/' %}active{% endif %}">Teaching</a>
+        <a href="{{ site.baseurl }}/code/" class="{% if page.url == '/code/' %}active{% endif %}">Code</a>
+	<a href="{{ site.baseurl }}/data/" class="{% if page.url == '/data/' %}active{% endif %}">Data</a>
+        <a href="{{ site.baseurl }}/visualizations/" class="{% if page.url == '/visualizations/' %}active{% endif %}">Visualizations</a>
+        <a href="{{ site.cv }}">CV</a>
+        <a href="{{ site.github }}"><i class="fa fa-github fa-2x"></i></a>
+	<a href="{{ site.twitter }}"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:{{ site.mail }}"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    {{ content }}
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      {% include footer.html %}
+    </div>
+  </main>
+  {% if site.google_analytics %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '{{ site.google_analytics }}', 'auto');
+    ga('send', 'pageview');
+  </script>
+  {% endif %}
+</body>
+</html>

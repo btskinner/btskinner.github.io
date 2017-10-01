@@ -1,0 +1,65 @@
+title: Benjamin T. Skinner
+subtitle: Research Assistant Professor of Education | University of Virginia
+jobstatus: Research Assistant Professor of Education
+school: University of Virginia
+baseurl: ""
+schoolurl: https://curry.virginia.edu/benjamin-skinner
+github: https://github.com/btskinner
+twitter: https://twitter.com/btskinner
+mail: btskinner@virginia.edu
+cv: /repository/skinnercv.pdf
+
+date_format: "%d %B %Y"
+
+permalink: /:categories/:title/
+
+google_analytics: UA-63981025-1
+disqus_shortname:
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+highlighter: pygments
+
+gems:
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-redirect-from
+whitelist:
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-redirect-from
+
+# Bibliography
+scholar:
+  style: apa
+  locale: en
+
+  use_raw_bibtex_entry: true
+  bibtex_filters:
+  - superscript
+  - latex
+  
+  sort_by: year
+  order: descending
+
+  source: ./bibliography
+  bibliography: skinnercv_web.bib
+  bibliography_template: bib
+
+  repository: ./repository
+
+  replace_strings: true
+  join_strings:    true
+
+  details_dir:    bibliography
+  details_layout: bibtex.html
+  details_link:   Details
+
+  query: "@*"

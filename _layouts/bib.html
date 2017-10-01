@@ -1,0 +1,47 @@
+---
+---
+
+{{ reference }}&nbsp;&nbsp;
+<!-- Published paper icon -->
+{% if entry.link %}
+<a href="{{entry.link}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-external-link fa-lg" title="Link to published version"></i></a>
+{% endif %}
+<!-- Images (poster / slides) icon -->
+{% if entry.image %}
+<a href="{{entry.image}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-picture-o fa-lg" title="Poster, slides, or image"></i></a>
+{% endif %}
+<!-- Working paper icon -->
+{% if entry.paper %}
+<a href="{{entry.paper}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-file-text-o fa-lg" title="Link to working version"></i></a>
+{% endif %}
+<!-- Supplemental materials icon -->
+{% if entry.supplemental %}
+<a href="{{entry.supplemental}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-file-text fa-lg" title="Link to supplemental materials"></i></a>
+{% endif %}
+<!-- Replication code icon -->
+{% if entry.replication %}
+<a href="{{entry.replication}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-file-code-o fa-lg" title="Link to replication code"></i></a>
+{% endif %}
+<!-- Offical software (PyPi / CRAN) icon -->
+{% if entry.software %}
+<a href="{{entry.software}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-code fa-lg" title="Link to replication code"></i></a>
+{% endif %}
+<!-- GitHub repo icon -->
+{% if entry.repo %}
+<a href="{{entry.repo}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-github fa-lg" title="Link to GitHub repository"></i></a>
+{% endif %}
+<!-- Software manual (vignette) icon -->
+{% if entry.manual %}
+<a href="{{entry.manual}}" class="iconlink" style="margin-left: 1.5em;">
+  <i class="fa fa-book fa-lg" title="Link to software manual"></i></a>
+{% endif %}
+
+
+

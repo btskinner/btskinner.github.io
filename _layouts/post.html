@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article class="post">
+    <br>
+    <h1 class="post-header">{{ page.title }}</h1>
+    {% if page.github_links %}
+        <br>
+        <p class="post-meta">
+        <a href="{{ page.github_links.repo }}" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+        &nbsp;
+        <a href="{{ page.github_links.zip }}" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	{% if page.github_links.manual %}
+	&nbsp;
+        <a href="{{ page.github_links.manual }}" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
+	{% endif %}
+    {% endif %}
+    {% if page.shinyapps.link %}
+        <br>
+        {% if page.shinyapps.repo %}
+             <p class="post-meta">
+             <a href="{{ page.shinyapps.repo }}" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+             &nbsp;
+             <a href="{{ page.shinyapps.zip }}" class="iconlink"><i class="fa fa-file-archive-o fa-3x"></i></a>
+             &nbsp;
+             <a href="{{ page.shinyapps.link }}" class="iconlink" download><i class="fa fa-play fa-3x"></i></a></p>
+        {% else %}
+            <p class="post-meta"><a href="{{ page.shinyapps.link }}" class="iconlink"><i class="fa fa-play fa-3x"></i></a></p>
+        {% endif %}
+    {% endif %}
+    {{ content }}
+    {% if site.disqus_shortname %}
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname  = '{{ site.disqus_shortname }}';
+        var disqus_identifier = '{{ page.id }}';
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    {% endif %}
+</article>
