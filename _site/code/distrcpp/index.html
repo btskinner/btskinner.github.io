@@ -176,7 +176,7 @@ p &lt;- df %&gt;% select(pclon10, pclat10) %&gt;% na.omit %&gt;% data.frame()
 
 <div class="highlighter-rouge">
 <pre class="highlight"><code>dist_R &lt;- distm(p)
-dist_Rcpp &lt;- dist_mtom(p[,1],p[,2],p[,1],p[,2],funname="Haversine")
+dist_Rcpp &lt;- dist_mtom(p[,1],p[,2],p[,1],p[,2])
 
 dist_R[1:5,1:5]
 
@@ -209,7 +209,7 @@ all.equal(dist_R, dist_Rcpp)
 <div class="highlighter-rouge">
 <pre class="highlight"><code>microbenchmark(
     dist_R = distm(p),
-    dist_Rcpp = dist_mtom(p[,1],p[,2],p[,1],p[,2],funname="Haversine"),
+    dist_Rcpp = dist_mtom(p[,1],p[,2],p[,1],p[,2]),
     times = 100
 )
 
