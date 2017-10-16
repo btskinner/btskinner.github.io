@@ -46,8 +46,8 @@ scholar:
   - superscript
   - latex
   
-  sort_by: year
-  order: descending
+  sort_by: year,author
+  order: descending,ascending
 
   source: ./bibliography
   bibliography: skinnercv_web.bib
