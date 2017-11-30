@@ -23,7 +23,7 @@ kramdown:
 
 highlighter: pygments
 
-gems:
+plugins:
   - jekyll-coffeescript
   - jekyll-gist
   - jekyll-mentions

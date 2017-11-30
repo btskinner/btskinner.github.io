@@ -78,17 +78,14 @@ to only download files listed in <code class="highlighter-rouge">ipeds_file_list
 
 <p>For the default options, run the script <code class="highlighter-rouge">downloadipeds.R</code> as is. It will create subdirectories as needed to store data and program files. You may wish to place the folder in its own directory. Just make sure that <code class="highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For example, let’s say you place both files in a directory called <code class="highlighter-rouge">ipeds</code>:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>./ipeds
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
 |__ ipeds_file_list.txt
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If you run it with the default options, two new subdirectories will be created, one for the <code class="highlighter-rouge">data</code> files and one for the <code class="highlighter-rouge">dictionary</code> files. Using the above example, your directory will look like this after it is finished:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>./ipeds
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
 |__ ipeds_file_list.txt
 |__ /data
@@ -100,13 +97,11 @@ to only download files listed in <code class="highlighter-rouge">ipeds_file_list
     |__ HD2015_Dict.zip
     |__ IC2015_Dict.zip
     |__ &lt;...&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To download other program scripts or Stata versions of the data, change the following commands in <code class="highlighter-rouge">downloadipeds.R</code> from <code class="highlighter-rouge">FALSE</code> to <code class="highlighter-rouge">TRUE</code>:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>## -----------------------------------------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
 ## CHOOSE WHAT YOU WANT (TRUE == Yes, FALSE == No)
 ## -----------------------------------------------------------------------------
 
@@ -124,20 +119,17 @@ prog_sas  = FALSE
 
 ## overwrite already downloaded files
 overwrite = FALSE
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To change output directory, modify <code class="highlighter-rouge">out_dir</code> (default is the current directory):</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>## -----------------------------------------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
 ## CHOOSE OUTPUT DIRECTORY (DEFAULT == '.', which is current directory)
 ## -----------------------------------------------------------------------------
 
 out_dir = '.'
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="data-size">Data size</h2>
 
