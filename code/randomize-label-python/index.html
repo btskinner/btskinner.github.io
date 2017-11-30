@@ -76,24 +76,19 @@
 
 <p>In terminal (works on OS X…not tested in other systems), navigate to the script directory and type:</p>
 
-<div class="language-bash highlighter-rouge">
-<pre class="highlight"><code>./randomizelabel.py
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./randomizelabel.py
+</code></pre></div></div>
 
 <p>or, if you want to set the Python interpreter manually:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>python&lt;3&gt; randomizelabel.py
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python&lt;3&gt; randomizelabel.py
+</code></pre></div></div>
 
 <p>Note that this script requires Python 3.x.</p>
 
 <h2 id="choose-task">Choose task</h2>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-----------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------
 What do you want to do?
 -----------------------
 
@@ -101,8 +96,7 @@ What do you want to do?
 ( 2 ) Generate labels from prior randomization
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>If you’ve already randomized a roster and simply want to reprint the labels, choose the second option (see instructions below).</p>
 
 <h2 id="1-randomize-and-make-labels">(1) Randomize and make labels</h2>
@@ -111,8 +105,7 @@ CHOICE:
 
 <p>You will be prompted for the location of the <code class="highlighter-rouge">*.csv</code> file. The script will first search the local directory for all <code class="highlighter-rouge">*.csv</code> files and list them:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>------------------------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
 Which CSV file contains the names of those to be randomized?
 ------------------------------------------------------------
 
@@ -120,35 +113,27 @@ Which CSV file contains the names of those to be randomized?
 ( 2 ) File not in this directory
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>If you place the names file in the same directory, you can just choose it from here. If you don’t, you should select the number for <code class="highlighter-rouge">File not in this directory</code>. You will then be prompted with:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>Please give path to CSV file:
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please give path to CSV file:
+</code></pre></div></div>
 
 <p>You can give the full or relative paths. For example, each of the below should work:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>/Users/&lt;username&gt;/randomizelabel/fakeclasslist.csv
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/&lt;username&gt;/randomizelabel/fakeclasslist.csv
 ~/randomizelabel/fakeclasslist.csv
 ./randomizelabel/fakeclasslist.csv
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="set-seed">Set seed</h3>
-<div class="highlighter-rouge">
-<pre class="highlight"><code>Give integer seed of at least 6 digits:
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Give integer seed of at least 6 digits:
+</code></pre></div></div>
 <p>This seed is saved as <code class="highlighter-rouge">seed.txt</code> in the working directory. If you lose all assignment files, but have the roster and seed, you should be able to reproduce the same assignments.</p>
 
 <h3 id="choose-primary-unit-of-randomization">Choose primary unit of randomization</h3>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>---------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------
 Which column contains the randomization unit?
 ---------------------------------------------
 
@@ -159,13 +144,11 @@ Which column contains the randomization unit?
 ( 5 ) racecat
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p><em>NB: Randomization unit column cannot contain duplicate values.</em></p>
 
 <h3 id="decide-if-you-want-to-block-randomize">Decide if you want to block randomize</h3>
-<div class="highlighter-rouge">
-<pre class="highlight"><code>------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------
 Should random assignment be blocked?
 ------------------------------------
 
@@ -173,12 +156,10 @@ Should random assignment be blocked?
 ( 2 ) No
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>If you choose <code class="highlighter-rouge">yes</code> then:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>----------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------
 On which column(s) do you wish to block?
 ----------------------------------------
 
@@ -187,8 +168,7 @@ On which column(s) do you wish to block?
 ( 3 ) name
 ( 4 ) gender
 ( 5 ) racecat
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>You may choose more than one category. Separate multiple choices with a space.</p>
 
 <p><em>NB: You cannot block on the primary randomization unit.</em></p>
@@ -197,8 +177,7 @@ On which column(s) do you wish to block?
 
 <p>To make that you get what you are expecting, the program will give you some descriptive information about your randomization choices. For example, if you chose to randomize on <code class="highlighter-rouge">id</code>, group on <code class="highlighter-rouge">classid</code>, and stratify across <code class="highlighter-rouge">gender</code> and <code class="highlighter-rouge">racecat</code>, you will see the following:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>================================================================================
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>================================================================================
 
 For the randomization unit: id
 
@@ -270,13 +249,11 @@ Unique values:
 ================================================================================
 
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="decide-the-number-of-treatment-groups">Decide the number of treatment groups</h3>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-------------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------------------------------------------------
 How many treatment conditions, excluding control?
 -------------------------------------------------
 
@@ -287,13 +264,11 @@ How many treatment conditions, excluding control?
 ( 5 ) 5
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="choose-the-type-of-labels">Choose the type of labels</h3>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>--------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------------------
 Which labels will you use?
 --------------------------
 
@@ -308,13 +283,11 @@ Which labels will you use?
 ( 9 ) Avery-L7163
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="choose-what-you-want-on-the-labels">Choose what you want on the labels</h3>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>---------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
 What do you want on the printed labels?
 ---------------------------------------
 
@@ -325,17 +298,14 @@ What do you want on the printed labels?
 ( 5 ) racecat
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Separate multiple options with a space keeping in mind that the order matters. For example, <code class="highlighter-rouge">3 2 1</code>, would gives labels that showed:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>&lt;name&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;name&gt;
 &lt;id&gt;
 &lt;classid&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="output">Output</h2>
 
@@ -388,20 +358,16 @@ CHOICE:
 
 <p>There will be one <code class="highlighter-rouge">*.pdf</code> for the labels for each experimental group. If you only have one treatment and one control, the you will have two files:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>assignmentlabels_T.csv
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T.csv
 assignmentlabels_C.csv
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If you have, for example, two treatment groups and one control, you will have:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>assignmentlabels_T1.csv
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T1.csv
 assignmentlabels_T2.csv
 assignemntlabels_C.csv
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The labels themselves <strong>will not</strong> indicate experimental group status (for obvious reasons) so this printing scheme will mitigate mix ups. The number of pages for each group will depend on the types of labels choosen.</p>
 
@@ -409,8 +375,7 @@ assignemntlabels_C.csv
 
 <p>If you have already randomized your roster and want to reprint the labels, choose the second option from the first prompt. You will be asked:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-----------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------
 Which CSV file contains the roster?
 -----------------------------------
 
@@ -419,12 +384,10 @@ Which CSV file contains the roster?
 ( 3 ) File not in this directory
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>which should be the original roster file, and,</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>---------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
 Which CSV file contains the assignment?
 ---------------------------------------
 
@@ -433,31 +396,26 @@ Which CSV file contains the assignment?
 ( 3 ) File not in this directory
 
 CHOICE: 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>which should be the <code class="highlighter-rouge">assigment.csv</code> file generated the first time. These two files will be merged on the randomization column. After these steps, you will once again be asked to choose the types of labels and what you want printed on them.</p>
 
 <h3 id="adjustments-to-labels">Adjustments to labels</h3>
 
 <p>When reprinting labels, you will able to adjust the printing placement of the labels as well as the font size.</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-----------------------------------------------------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------
 Do you want to adjust label margins and/or font size?
 -----------------------------------------------------
 
 ( 1 ) Yes
 ( 2 ) No
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>If you say yes, you will get the following options:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>Please enter horizontal adjustment (negative number for left): 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please enter horizontal adjustment (negative number for left): 
 Please enter vertical adjustment (negative number for up):
 Please enter font size from 7 to 15 (default is 11):
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Horizontal/vertical adjustments are additive. A positive number moves the labels to the right and down. Negative numbers are reverse the direction. Units are in millimeters.</p>
 
 <p>Font size must be one of the following options: <code class="highlighter-rouge">7, 8, 9, 10, 11, 12, 13, 14, 15</code>.</p>

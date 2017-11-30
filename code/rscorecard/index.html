@@ -61,17 +61,13 @@ release"></a>
 
 <p>Install the latest released version from CRAN with</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rscorecard'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rscorecard'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p>Install the latest development version from Github with</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s1">'btskinner/rscorecard'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s1">'btskinner/rscorecard'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p>This package relies on the Scorecard data dictionary, so I will attempt to update it in a timely fashion whenever new Scorecard data are released. Because it sometimes takes a few days to get a package on CRAN, you may want to download the developmental version in the days immediately following a data update.</p>
 
@@ -88,8 +84,7 @@ release"></a>
 
 <h2 id="example-call">Example call</h2>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rscorecard</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rscorecard</span><span class="p">)</span><span class="w">
 
 </span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sc_init</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
     </span><span class="n">sc_filter</span><span class="p">(</span><span class="n">region</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ccbasic</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">21</span><span class="p">,</span><span class="m">22</span><span class="p">,</span><span class="m">23</span><span class="p">),</span><span class="w"> </span><span class="n">locale</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">41</span><span class="o">:</span><span class="m">43</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
@@ -97,8 +92,7 @@ release"></a>
     </span><span class="n">sc_year</span><span class="p">(</span><span class="m">2013</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
     </span><span class="n">sc_get</span><span class="p">()</span><span class="w">
 </span><span class="n">df</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>For more example calls, see the <a href="http://btskinner.me/rscorecard">extended vignette</a>.</p>
 
@@ -106,28 +100,24 @@ release"></a>
 
 <p>To look up information about data elements, use the <code class="highlighter-rouge">sc_dict()</code> function.</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="c1">## search variable descriptions for those containing 'tuition'
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## search variable descriptions for those containing 'tuition'</span><span class="w">
 </span><span class="n">sc_dict</span><span class="p">(</span><span class="s1">'tuition'</span><span class="p">)</span><span class="w">
 
-</span><span class="c1">## search for variable names for those starting with 'st'
+</span><span class="c1">## search for variable names for those starting with 'st'</span><span class="w">
 </span><span class="n">sc_dict</span><span class="p">(</span><span class="s1">'^st'</span><span class="p">,</span><span class="w"> </span><span class="n">search_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'varname'</span><span class="p">)</span><span class="w">
 
-</span><span class="c1">## print entire dictionary (not recommended)
+</span><span class="c1">## print entire dictionary (not recommended)</span><span class="w">
 </span><span class="n">sc_dict</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">Inf</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="api-key">API key</h2>
 
 <p>Get your Data.gov API key at <a href="https://api.data.gov/signup/">https://api.data.gov/signup/</a>.
 Save your key in your R environment at the start of your R session using <code class="highlighter-rouge">sc_key()</code>:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="c1">## use your real key in place of the Xs
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## use your real key in place of the Xs</span><span class="w">
 </span><span class="n">sc_key</span><span class="p">(</span><span class="s1">'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="further-references">Further references</h2>
 

@@ -41,30 +41,26 @@
     <p>This bash script corrects double braces in <code class="highlighter-rouge">bib</code> files that break Jekyll Scholar. I use BibDesk for my citations, which uses braces around all fields. When I add 
 braces to preserve formatting, double braces appear, like so (see <code class="highlighter-rouge">Title</code> field):</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@manual{skinner2016rscorecard,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
 	Author = {Skinner, Benjamin T.},
 	Keywords = {technical},
 	Note = {R package version 0.2.4},
 	Title = {{rscorecard: A Method to Download Department of Education College Scorecard Data}},
 	Url = {https://CRAN.R-project.org/package=rscorecard},
 	Year = {2016}}
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>This is a problem for Jekyll Scholar, which cannot parse the entry. This is true even when <code class="highlighter-rouge">use_raw_bibtex_entry</code> is set to <code class="highlighter-rouge">true</code> in <code class="highlighter-rouge">_config.yml</code>. Running this script on a <code class="highlighter-rouge">bib</code> file replaces the problematic double braces,  <code class="highlighter-rouge"><span class="p">{</span><span class="err">{...</span><span class="p">}</span><span class="err">}</span></code>, with a double-quotation mark brace combination: 
+<p>This is a problem for Jekyll Scholar, which cannot parse the entry. This is true even when <code class="highlighter-rouge">use_raw_bibtex_entry</code> is set to <code class="highlighter-rouge">true</code> in <code class="highlighter-rouge">_config.yml</code>. Running this script on a <code class="highlighter-rouge">bib</code> file replaces the problematic double braces,  <code class="highlighter-rouge">{{...}}</code>, with a double-quotation mark brace combination: 
 <code class="highlighter-rouge">"{...}"</code>:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@manual{skinner2016rscorecard,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
 	Author = {Skinner, Benjamin T.},
 	Keywords = {technical},
 	Note = {R package version 0.2.4},
 	Title = "{rscorecard: A Method to Download Department of Education College Scorecard Data}",
 	Url = {https://CRAN.R-project.org/package=rscorecard},
 	Year = {2016}}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>So far, this seems to solve my problem.	Script is in the gist is below.</p>
 

@@ -78,8 +78,7 @@
 
 <p>It must run from top to bottom without error and save a log of the output. Also, every section that you want displayed should have a unique comment. <code class="highlighter-rouge">demo.do</code> is an example:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>// log stata session with *.log file
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// log stata session with *.log file
 log using "demo.log", replace
 
 // load data
@@ -95,8 +94,7 @@ list obs inc
 // close log and exit
 log close                               
 exit
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="construct-your-knitr-rmd-file">Construct your knitr rmd file</h3>
 
@@ -104,11 +102,9 @@ exit
 
 <p>After setting any knitr chunk options that you want, call your do file with a knitr chunk that uses <code class="highlighter-rouge">engine = 'bash'</code> in the options:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="c1">## run accompanying .do file to get log file for parsing   
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## run accompanying .do file to get log file for parsing   </span><span class="w">
 </span><span class="n">stata</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="n">demo.do</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <blockquote>
   <h5 id="note-1">NOTE</h5>
@@ -119,22 +115,18 @@ exit
 
 <p>Store the log file in an object in the next knitr chunk:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="c1">## save log file in object
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## save log file in object</span><span class="w">
 </span><span class="n">lf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'demo.log'</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h4 id="parse-log">Parse log</h4>
 
 <p>To get the chunk you want, use <code class="highlighter-rouge">logparse()</code> wraped with <code class="highlighter-rouge">writeLines()</code> to grab the relevant part of the log file and print to output. The R function will take line numbers, but it’s easiest to use with unique comments. If the comments aren’t unique, the function should still run, but with undesired output:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">start</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'load data'</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">start</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'load data'</span><span class="w">
 </span><span class="n">end</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'create nominal income variable; summarize'</span><span class="w">
 </span><span class="n">writeLines</span><span class="p">(</span><span class="n">logparse</span><span class="p">(</span><span class="n">lf</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="p">))</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <blockquote>
   <h5 id="note-2">NOTE</h5>
@@ -145,24 +137,20 @@ exit
 
 <p>When called from the command line, Stata can only produce graphics in <code class="highlighter-rouge">*.ps</code> and <code class="highlighter-rouge">*.eps</code> format. I couldn’t get rmarkdown to work with these files. To work around this, I include code at the beginning of the knitr document (in the BASH chunk just below the <code class="highlighter-rouge">stata ... </code> call) that uses <a href="http://www.imagemagick.org/script/index.php">ImageMagick</a> to convert the EPS files to PNG:</p>
 
-<div class="language-bash highlighter-rouge">
-<pre class="highlight"><code><span class="c">## convert plots used in this file to png</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## convert plots used in this file to png</span>
 <span class="nv">plotlist</span><span class="o">=(</span><span class="k">*</span>.eps<span class="o">)</span>
-<span class="k">for </span>i <span class="k">in</span> <span class="k">${</span><span class="nv">plotlist</span><span class="p">[@]</span><span class="k">}</span>;
+<span class="k">for </span>i <span class="k">in</span> <span class="k">${</span><span class="nv">plotlist</span><span class="p">[@]</span><span class="k">}</span><span class="p">;</span>
 <span class="k">do
 </span><span class="nv">base</span><span class="o">=</span><span class="k">${</span><span class="nv">i</span><span class="p">%.eps</span><span class="k">}</span>
-convert -density <span class="nv">$dpi</span> -flatten <span class="nv">$base</span>.eps <span class="nv">$base</span>.png;
+convert <span class="nt">-density</span> <span class="nv">$dpi</span> <span class="nt">-flatten</span> <span class="nv">$base</span>.eps <span class="nv">$base</span>.png<span class="p">;</span>
 <span class="k">done</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This code finds all EPS files in the directory and converts them to PNG files with the same name. For it to work, the YAML frontmatter needs to include the <code class="highlighter-rouge">params:dpi</code> option and the following line in the first knitr setup chunk:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="c1">## set yaml params in environment
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## set yaml params in environment</span><span class="w">
 </span><span class="n">Sys.setenv</span><span class="p">(</span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">dpi</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>To get files of different size, change the current density value of <code class="highlighter-rouge">150</code> to whatever you want in the <code class="highlighter-rouge">params</code> option of <code class="highlighter-rouge">rmarkdown::render()</code> (see below).</p>
 
@@ -170,37 +158,29 @@ convert -density <span class="nv">$dpi</span> -flatten <span class="nv">$base</s
 
 <p>Make sure your do file exports images using the <code class="highlighter-rouge">graph export</code> command:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>// create scatter of years by loginc; export to file
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// create scatter of years by loginc; export to file
 scatter years loginc, name(sc_yearsXloginc)
 graph export "sc_yearsXloginc.eps", name(sc_yearsXloginc) replace
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="call-plot-in-document">Call plot in document</h3>
 
 <p>Call the plot in the rmarkdown document either with the standard <code class="highlighter-rouge">![]</code> command or, if you want to align it, using <code class="highlighter-rouge">alignfigure()</code> wrapped in <code class="highlighter-rouge">writeLines()</code> and using the <code class="highlighter-rouge">results = 'asis'</code> chunk option. Here is an example using the <code class="highlighter-rouge">demo_plots.rmd</code>:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="n">alignfigure</span><span class="p">(</span><span class="s1">'sc_yearsXloginc.png'</span><span class="p">,</span><span class="w"> </span><span class="s1">'center'</span><span class="p">))</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="n">alignfigure</span><span class="p">(</span><span class="s1">'sc_yearsXloginc.png'</span><span class="p">,</span><span class="w"> </span><span class="s1">'center'</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="run">Run</h2>
 
 <p>To run, open an R session in the same directory as your RMD file and run <code class="highlighter-rouge">rmarkdown::render()</code>. Here’s an example using <code class="highlighter-rouge">demo.rmd</code>:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p>If you want to change the size of the image, you need to pass the change in the <code class="highlighter-rouge">render</code> options:</p>
 
-<div class="language-r highlighter-rouge">
-<pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">))</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'demo.rmd'</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
 
 <p>See the files in <code class="highlighter-rouge">demo_html</code> for examples HTML output.</p>
 
