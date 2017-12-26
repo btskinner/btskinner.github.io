@@ -7,7 +7,7 @@ lang: r
 github_links:
     repo: https://github.com/btskinner/rscorecard
     zip: https://github.com/btskinner/rscorecard/archive/master.zip
-    manual: http://btskinner.me/rscorecard
+    manual: https://www.btskinner.me/rscorecard
 ---
 
 {% linkmarkdown https://raw.githubusercontent.com/btskinner/rscorecard/master/README.md %}
