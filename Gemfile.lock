@@ -10,8 +10,8 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     bibtex-ruby (4.4.4)
       latex-decode (~> 0.0)
-    citeproc (1.0.6)
-      namae (~> 0.8)
+    citeproc (1.0.8)
+      namae (~> 1.0)
     citeproc-ruby (1.1.8)
       citeproc (>= 1.0.4, < 2.0)
       csl (~> 1.4)
@@ -20,11 +20,11 @@ GEM
       execjs
     coffee-script-source (1.11.1)
     colorator (1.1.0)
-    commonmarker (0.17.6)
+    commonmarker (0.17.7.1)
       ruby-enum (~> 0.5)
     concurrent-ruby (1.0.5)
-    csl (1.4.5)
-      namae (~> 0.7)
+    csl (1.5.0)
+      namae (~> 1.0)
     csl-styles (1.0.1.8)
       csl (~> 1.0)
     ethon (0.11.0)
@@ -193,8 +193,8 @@ GEM
       jekyll-seo-tag (~> 2.0)
     jekyll-titles-from-headings (0.5.0)
       jekyll (~> 3.3)
-    jekyll-watch (1.5.0)
-      listen (~> 3.0, < 3.1)
+    jekyll-watch (1.5.1)
+      listen (~> 3.0)
     jemoji (0.8.1)
       activesupport (~> 4.0, >= 4.2.9)
       gemoji (~> 3.0)
@@ -212,13 +212,13 @@ GEM
       jekyll (~> 3.3)
     minitest (5.10.3)
     multipart-post (2.0.0)
-    namae (0.11.3)
+    namae (1.0.0)
     net-dns (0.8.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
-    octokit (4.7.0)
+    octokit (4.8.0)
       sawyer (~> 0.8.0, >= 0.5.3)
-    pathutil (0.16.0)
+    pathutil (0.16.1)
       forwardable-extended (~> 2.6)
     public_suffix (2.0.5)
     rb-fsevent (0.10.2)
@@ -229,7 +229,7 @@ GEM
       i18n
     rubyzip (1.2.1)
     safe_yaml (1.0.4)
-    sass (3.5.3)
+    sass (3.5.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -255,4 +255,4 @@ DEPENDENCIES
   jekyll-scholar
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
