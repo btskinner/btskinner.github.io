@@ -2,6 +2,7 @@
 layout: page
 courselink:
   lpo9951: /lpo9951/
+  rworkshop: /rworkshop/
 syllabus:
   eng101: /repository/ENG101_syllabus_example_skinner.pdf
   eng201: /repository/ENG201_syllabus_example_skinner.pdf
@@ -39,4 +40,10 @@ syllabus:
 |||
 | LPO 3921-3: Research Practicum (PhD) | | Fall 2013 - May 2014 | 
 | *Instructor:* Will Doyle || 
-	
+
+# Workshops
+
+|          |   ||            | 
+|:---------------|:-----------------|:---:|-----------:|   
+| Workshop on R | University of Virginia |[<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.rworkshop}}){:class="iconlink"}| January 2018 |   
+||||  
