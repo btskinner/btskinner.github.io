@@ -90,19 +90,19 @@ img.centerpic {
 /* Linking hovering
 -------------------------------------------------- */
 
-a.iconlink:link, li ul.posts li a:link {
+a:link, a.iconlink:link, li ul.posts li a:link {
     color: $text-color;
 }
 
-a.iconlink:visited, ul.posts li a:visited {
+a:visited, a.iconlink:visited, ul.posts li a:visited {
     color: $text-color;
 }
 
-a.iconlink:hover, ul.posts li a:hover {
+a:hover, a.iconlink:hover, ul.posts li a:hover {
     color: $link-color;
 }
 
-a.iconlink:active, ul.posts li a:active {
+a:active, a.iconlink:active, ul.posts li a:active {
     color: $link-color;
 }
 
