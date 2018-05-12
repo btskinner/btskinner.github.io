@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/main.css">
@@ -40,13 +39,12 @@
         <br>
         <p class="post-meta">
         <a href="https://github.com/btskinner/spatial" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
-         
+        &nbsp;
         <a href="https://github.com/btskinner/spatial/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
     
     
-    </p>
-<p>This directory contains spatial data files and the scripts that produce them. The data files are linked both to their GitHub repository location and a raw version to facilitate easy download. Scripts to produce the datasets can be found in the <code class="highlighter-rouge">./scripts</code> subdirectory of the repository.</p>
+    <p>This directory contains spatial data files and the scripts that produce them. The data files are linked both to their GitHub repository location and a raw version to facilitate easy download. Scripts to produce the datasets can be found in the <code class="highlighter-rouge">./scripts</code> subdirectory of the repository.</p>
 
 <h2 id="data">Data</h2>
 
@@ -61,25 +59,19 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">
-<a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a>
-</td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></td>
       <td style="text-align: left"><code class="highlighter-rouge">neighborcounties.py</code></td>
       <td style="text-align: left">Python 3.5</td>
       <td style="text-align: left">Long data file that lists all adjacent counties (2010)</td>
     </tr>
     <tr>
-      <td style="text-align: left">
-<a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a>
-</td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></td>
       <td style="text-align: left"><code class="highlighter-rouge">popcenters.r</code></td>
       <td style="text-align: left">R 3.2.3</td>
       <td style="text-align: left">Geocoordinates for geographic and population-weighted centers in all counties (2000 and 2010)</td>
     </tr>
     <tr>
-      <td style="text-align: left">
-<a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a>
-</td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></td>
       <td style="text-align: left"><code class="highlighter-rouge">nearesthei.r</code></td>
       <td style="text-align: left">R 3.2.3</td>
       <td style="text-align: left">Nearest higher education institution (HEI) to every county, by sector (2010-2014)</td>
@@ -89,9 +81,7 @@
 
 <h2 id="detail">Detail</h2>
 
-<h3 id="neighborcountiescsv-raw">
-<a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a>
-</h3>
+<h3 id="neighborcountiescsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></h3>
 
 <p>This long file links every county in the United States (as of the 2010 Census) with all of its contiguous counties. Five-digit county-level <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards">FIPS</a> codes are used to identify the counties. These codes uniquely identify each county and can be used to link with other datasets such as the <a href="https://www.census.gov/programs-surveys/acs/">American Community Survey</a>.</p>
 
@@ -120,9 +110,7 @@
   </tbody>
 </table>
 
-<h3 id="county_centerscsv-raw">
-<a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a>
-</h3>
+<h3 id="county_centerscsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></h3>
 
 <p>This wide file gives the latitude and longitude for the spatial and population centers of every county in the United States for the Census years 2000 and 2010. These coordinates are given by the U.S. Census; this file simply collects them in a single easy-to-use file. Five-digit county-level <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards">FIPS</a> codes are used to identify the counties.</p>
 
@@ -175,9 +163,7 @@
   </tbody>
 </table>
 
-<h3 id="nearest_heicsv-raw">
-<a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a>
-</h3>
+<h3 id="nearest_heicsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></h3>
 
 <p>This long file gives the nearest highest education institution (HEI) to each county population center across a number of years and higher education sectors. Each row gives the nearest institution’s <a href="http://nces.ed.gov/ipeds/datacenter/Default.aspx">IPEDS</a> unique <code class="highlighter-rouge">unitid</code>, the distance in miles, and indicators for the year and subset of included schools (<em>e.g.,</em> nearest public four-year, nearest public two-year, etc.).</p>
 
@@ -243,22 +229,19 @@
 <p><em>Absolute nearest HEI (regardless of sector and crossing state lines)</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 0</code> and <code class="highlighter-rouge">any == 1</code>
-</li>
+  <li>Rows in which <code class="highlighter-rouge">limit_instate == 0</code> and <code class="highlighter-rouge">any == 1</code></li>
 </ul>
 
 <p><em>Nearest instate public four-year HEI</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_fouryr == 1</code> and <code class="highlighter-rouge">limit_pub == 1</code>
-</li>
+  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_fouryr == 1</code> and <code class="highlighter-rouge">limit_pub == 1</code></li>
 </ul>
 
 <p><em>Nearest instate private, for-profit two-year HEI</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_twoyr == 1</code> and <code class="highlighter-rouge">limit_pfp == 1</code>
-</li>
+  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_twoyr == 1</code> and <code class="highlighter-rouge">limit_pfp == 1</code></li>
 </ul>
 
 
@@ -269,7 +252,7 @@
   </main>
   <main>
     <div class="footer">
-      <p class="foot">© 2018. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2018. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>
