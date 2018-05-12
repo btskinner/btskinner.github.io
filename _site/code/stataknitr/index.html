@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/main.css">
@@ -40,13 +39,12 @@
         <br>
         <p class="post-meta">
         <a href="https://github.com/btskinner/stataknitr" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
-         
+        &nbsp;
         <a href="https://github.com/btskinner/stataknitr/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
     
     
-    </p>
-<p>Unlike many of the other programming languages that knitr supports, Stata doesn’t work as well when trying to compile literate programming documents. Other discussions about this issue and potential solutions can be found <a href="https://hopstat.wordpress.com/2014/01/11/stata-markdown-2/">here</a>, <a href="https://github.com/amarder/stata-tutorial">here</a>, and <a href="http://www.ssc.wisc.edu/~hemken/Stataworkshops/Stata%20and%20R%20Markdown/Statalinux.html">here</a>.</p>
+    <p>Unlike many of the other programming languages that knitr supports, Stata doesn’t work as well when trying to compile literate programming documents. Other discussions about this issue and potential solutions can be found <a href="https://hopstat.wordpress.com/2014/01/11/stata-markdown-2/">here</a>, <a href="https://github.com/amarder/stata-tutorial">here</a>, and <a href="http://www.ssc.wisc.edu/~hemken/Stataworkshops/Stata%20and%20R%20Markdown/Statalinux.html">here</a>.</p>
 
 <p>The biggest problem of using Stata with knitr is that each chunk is treated as its own do file and run in independent Stata sessions through the command line. This means that changes aren’t persistent across chunks and strange behaviors occur, assuming the document compiles at all. One can attempt to set up a <code class="highlighter-rouge">profile.do</code> file to help with persistence, but I had trouble with it.</p>
 
@@ -59,12 +57,9 @@
 <ul>
   <li>a do that can be run from top to bottom and is well commented with unique comments</li>
   <li>a log file of the session</li>
-  <li>the ability to run Stata from the <a href="http://www.stata.com/support/faqs/unix/batch-mode/">command line (batch mode)</a>
-</li>
-  <li>
-<a href="http://cran.r-project.org/web/packages/rmarkdown/"><code class="highlighter-rouge">rmarkdown</code></a> package in R</li>
-  <li>
-<code class="highlighter-rouge">stataknitrhelper.r</code> be accessible by the rmarkdown file (the default is to have it in the same directory)</li>
+  <li>the ability to run Stata from the <a href="http://www.stata.com/support/faqs/unix/batch-mode/">command line (batch mode)</a></li>
+  <li><a href="http://cran.r-project.org/web/packages/rmarkdown/"><code class="highlighter-rouge">rmarkdown</code></a> package in R</li>
+  <li><code class="highlighter-rouge">stataknitrhelper.r</code> be accessible by the rmarkdown file (the default is to have it in the same directory)</li>
 </ul>
 
 <blockquote>
@@ -196,7 +191,7 @@ graph export "sc_yearsXloginc.eps", name(sc_yearsXloginc) replace
   </main>
   <main>
     <div class="footer">
-      <p class="foot">© 2018. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2018. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>
