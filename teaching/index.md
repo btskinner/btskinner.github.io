@@ -15,6 +15,13 @@ syllabus:
 	}
 </style>
 
+# Workshops
+
+|          |   ||            | 
+|:---------------|:-----------------|:---:|-----------:|   
+| Workshop on R | University of Virginia |[<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.rworkshop}}){:class="iconlink"}| January 2018 |   
+||||  
+
 # Instructor
 
 | Vanderbilt University           |   |            | 
@@ -41,9 +48,3 @@ syllabus:
 | LPO 3921-3: Research Practicum (PhD) | | Fall 2013 - May 2014 | 
 | *Instructor:* Will Doyle || 
 
-# Workshops
-
-|          |   ||            | 
-|:---------------|:-----------------|:---:|-----------:|   
-| Workshop on R | University of Virginia |[<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.rworkshop}}){:class="iconlink"}| January 2018 |   
-||||  
