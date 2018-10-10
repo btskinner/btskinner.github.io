@@ -16,7 +16,7 @@
   <main>
     <header class="site-header">
       <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
-      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education | University of Virginia</a></h6>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education and Public Policy | University of Virginia</a></h6>
       <nav class="site-nav">
 	<a href="/publications/" class="">Publications</a>
         <a href="/presentations/" class="">Presentations</a>
@@ -49,11 +49,27 @@
     
     <h1 id="duawranglr">duawranglr</h1>
 
-<p><img src="https://img.shields.io/badge/dev-beta-red.svg" alt="" />
-<a href="https://travis-ci.org/btskinner/duawranglr"><img src="https://travis-ci.org/btskinner/duawranglr.svg?branch=master" alt="Build
+<p><a href="https://travis-ci.org/btskinner/duawranglr"><img src="https://travis-ci.org/btskinner/duawranglr.svg?branch=master" alt="Build
 Status" /></a>
 <a href="https://github.com/btskinner/duawranglr"><img src="https://img.shields.io/github/release/btskinner/duawranglr.svg" alt="GitHub
-release" /></a></p>
+release" /></a>
+<a href="https://CRAN.R-project.org/package=duawranglr"><img src="http://www.r-pkg.org/badges/version/duawranglr" alt="CRAN_Status_Badge" /></a></p>
+
+<p>The guiding principle behind duawranglr is to make it easier for
+organizations to share data that contain protected elements and/or
+personally idenfiable information (PII) with researchers. There are two
+key problems this package attempts to solve:</p>
+
+<ol>
+  <li>Data owners and reseachers may wish to collaborate on multiple
+projects, each with a different level of data security required;
+executing a unique data usage agreement (DUA) for each project can
+be time consuming and inefficient.</li>
+  <li>Administrators tasked with approving data requests do not always
+have the time or technical proficiency to closely review the code
+that reads, subsets, filters, and deidentifies data files according
+to a DUA.</li>
+</ol>
 
 <p>This package offers a set of functions to help users create shareable
 data sets from raw data files that contain protected elements. Relying
@@ -61,31 +77,22 @@ on master crosswalk files that list restricted variables, package
 functions warn users about possible violations of data usage agreement
 and prevent writing protected elements.</p>
 
-<h3 id="install">Install</h3>
+<h2 id="installation">Installation</h2>
+
+<p>Install the latest released version from CRAN with</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install.packages('duawranglr')
+</code></pre></div></div>
 
 <p>Install the latest development version from Github with</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s1">'btskinner/duawranglr'</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/duawranglr')
+</code></pre></div></div>
 
-<h3 id="dependencies">Dependencies</h3>
+<h2 id="usage">Usage</h2>
 
-<p>This package relies on the following packages, available in CRAN:</p>
-
-<ul>
-  <li><a href="https://cran.r-project.org/package=digest">digest</a></li>
-  <li><a href="https://cran.r-project.org/package=tidyverse">tidyverse</a>
-    <ul>
-      <li><a href="https://cran.r-project.org/package=dplyr">dplyr</a></li>
-      <li><a href="https://cran.r-project.org/package=haven">haven</a>
-        <ul>
-          <li><a href="https://cran.r-project.org/package=readr">readr</a></li>
-          <li><a href="https://cran.r-project.org/package=readxl">readxl</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>See vignettes or <a href="https://btskinner.me/duawranglr">documentation site</a>
+for package motivation and an example use case.</p>
 
 
     
