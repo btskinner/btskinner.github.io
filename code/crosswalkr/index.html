@@ -16,7 +16,7 @@
   <main>
     <header class="site-header">
       <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
-      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education | University of Virginia</a></h6>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education and Public Policy | University of Virginia</a></h6>
       <nav class="site-nav">
 	<a href="/publications/" class="">Publications</a>
         <a href="/presentations/" class="">Presentations</a>
@@ -47,11 +47,15 @@
 	
     
     
-    <p><a href="https://travis-ci.org/btskinner/crosswalkr"><img src="https://travis-ci.org/btskinner/crosswalkr.svg?branch=master" alt="Travis-CI Build
+    <h1 id="crosswalkr-">crosswalkr <img src="man/figures/logo.png" align="right" /></h1>
+
+<p><a href="https://travis-ci.org/btskinner/crosswalkr"><img src="https://travis-ci.org/btskinner/crosswalkr.svg?branch=master" alt="Travis-CI Build
 Status" /></a>
 <a href="https://github.com/btskinner/crosswalkr"><img src="https://img.shields.io/github/release/btskinner/crosswalkr.svg" alt="GitHub
 release" /></a>
 <a href="http://cran.r-project.org/package=crosswalkr"><img src="http://www.r-pkg.org/badges/version/crosswalkr" alt="CRAN_Status_Badge" /></a></p>
+
+<h2 id="overview">Overview</h2>
 
 <p>This package offers a pair of functions, <code class="highlighter-rouge">renamefrom()</code> and
 <code class="highlighter-rouge">encodefrom()</code>, for renaming and encoding data frames using external
@@ -61,7 +65,7 @@ variables consistently across files. Based on <code class="highlighter-rouge">re
 <code class="highlighter-rouge">encodefrom</code> <a href="https://github.com/slhudson/rename-and-encode">Stata commands written by Sally Hudson and
 team</a>.</p>
 
-<h3 id="install">Install</h3>
+<h2 id="installation">Installation</h2>
 
 <p>Install the latest release version from CRAN with</p>
 
@@ -73,21 +77,7 @@ team</a>.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/crosswalkr')
 </code></pre></div></div>
 
-<h3 id="dependencies">Dependencies</h3>
-
-<p>This package relies on the following packages, available in CRAN:</p>
-
-<ul>
-  <li>haven</li>
-  <li>labelled</li>
-  <li>readr</li>
-  <li>readxl</li>
-  <li>tibble</li>
-</ul>
-
-<h2 id="available-functions">Available functions</h2>
-
-<h3 id="renamefrom"><code class="highlighter-rouge">renamefrom()</code></h3>
+<h2 id="usage">Usage</h2>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(crosswalkr)
 
@@ -95,16 +85,29 @@ team</a>.</p>
 df &lt;- data.frame(state = c('Kentucky','Tennessee','Virginia'),
                  fips = c(21,47,51),
                  region = c('South','South','South'))
+df
+
+##       state fips region
+## 1  Kentucky   21  South
+## 2 Tennessee   47  South
+## 3  Virginia   51  South
 
 ## crosswalk with which to convert old names to new names with labels
 cw &lt;- data.frame(old_name = c('state','fips'),
                  new_name = c('stname','stfips'),
                  label = c('Full state name', 'FIPS code'))
+cw
+
+##   old_name new_name           label
+## 1    state   stname Full state name
+## 2     fips   stfips       FIPS code
 </code></pre></div></div>
 
-<h5 id="convert-old-to-new-using-labels-in-crosswalk-file">Convert old to new using labels in crosswalk file</h5>
+<h3 id="renaming">Renaming</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df1 &lt;- renamefrom(df, cw, old_name, new_name, label)
+<p>Convert old variable names to new names and add labels from crosswalk.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df1 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, label = label)
 df1
 
 ##      stname stfips
@@ -113,9 +116,10 @@ df1
 ## 3  Virginia     51
 </code></pre></div></div>
 
-<h5 id="convert-old-to-new-using-old-names-as-labels">Convert old to new using old names as labels</h5>
+<p>Convert old variable names to new names using old names as labels
+(ignoring labels in crosswalk).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df2 &lt;- renamefrom(df, cw, old_name, new_name, name_label = TRUE)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df2 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, name_label = TRUE)
 df2
 
 ##      stname stfips
@@ -124,10 +128,11 @@ df2
 ## 3  Virginia     51
 </code></pre></div></div>
 
-<h5 id="convert-old-to-new-but-keep-unmatched-old-names-in-data-frame">Convert old to new, but keep unmatched old names in data frame</h5>
+<p>Convert old variable names to new names, but keep unmatched old names in
+the data frame.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df3 &lt;- renamefrom(df, cw, old_name, new_name, drop_extra = FALSE)
-df3
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df3 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, drop_extra = FALSE)
+df3 
 
 ##      stname stfips region
 ## 1  Kentucky     21  South
@@ -135,23 +140,42 @@ df3
 ## 3  Virginia     51  South
 </code></pre></div></div>
 
-<h3 id="encodefrom"><code class="highlighter-rouge">encodefrom()</code></h3>
+<h3 id="encoding">Encoding</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## starting data frame
 df &lt;- data.frame(state = c('Kentucky','Tennessee','Virginia'),
                  stfips = c(21,47,51),
                  cenregnm = c('South','South','South'))
+df
 
-## starting tbl_df
-df_tbl &lt;- tibble::as_data_frame(df)
+##       state stfips cenregnm
+## 1  Kentucky     21    South
+## 2 Tennessee     47    South
+## 3  Virginia     51    South
 
 ## use state crosswalk data file from package
 cw &lt;- get(data(stcrosswalk))
+cw
+
+## # A tibble: 51 x 7
+##    stfips stabbr stname               cenreg cenregnm  cendiv cendivnm          
+##     &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                 &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;             
+##  1      1 AL     Alabama                   3 South          6 East South Central
+##  2      2 AK     Alaska                    4 West           9 Pacific           
+##  3      4 AZ     Arizona                   4 West           8 Mountain          
+##  4      5 AR     Arkansas                  3 South          7 West South Central
+##  5      6 CA     California                4 West           9 Pacific           
+##  6      8 CO     Colorado                  4 West           8 Mountain          
+##  7      9 CT     Connecticut               1 Northeast      1 New England       
+##  8     10 DE     Delaware                  3 South          5 South Atlantic    
+##  9     11 DC     District of Columbia      3 South          5 South Atlantic    
+## 10     12 FL     Florida                   3 South          5 South Atlantic    
+## # ... with 41 more rows
 </code></pre></div></div>
 
-<h5 id="create-new-column-with-factor-encoded-values">Create new column with factor-encoded values</h5>
+<p>Create a new column with factor-encoded values</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state2 &lt;- encodefrom(df, state, cw, stname, stfips, stabbr)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state2 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 df
 
 ##       state stfips cenregnm state2
@@ -160,35 +184,41 @@ df
 ## 3  Virginia     51    South     VA
 </code></pre></div></div>
 
-<h5 id="create-new-column-with-labelled-values">Create new column with labelled values</h5>
+<p>Create a new column with labelled values.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df_tbl$state2 &lt;- encodefrom(df_tbl, state, cw, stname, stfips, stabbr)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## convert to tbl_df
+df &lt;- tibble::as_data_frame(df)
+df$state3 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 </code></pre></div></div>
 
-<h5 id="create-new-column-with-factor-encoded-values-ignores-the-fact-that-df_tbl-is-a-tibble">Create new column with factor-encoded values (ignores the fact that <code class="highlighter-rouge">df_tbl</code> is a tibble)</h5>
+<p>Create new column with factor-encoded values (ignores the fact that <code class="highlighter-rouge">df</code>
+is a tibble)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df_tbl$state3 &lt;- encodefrom(df_tbl, state, cw, stname, stfips, stabbr, ignore_tibble = TRUE)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state4 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr, ignore_tibble = TRUE)
 </code></pre></div></div>
 
-<h5 id="results">Results</h5>
+<p>Show factors with labels:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haven::as_factor(df_tbl)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haven::as_factor(df)
 
-## # A tibble: 3 x 5
-##       state stfips cenregnm state2 state3
-##      &lt;fctr&gt;  &lt;dbl&gt;   &lt;fctr&gt; &lt;fctr&gt; &lt;fctr&gt;
-## 1  Kentucky     21    South     KY     KY
-## 2 Tennessee     47    South     TN     TN
-## 3  Virginia     51    South     VA     VA
+## # A tibble: 3 x 6
+##   state     stfips cenregnm state2 state3 state4
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;chr&gt;  &lt;fct&gt; 
+## 1 Kentucky      21 South    KY     21     KY    
+## 2 Tennessee     47 South    TN     47     TN    
+## 3 Virginia      51 South    VA     51     VA
+</code></pre></div></div>
 
-haven::zap_labels(df_tbl)
+<p>Show factors without labels:</p>
 
-## # A tibble: 3 x 5
-##       state stfips cenregnm state2 state3
-##      &lt;fctr&gt;  &lt;dbl&gt;   &lt;fctr&gt;  &lt;chr&gt; &lt;fctr&gt;
-## 1  Kentucky     21    South     21     KY
-## 2 Tennessee     47    South     47     TN
-## 3  Virginia     51    South     51     VA
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haven::zap_labels(df)
+
+## # A tibble: 3 x 6
+##   state     stfips cenregnm state2 state3 state4
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;chr&gt;  &lt;fct&gt; 
+## 1 Kentucky      21 South    KY     21     KY    
+## 2 Tennessee     47 South    TN     47     TN    
+## 3 Virginia      51 South    VA     51     VA
 </code></pre></div></div>
 
 
