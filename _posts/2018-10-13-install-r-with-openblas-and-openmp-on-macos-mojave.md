@@ -71,6 +71,7 @@ may not be necessary.
 - `brew install openblas --with-openmp`  
 - `brew install r --with-openblas`  
 - `brew install --with-toolchain llvm`  
+- `brew install ccache`  
 - `brew install gcc`  
 - `brew install libgit2`  
 - `brew install openssl`  
