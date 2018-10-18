@@ -2,8 +2,8 @@
 layout: post
 title: Academic CV template using LaTeX and Biber
 category: code
-tag: misc
-lang: tex bash
+tag: doc
+lang: tex
 github_links:
     repo: https://github.com/btskinner/tex_cv
     zip: https://github.com/btskinner/tex_cv/archive/master.zip
