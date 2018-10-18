@@ -45,21 +45,26 @@
     
     
     </p>
-<p>Make an academic CV using LaTeX and Biber with <a href="https://github.com/btskinner/tex_cv">this
-template</a>. Rather
-than adding new publications, working papers, or presentations by
-hand, use this template to store your work products in a <code class="highlighter-rouge">.bib</code> file
-just as you would a bibliography of references for a paper.</p>
+<p><a href="https://github.com/btskinner/tex_cv">Make an academic CV using LaTeX and Biber with LaTeX +
+Biber</a>. Rather than adding new
+publications, working papers, or presentations by hand over time,
+store your work products in a <code class="highlighter-rouge">.bib</code> file—just as you would a
+bibliography of references for a paper—and compile your CV to
+update.</p>
 
 <p>Through selective use of the <code class="highlighter-rouge">Keywords</code> field in your <code class="highlighter-rouge">.bib</code> file
 (<em>e.g.</em>, <code class="highlighter-rouge">article</code>, <code class="highlighter-rouge">presentation</code>, <code class="highlighter-rouge">working</code>, <code class="highlighter-rouge">submitted</code>) and
 corresponding reference sections in your <code class="highlighter-rouge">.tex</code> file, automagically
 compile and update your CV in a consistent manner.</p>
 
-<h4 id="cvbib"><code class="highlighter-rouge">cv.bib</code></h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{me2016paper_one,
+<h2 id="example-setup">Example setup</h2>
+
+<p>Using an entry in the <code class="highlighter-rouge">.bib</code> file that looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.bib 
+
+@article{me2016paper_one,
 	Author = {Last, First M.},
-	Date-Modified = {2018-10-17 18:34:56 -0400},
 	Journal = {Journal of Academic Studies and Work},
 	Keywords = {article}, &lt;!-- KEYWORD TO FILTER BY --&gt;
 	Number = {2},
@@ -70,24 +75,33 @@ compile and update your CV in a consistent manner.</p>
 	Year = {2016}}
 </code></pre></div></div>
 
-<h4 id="cvtex"><code class="highlighter-rouge">cv.tex</code></h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\begin{refsection}
+<p>And a section in the <code class="highlighter-rouge">.tex</code> file that looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.tex
+
+\begin{refsection}
 \section*{Publications}
 \nocite{*}                          % cite everything
 \printbibliography[heading = none,  % no heading (e.g., "References")
-keyword = article,                  % FILTER BY THIS KEYWORD
+keyword = article,                  % FILTER BY &lt; article &gt; KEYWORD
 env = mybib]                        % Use mybib style
 \end{refsection}
 </code></pre></div></div>
 
-<h4 id="cvpdf"><code class="highlighter-rouge">cv.pdf</code></h4>
+<p>You can get an entry in the complied <code class="highlighter-rouge">.pdf</code> file that looks like this
+(note the link color: the title in the compiled CV links to the paper):</p>
 
 <p><img src="https://raw.githubusercontent.com/btskinner/tex_cv/master/images/example.png" alt="example"></p>
 
-<p>Feel free to use and modify this template to suit your needs. In fact,
-you should modify it to meet the specific needs and norms of your
-field. But hopefully the core code will be useful and save you time as
-you update your CV in the future.</p>
+<p>Feel free to use and modify this template to suit your needs and/or
+the norms of your field. Move sections around, add or delete
+them. Regardless of the specific style, hopefully the core setup will
+be useful and save you time as you update your CV in the future.</p>
+
+<p>For reference, I don’t edit my <code class="highlighter-rouge">.bib</code> by hand, but instead use
+<a href="https://bibdesk.sourceforge.io">BibDesk</a>, which comes with the MacTeX
+distribution. <a href="http://www.jabref.org">JabRef</a> is another one that
+works across platforms.</p>
 
 <h2 id="features">Features</h2>
 
@@ -100,10 +114,14 @@ others know when it was last updated.</li>
 included (<em>e.g.</em>, October will be higher than May, even though it
 comes first alphabetically).</li>
   <li>Citations convert links in <code class="highlighter-rouge">Url</code> field (and <code class="highlighter-rouge">Doi</code> and <code class="highlighter-rouge">ISBN</code>) to
-linked titles in citation.</li>
+linked titles in citation. Put links to your publications or working
+papers here and anyone with a digital copy of your CV will be able
+to click on the title to access them.</li>
   <li>Works can be limited to only recent publications, presentations,
 etc., using the <code class="highlighter-rouge">\recentyear{}</code> macro in the top of the file.</li>
   <li>Non-automated sections use lists or tables to make clean layout.</li>
+  <li>Comments throughout <code class="highlighter-rouge">cv.tex</code> to help you know what to change in order to
+personalize.</li>
 </ul>
 
 <h2 id="compile">Compile</h2>
@@ -140,24 +158,15 @@ pdflatex cv.tex
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make cleanall
 </code></pre></div></div>
 
-<h2 id="note">NOTE</h2>
-
-<p>You may need to download non-free fonts if you haven’t already. Use the instructions
-<a href="http://www.tug.org/fonts/getnonfreefonts/">here</a> to download and install the <code class="highlighter-rouge">getnonfreefonts</code> command. Then in the
-terminal do:</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>getnonfreefonts <span class="nt">--user</span> garamond garamondx
-</code></pre></div></div>
-<p>to get the Garamond font used in the template.</p>
-
 <h2 id="integrate-with-github-pages">Integrate with GitHub pages</h2>
 
 <p>An added benefit of building your CV this way is that you can reuse
-your <code class="highlighter-rouge">.bib</code> file to build your academic website and keep everything
-synced. For example, if you use GitHub Pages +
+your <code class="highlighter-rouge">.bib</code> file to build your academic website and keep everything in
+sync. For example, if you use GitHub Pages +
 <a href="https://jekyllrb.com">Jekyll</a> to build your site, you can use the
 <a href="https://github.com/inukshuk/jekyll-scholar">jekyll-scholar</a> extension
-to build a similar CV on your site (<a href="https://www.btskinner.me/publications/">it’s how I do it</a>).</p>
+to build a similar CV on your site (<a href="https://www.btskinner.me/publications/">it’s how I do
+it</a>).</p>
 
 
     
