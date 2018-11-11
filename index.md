@@ -22,16 +22,16 @@ agencies and organizations including the Virginia Community College
 System.
 
 I am the author and maintainer of a number of software packages,
-including [**rscorecard**](https://www.btskinner.me/rscorecard/), which
+including [rscorecard](https://www.btskinner.me/rscorecard/), which
 can be used to download data from the [College
 Scorecard](https://collegescorecard.ed.gov);
-[**crosswalkr**](https://www.btskinner.me/crosswalkr/), a port of a [set
+[crosswalkr](https://www.btskinner.me/crosswalkr/), a port of a [set
 of Stata commands](https://github.com/slhudson/rename-and-encode) that
 help build master data sets from smaller files in a reproducible
-manner; [**duawranglr**](https://www.btskinner.me/duawranglr), a set of
-functions to help users create shareable data sets from protected data files
-according to a data use agreement; and [**GitRoom
-Manager**](https://www.btskinner.me/grm/), a program that allows
+manner; [duawranglr](https://www.btskinner.me/duawranglr), a set of
+functions to help users create shareable data sets from protected data
+files according to a data use agreement; and [GitRoom
+Manager](https://www.btskinner.me/grm/), a program that allows
 instructors to more easily manage a GitHub-based virtual classroom
 from the command line.
 
