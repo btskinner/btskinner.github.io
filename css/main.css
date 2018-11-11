@@ -61,7 +61,7 @@ p {
   text-align: left; }
 
 a {
-  color: #0074d9;
+  color: #1977c9;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
@@ -125,7 +125,7 @@ main {
     text-decoration: none; }
     .site-header .site-title > a:hover {
       text-decoration: none;
-      color: #0074d9; }
+      color: #1977c9; }
 .site-header .site-subtitle {
   font-weight: 300;
   margin: -1.5rem 0 1.5rem 0; }
@@ -134,12 +134,12 @@ main {
     text-decoration: none; }
     .site-header .site-subtitle > a:hover {
       text-decoration: none;
-      color: #0074d9; }
+      color: #1977c9; }
 .site-header .site-nav > a {
   color: #333; }
   .site-header .site-nav > a:hover {
     text-decoration: none;
-    color: #0074d9; }
+    color: #1977c9; }
   .site-header .site-nav > a.active {
     border-bottom: 2px solid #666; }
   .site-header .site-nav > a + a {
@@ -455,14 +455,28 @@ img.centerpic {
 
 /* Linking hovering
 -------------------------------------------------- */
-a:link, a.iconlink:link, li ul.posts li a:link {
+a:link, a.iconlink:link {
+  color: #1977c9; }
+  a:link > i.fa, a.iconlink:link > i.fa {
+    color: #333; }
+
+li ul.posts li a:link {
   color: #333; }
 
-a:visited, a.iconlink:visited, ul.posts li a:visited {
+a:visited, a.iconlink:visited {
+  color: #1977c9; }
+  a:visited > i.fa, a.iconlink:visited > i.fa {
+    color: #333; }
+
+ul.posts li a:visited {
   color: #333; }
 
 a:hover, a.iconlink:hover, ul.posts li a:hover {
-  color: #0074d9; }
+  color: #1977c9; }
+  a:hover > i.fa, a.iconlink:hover > i.fa, ul.posts li a:hover > i.fa {
+    color: #1977c9; }
 
 a:active, a.iconlink:active, ul.posts li a:active {
-  color: #0074d9; }
+  color: #1977c9; }
+  a:active > i.fa, a.iconlink:active > i.fa, ul.posts li a:active > i.fa {
+    color: #1977c9; }
