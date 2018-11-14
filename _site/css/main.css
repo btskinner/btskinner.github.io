@@ -480,3 +480,8 @@ a:active, a.iconlink:active, ul.posts li a:active {
   color: #1977c9; }
   a:active > i.fa, a.iconlink:active > i.fa, ul.posts li a:active > i.fa {
     color: #1977c9; }
+
+/* Ignore markdown images that don't link
+-------------------------------------------------- */
+img[src$="man/figures/logo.png"] {
+  display: none; }

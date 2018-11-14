@@ -127,3 +127,10 @@ a:active, a.iconlink:active, ul.posts li a:active {
     }
 }
 
+/* Ignore markdown images that don't link
+-------------------------------------------------- */
+
+img[src$="man/figures/logo.png"] {
+    display: none;
+}
+
