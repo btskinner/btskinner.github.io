@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Virginia</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="https://curry.virginia.edu/benjamin-skinner/">Research Assistant Professor of Education and Public Policy | University of Virginia</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@virginia.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">Manage GitHub labels from the command line</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/manage_repo_labels" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+        &nbsp;
+        <a href="https://github.com/btskinner/manage_repo_labels/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    <p>Rather than managing GitHub issue labels with the web interface, use
+this script to do so from the command line. This script makes it
+easier to delete default labels and add new ones from a standard
+list. It’s especially useful for organizations or users who want
+consistent issue labels across a large number of repositories.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+  <li>Python 3</li>
+  <li>Python modules: <code class="highlighter-rouge">json</code>, <code class="highlighter-rouge">argparse</code>, and <code class="highlighter-rouge">requests</code></li>
+  <li><a href="https://help.github.com/articles/authorizing-a-personal-access-token-for-use-with-a-saml-single-sign-on-organization/">GitHub authorization
+token</a></li>
+</ul>
+
+<h2 id="set-up">Set up</h2>
+
+<h3 id="get-and-store-authorization-token-in-file">Get and store authorization token in file</h3>
+
+<p>If you don’t have one already, set up an authorization token with
+appropriate permissions <a href="https://help.github.com/articles/authorizing-a-personal-access-token-for-use-with-a-saml-single-sign-on-organization/">using these
+instructions</a>. Once
+created, save your token in a file on your computer. For example, you
+might create <code class="highlighter-rouge">~/.gh_token</code> in your home directory that simply
+contains:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;token string&gt;
+</code></pre></div></div>
+
+<h3 id="label-files">Label files</h3>
+
+<p>New labels should be stored in a JSON file. For example:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+	</span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority: Critical"</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e11d21"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+	</span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority: High"</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb6420"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+	</span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority: Medium"</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fbca04"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+	</span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority: Low"</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+	</span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"009800"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<p>Use the <code class="highlighter-rouge">-h</code> or <code class="highlighter-rouge">--help</code> flags to see the scripts arguments (arguments
+in square brackets are optional).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>~] <span class="nv">$ </span>./manage_repo_labels.py <span class="nt">-h</span>
+
+usage: manage_repo_labels.py <span class="o">[</span><span class="nt">-h</span><span class="o">]</span> <span class="nt">-i</span> ID <span class="nt">-t</span> TOKEN <span class="nt">-r</span> REPO <span class="o">[</span><span class="nt">-o</span> ORG] <span class="o">[</span><span class="nt">-l</span> LABELS]
+                             <span class="o">[</span><span class="nt">-c</span><span class="o">]</span> <span class="o">[</span><span class="nt">-d</span><span class="o">]</span>
+
+optional arguments:
+  <span class="nt">-h</span>, <span class="nt">--help</span>            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  <span class="nt">-i</span> ID, <span class="nt">--id</span> ID        GitHub ID
+  <span class="nt">-t</span> TOKEN, <span class="nt">--token</span> TOKEN
+                        GitHub authorization token <span class="k">in </span>file
+  <span class="nt">-r</span> REPO, <span class="nt">--repo</span> REPO  Repository name
+  <span class="nt">-o</span> ORG, <span class="nt">--org</span> ORG     Organization name
+  <span class="nt">-l</span> LABELS, <span class="nt">--labels</span> LABELS
+                        Labels <span class="k">in </span>JSON file
+  <span class="nt">-c</span>, <span class="nt">--check_existing</span>  Flag to check existing labels
+  <span class="nt">-d</span>, <span class="nt">--drop_existing</span>   Flag to drop existing labels
+</code></pre></div></div>
+
+<p>Users must supply their GitHub ID, path to authorization token file,
+and the repository name. If the repository is owned by an
+organization, then the the organization name must be included. The
+script assumes the repository is owned by the user otherwise.</p>
+
+<h3 id="check-existing">Check existing</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./manage_repo_labels.py <span class="nt">-i</span> ID <span class="nt">-t</span> ~/.github_token <span class="nt">-r</span> my_repo <span class="nt">-c</span>
+</code></pre></div></div>
+
+<h3 id="delete-existing">Delete existing</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./manage_repo_labels.py <span class="nt">-i</span> ID <span class="nt">-t</span> ~/.github_token <span class="nt">-r</span> my_repo <span class="nt">-d</span>
+</code></pre></div></div>
+
+<h3 id="add-new-labels">Add new labels</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./manage_repo_labels.py <span class="nt">-i</span> ID <span class="nt">-t</span> ~/.github_token <span class="nt">-r</span> my_repo <span class="nt">-l</span> new_repo_labels.json
+</code></pre></div></div>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">&#169; 2018. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
