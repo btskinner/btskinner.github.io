@@ -6,6 +6,11 @@ tag: misc
 lang: r bash
 ---
 
+*These instructions have been updated (May 2019) to account for the
+fact that Homebrew no longer allows optional installation arguments. I
+believe they should work since the new defaults include the options
+that were formally set manually, but some tweaks may be necessary.*
+
 These instructions are to compile R from source on MacOS 10.14
 (Mojave) so that it both uses OpenBLAS libraries ([for faster
 computations](https://www.r-bloggers.com/why-is-r-slow-some-explanations-and-mklopenblas-setup-to-try-to-fix-this/))
@@ -68,9 +73,9 @@ may not be necessary.
 1. Install [Homebrew](https://brew.sh)  
 2. Brew install some packages:  
 
-- `brew install openblas --with-openmp`  
-- `brew install r --with-openblas`  
-- `brew install --with-toolchain llvm`  
+- `brew install openblas`  
+- `brew install r`  
+- `brew install llvm`  
 - `brew install ccache`  
 - `brew install gcc`  
 - `brew install libgit2`  

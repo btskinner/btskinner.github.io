@@ -37,7 +37,12 @@
     <h1 class="post-header">Build R with OpenBLAS and OpenMP support on MacOS 10.14 (Mojave)</h1>
     
     
-    <p>These instructions are to compile R from source on MacOS 10.14
+    <p><em>These instructions have been updated (May 2019) to account for the
+fact that Homebrew no longer allows optional installation arguments. I
+believe they should work since the new defaults include the options
+that were formally set manually, but some tweaks may be necessary.</em></p>
+
+<p>These instructions are to compile R from source on MacOS 10.14
 (Mojave) so that it both uses OpenBLAS libraries (<a href="https://www.r-bloggers.com/why-is-r-slow-some-explanations-and-mklopenblas-setup-to-try-to-fix-this/">for faster
 computations</a>)
 and has OpenMP support (<a href="https://www.r-bloggers.com/openmp-tutorial-with-r-interface/">to take advantage of multiple
@@ -106,9 +111,9 @@ may not be necessary.</p>
 </ol>
 
 <ul>
-  <li><code class="highlighter-rouge">brew install openblas --with-openmp</code></li>
-  <li><code class="highlighter-rouge">brew install r --with-openblas</code></li>
-  <li><code class="highlighter-rouge">brew install --with-toolchain llvm</code></li>
+  <li><code class="highlighter-rouge">brew install openblas</code></li>
+  <li><code class="highlighter-rouge">brew install r</code></li>
+  <li><code class="highlighter-rouge">brew install llvm</code></li>
   <li><code class="highlighter-rouge">brew install ccache</code></li>
   <li><code class="highlighter-rouge">brew install gcc</code></li>
   <li><code class="highlighter-rouge">brew install libgit2</code></li>
