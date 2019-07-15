@@ -5,21 +5,13 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner.jpg"
 style="width: 300px;"/> 
 
-I am a Research Assistant Professor of Education and Public Policy at
-the University of Virginia with affiliations in EdPolicyWorks, the
-Nudge4 Solutions Lab, and the Batten School of Leadership and Public
-Policy.
-
 My research interests center on the policies and practices that affect
 students who attend community colleges and broad access
 universities. In my work I have focused on the relationships
 between online course delivery and student enrollments, course
 outcomes, and degree attainment; how students weigh factors
 like distance and cost when choosing a college; and the economic and
-social outcomes of college attendance. As part of
-EdPolicyWorks and Nudge4, I have worked closely with numerous public
-agencies and organizations including the Virginia Community College
-System.
+social outcomes of college attendance. 
 
 I am the author and maintainer of a number of software packages,
 including [rscorecard](https://www.btskinner.me/rscorecard/), which
