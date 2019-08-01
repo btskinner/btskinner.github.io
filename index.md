@@ -5,6 +5,9 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner.jpg"
 style="width: 300px;"/> 
 
+I am an Assistant Professor of Higher Education and Policy at
+the University of Florida.
+
 My research interests center on the policies and practices that affect
 students who attend community colleges and broad access
 universities. In my work I have focused on the relationships
