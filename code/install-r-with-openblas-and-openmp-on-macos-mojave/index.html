@@ -37,12 +37,22 @@
     <h1 class="post-header">Build R with OpenBLAS and OpenMP support on MacOS 10.14 (Mojave)</h1>
     
     
-    <p><em>These instructions have been updated (May 2019) to account for the
-fact that Homebrew no longer allows optional installation arguments. I
-believe they should work since the new defaults include the options
-that were formally set manually, but some tweaks may be necessary.</em></p>
+    <p><em>These instructions have been updated (August 2019) to account for the
+fact that Homebrew no longer allows optional installation
+arguments. Initally, I just rolled with the changes since was I still
+able to set up OpenBLAS support. But after a helpful email exchange
+with <a href="https://luispuerto.net">Luis Puerto</a> in which he pointed out
+that the standard (and now optionless) Homebrew R did not have full
+<code class="highlighter-rouge">capabilities()</code>, I’ve updated this post. I broadly follow his
+process, which can be found
+<a href="https://luispuerto.net/blog/2018/05/11/homebrews-r-doesnt-have-all-the-capabilities/">here</a>
+and
+<a href="https://luispuerto.net/blog/2018/05/11/installing-r-with-homebrew-with-all-the-capabilities/">here</a>,
+but with the addition of my <code class="highlighter-rouge">Makevars</code> and <code class="highlighter-rouge">.Renviron</code> files. For
+reference, the obsolete version of these instructions can be found
+<a href="/code/install-r-with-openblas-and-openmp-on-macos-mojave-old/">here</a>.</em></p>
 
-<p>These instructions are to compile R from source on MacOS 10.14
+<p>These instructions allow you to compile R from source on MacOS 10.14
 (Mojave) so that it both uses OpenBLAS libraries (<a href="https://www.r-bloggers.com/why-is-r-slow-some-explanations-and-mklopenblas-setup-to-try-to-fix-this/">for faster
 computations</a>)
 and has OpenMP support (<a href="https://www.r-bloggers.com/openmp-tutorial-with-r-interface/">to take advantage of multiple
@@ -67,7 +77,8 @@ the <a href="https://llvm.org">LLVM compiler</a>.</p>
 <p>Seriously, don’t try this if you don’t like the command line or have a
 low tolerance for potentially borking your R installation. This worked
 for me and was a (mostly) fun project while setting up a new machine,
-but YMMV.</p>
+but YMMV. Of course, I’ve had to update since Homebrew changed its
+default behavior, so keep that in mind if you decide to go this route.</p>
 
 <h2 id="tools">Tools</h2>
 
@@ -77,6 +88,7 @@ but YMMV.</p>
   <li>XCode</li>
   <li>Homebrew</li>
   <li><code class="highlighter-rouge">~/.R/Makevars</code></li>
+  <li><code class="highlighter-rouge">~/.Renviron</code></li>
 </ul>
 
 <h3 id="xcode">XCode</h3>
@@ -88,58 +100,138 @@ but I got this message which makes me believe this is no longer necessary:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
 </code></pre></div>    </div>
   </li>
-  <li>Install <a href="https://silvae86.github.io/sysadmin/mac/osx/mojave/beta/libxml2/2018/07/05/fixing-missing-headers-for-homebrew-in-mac-osx-mojave.html">missing header
-files</a>
-using:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg ~/Desktop
-</code></pre></div>    </div>
-    <p>Once saved, double click on the install package (which is now on
-your Desktop). This will place header files (<em>e.g.</em>, <code class="highlighter-rouge">math.h</code>) in
-the <code class="highlighter-rouge">/usr/include</code> directory, where they have historically been and
-R still looks for them.</p>
+  <li>
+    <p>Figure out where your <a href="https://apple.stackexchange.com/questions/337940">missing header
+  files</a> are
+  located on your machine. Since 10.14, installing the Command Line
+  Tools doesn’t place necessary header files (<em>e.g.</em>, <code class="highlighter-rouge">math.h</code>) in
+  the <code class="highlighter-rouge">/usr/include</code> directory, where they have historically been
+  and R still looks for them when you build from source. They are
+  instead kept within Xcode.app.</p>
+
+    <p>There are two fixes:</p>
+
+    <ol>
+      <li><strong>NOT RECOMMENDED</strong><br />
+  At the time of this post (August 2019),
+  you can still just copy the header files to <code class="highlighter-rouge">/usr/include</code> using
+  <a href="https://apple.stackexchange.com/a/337945">this process</a>. I don’t
+  recommend this approach because it’s likely that it will stop
+  working with future Apple updates.</li>
+      <li><strong>RECOMMENDED</strong> <br />
+  Figure out the path to the SDK headers using the following
+  command:
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  xcrun --show-sdk-path
+</code></pre></div>        </div>
+        <p>On my machine, the path is</p>
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
+</code></pre></div>        </div>
+        <p>This is the standard path at the moment and so should be the same
+  on your machine unless you’ve installed Xcode in a non-standard
+  location. Take note of this path because we’ll add it to our
+  <code class="highlighter-rouge">Makevars</code> file.</p>
+      </li>
+    </ol>
   </li>
 </ol>
-
-<p><strong>NB</strong>: As 10.14 becomes more mature, this intial XCode work-around
-may not be necessary.</p>
 
 <h3 id="homebrew-packages">Homebrew packages</h3>
 
 <ol>
   <li>Install <a href="https://brew.sh">Homebrew</a></li>
-  <li>Brew install some packages:</li>
+  <li><code class="highlighter-rouge">brew install</code> some apps/libraries from homebrew-core:
+    <ul>
+      <li><code class="highlighter-rouge">brew cask install xquartz</code></li>
+      <li><code class="highlighter-rouge">brew install openblas</code></li>
+      <li><code class="highlighter-rouge">brew install llvm</code></li>
+      <li><code class="highlighter-rouge">brew install ccache</code></li>
+      <li><code class="highlighter-rouge">brew install gcc</code></li>
+      <li><code class="highlighter-rouge">brew install lomp</code></li>
+      <li><code class="highlighter-rouge">brew install libgit2</code></li>
+      <li><code class="highlighter-rouge">brew install openssl</code></li>
+      <li><code class="highlighter-rouge">brew install gettext</code></li>
+      <li><code class="highlighter-rouge">brew install tcl-tk</code></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">brew install</code> some <strong>optional</strong> libraries from homebrew-core:
+    <ul>
+      <li><code class="highlighter-rouge">brew install liblwgeom</code></li>
+      <li><code class="highlighter-rouge">brew install gdal</code></li>
+      <li><code class="highlighter-rouge">brew install geos</code></li>
+      <li><code class="highlighter-rouge">brew install proj</code></li>
+      <li><code class="highlighter-rouge">brew install udunits</code></li>
+      <li><code class="highlighter-rouge">brew install qt</code></li>
+    </ul>
+
+    <p>Many R packages look for these libraries on your system if built
+ from source, so unless you have compelling reason not to do so, I
+ would highly recommend installing them. In particular, the
+ <a href="https://github.com/r-spatial/sf">sf</a> package will need these in
+ order to work.</p>
+
+    <p><strong>NOTE</strong> There’s a <a href="https://github.com/OSGeo/homebrew-osgeo4mac">Homebrew tap dedicated to QGIS and other
+ spatial libraries</a>
+ currently under development (h/t again to Luis Puerto). You may
+ find these more suitable for your geospatial needs than the
+ versions provided by homebrew-core.</p>
+  </li>
+  <li>Add <a href="https://github.com/sethrfore/homebrew-r-srf">Seth Fore R tap</a>:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew tap sethrfore/r-srf
+</code></pre></div>    </div>
+  </li>
+  <li><code class="highlighter-rouge">brew install</code> Cairo and R from <code class="highlighter-rouge">sethrfore/r-srf</code> tap, adding the
+ optional arguments for R:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew install sethrfore/r-srf/cairo
+</code></pre></div>    </div>
+    <p><strong>NOTE</strong> You need to install Cairo from this tap if you want to
+ have X11 support.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew install sethrfore/r-srf/r --with-openblas --with-java --with-cairo --with-libtiff
+</code></pre></div>    </div>
+  </li>
 </ol>
 
-<ul>
-  <li><code class="highlighter-rouge">brew install openblas</code></li>
-  <li><code class="highlighter-rouge">brew install r</code></li>
-  <li><code class="highlighter-rouge">brew install llvm</code></li>
-  <li><code class="highlighter-rouge">brew install ccache</code></li>
-  <li><code class="highlighter-rouge">brew install gcc</code></li>
-  <li><code class="highlighter-rouge">brew install libgit2</code></li>
-  <li><code class="highlighter-rouge">brew install openssl</code></li>
-  <li><code class="highlighter-rouge">brew install gettext</code></li>
-</ul>
+<p>If everything has gone well, you should be able to open up R and see
+the following when you run <code class="highlighter-rouge">capabilities()</code> (<em>i.e.</em>, all <code class="highlighter-rouge">TRUE</code>):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; capabilities()
+       jpeg         png        tiff       tcltk         X11        aqua 
+       TRUE        TRUE        TRUE        TRUE        TRUE        TRUE 
+   http/ftp     sockets      libxml        fifo      cledit       iconv 
+       TRUE        TRUE        TRUE        TRUE        TRUE        TRUE 
+        NLS     profmem       cairo         ICU long.double     libcurl 
+       TRUE        TRUE        TRUE        TRUE        TRUE        TRUE
+</code></pre></div></div>
+<h3 id="set-up-renviron-and-rmakevars">Set up ~/.Renviron and ~/.R/Makevars</h3>
 
-<p>Note that you don’t technically need the last three libraries, but
-many R packages look for them if built from source. You’ll see that
-they are place in the compilation path in <code class="highlighter-rouge">Makevars</code> below.</p>
-
-<h3 id="set-up-rmakevars">Set up ~/.R/Makevars</h3>
-
-<p>Create <code class="highlighter-rouge">Makevars</code> file in <code class="highlighter-rouge">~/.R</code> directory that looks like this</p>
+<p>Create <code class="highlighter-rouge">.Renviron</code> in home directory (<code class="highlighter-rouge">~</code>) and <code class="highlighter-rouge">Makevars</code> file in
+<code class="highlighter-rouge">~/.R</code> directory that looks like the files below. <strong>This step is
+important.</strong> If you don’t add these files, you’ll not be able to
+install packages since they won’t be able to find the system libraries
+they need.</p>
 
 <noscript><pre>400: Invalid request
 </pre></noscript>
-<script src="https://gist.github.com/81511cbc878eb08c8abcccef6c30f829.js"> </script>
+<script src="https://gist.github.com/98f0501ceb21e1c8e7ff9dbaa5bf7b96.js"> </script>
 
 <h2 id="install-packages">Install packages</h2>
 
 <p>Open R and install packages like normal using <code class="highlighter-rouge">install.packages()</code>. I
-found that installing <a href="https://CRAN.R-project.org/package=Rcpp">Rcpp</a>,
-<a href="https://CRAN.R-project.org/package=data.table">data.table</a>, and
-<a href="https://CRAN.R-project.org/package=tidyverse">tidyverse</a> will give a
-good all-around indication of whether everything worked.</p>
+would recommend using the option, <code class="highlighter-rouge">dependencies = TRUE</code>, if you want
+to make sure everything is compiled correctly.</p>
+
+<p>I have successfully installed the following packages (and their
+dependencies) using this set up:</p>
+<ul>
+  <li><a href="https://CRAN.R-project.org/package=data.table">data.table</a></li>
+  <li><a href="https://CRAN.R-project.org/package=devtools">devtools</a></li>
+  <li><a href="https://CRAN.R-project.org/package=Rcpp">Rcpp</a></li>
+  <li><a href="https://CRAN.R-project.org/package=RcppArmadillo">RcppArmadillo</a></li>
+  <li><a href="https://CRAN.R-project.org/package=RcppEigen">RcppEigen</a></li>
+  <li><a href="https://CRAN.R-project.org/package=rstanarm">rstanarm</a></li>
+  <li><a href="https://CRAN.R-project.org/package=sf">sf</a></li>
+  <li><a href="https://CRAN.R-project.org/package=shiny">shiny</a></li>
+  <li><a href="https://CRAN.R-project.org/package=tidyverse">tidyverse</a></li>
+</ul>
+
 
     
 </article>
