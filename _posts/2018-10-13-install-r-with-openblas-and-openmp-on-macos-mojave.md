@@ -77,16 +77,17 @@ You'll need:
      and R still looks for them when you build from source. They are
      instead kept within Xcode.app.
 	 
-	 There are two fixes:
+	 There are two steps:
 	 
-	 1. **NOT RECOMMENDED**  
-	 At the time of this post (August 2019),
-     you can still just copy the header files to `/usr/include` using
-     [this process](https://apple.stackexchange.com/a/337945). I don't
-     recommend this approach because it's likely that it will stop
-     working with future Apple updates.  
-	 2. **RECOMMENDED**   
-	 Figure out the path to the SDK headers using the following
+	 1. At the time of this post (August 2019), you can still just
+     copy the header files to `/usr/include` using [this
+     process](https://apple.stackexchange.com/a/337945). Specifically:
+	 ```
+	 sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+	 ```
+	 I don't know that this approach will continue to work with future
+     Apple updates, but it's necessary at the moment.  
+	 2. Figure out the path to the SDK headers using the following
 	 command:
 	 ```
      xcrun --show-sdk-path
@@ -104,17 +105,22 @@ You'll need:
 
 1. Install [Homebrew](https://brew.sh)  
 2. `brew install` some apps/libraries from homebrew-core:  
-    - `brew cask install xquartz`
+    - `brew cask install xquartz`  
+	- `brew cask install adoptopenjdk`  
+	    - **NOTE**: You can also choose `oracle-jdk` or not to install
+          Java at all; if you choose not to install Java, then drop
+          the `--with-java` flag when installing R  
     - `brew install openblas`  
     - `brew install llvm`  
     - `brew install ccache`  
-    - `brew install gcc`  
-    - `brew install lomp`  
+    - `brew install gcc` (should already install with `llvm`)  
+    - `brew install libomp`  
     - `brew install libgit2`  
-    - `brew install openssl`  
+    - `brew install openssl` (should already install with `libgit2`)  
     - `brew install gettext`  
-    - `brew install tcl-tk`  
-3. `brew install` some **optional** libraries from homebrew-core:  
+3. `brew install` some **optional** libraries from homebrew-core  
+    - **Note**: Some of these are dependencies of others so you may
+      get messages saying a library is already installed, which is fine):  
     - `brew install liblwgeom`  
     - `brew install gdal`  
     - `brew install geos`  
@@ -139,13 +145,16 @@ You'll need:
 	brew tap sethrfore/r-srf
 	```
 
-5. `brew install` Cairo and R from `sethrfore/r-srf` tap, adding the
-    optional arguments for R:   
+5. `brew reinstall` Cairo from `sethrfore/r-srf` tap (you must
+   `reinstall` since the Homebrew-core version of Cairo is already
+   installed as a dependency above):   
     ```
-	brew install sethrfore/r-srf/cairo
+	brew reinstall sethrfore/r-srf/cairo
 	```
 	**NOTE** You need to install Cairo from this tap if you want to
 	have X11 support.
+	
+	Now install R using from `sethrfore/r-srf` with additional arguments:
 	```
 	brew install sethrfore/r-srf/r --with-openblas --with-java --with-cairo --with-libtiff
     ```

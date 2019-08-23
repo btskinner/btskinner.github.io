@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Florida</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="/">Assistant Professor of Higher Education and Policy | University of Florida</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@coe.ufl.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">OUTDATED Build R with OpenBLAS and OpenMP support on MacOS 10.14 (Mojave)</h1>
+    
+    
+    <p><em>These instructions have been updated (August 2019) to account for the
+fact that Homebrew no longer allows optional installation
+arguments. If you’ve landed on this page from an external site, you
+most likely want to use the <a href="/code/install-r-with-openblas-and-openmp-on-macos-mojave/">new instructions here</a>. I’ve left this old version of page active for reference</em></p>
+
+<p>These instructions are to compile R from source on MacOS 10.14
+(Mojave) so that it both uses OpenBLAS libraries (<a href="https://www.r-bloggers.com/why-is-r-slow-some-explanations-and-mklopenblas-setup-to-try-to-fix-this/">for faster
+computations</a>)
+and has OpenMP support (<a href="https://www.r-bloggers.com/openmp-tutorial-with-r-interface/">to take advantage of multiple
+cores</a>).</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>While the Clang compilers shipped with R finally support OpenMP for
+parallel processing, <a href="https://iscinumpy.gitlab.io/post/omp-on-high-sierra/">they require their own unique
+flags</a>. The GNU
+family of compilers (<code class="highlighter-rouge">gcc</code>, <code class="highlighter-rouge">g++</code>, etc) don’t play nice with all R
+packages when building them from source. I figured both out the hard way.</p>
+
+<p>To get R to work with both OpenMP (after compiling with OpenBLAS)
+and packages built from source, I use a newer, non-Apple version of
+the <a href="https://llvm.org">LLVM compiler</a>.</p>
+
+<h2 id="but-why">But why?</h2>
+
+<p>Why not?</p>
+
+<p>Seriously, don’t try this if you don’t like the command line or have a
+low tolerance for potentially borking your R installation. This worked
+for me and was a (mostly) fun project while setting up a new machine,
+but YMMV.</p>
+
+<h2 id="tools">Tools</h2>
+
+<p>You’ll need:</p>
+
+<ul>
+  <li>XCode</li>
+  <li>Homebrew</li>
+  <li><code class="highlighter-rouge">~/.R/Makevars</code></li>
+</ul>
+
+<h3 id="xcode">XCode</h3>
+
+<ol>
+  <li>Install Command Line Tools through XCode</li>
+  <li>You may need to type <code class="highlighter-rouge">xcode-select --install</code> in the terminal after installation,
+but I got this message which makes me believe this is no longer necessary:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+</code></pre></div>    </div>
+  </li>
+  <li>Install <a href="https://silvae86.github.io/sysadmin/mac/osx/mojave/beta/libxml2/2018/07/05/fixing-missing-headers-for-homebrew-in-mac-osx-mojave.html">missing header
+files</a>
+using:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg ~/Desktop
+</code></pre></div>    </div>
+    <p>Once saved, double click on the install package (which is now on
+your Desktop). This will place header files (<em>e.g.</em>, <code class="highlighter-rouge">math.h</code>) in
+the <code class="highlighter-rouge">/usr/include</code> directory, where they have historically been and
+R still looks for them.</p>
+  </li>
+</ol>
+
+<p><strong>NB</strong>: As 10.14 becomes more mature, this intial XCode work-around
+may not be necessary.</p>
+
+<h3 id="homebrew-packages">Homebrew packages</h3>
+
+<ol>
+  <li>Install <a href="https://brew.sh">Homebrew</a></li>
+  <li>Brew install some packages:</li>
+</ol>
+
+<ul>
+  <li><code class="highlighter-rouge">brew install openblas</code></li>
+  <li><code class="highlighter-rouge">brew install r</code></li>
+  <li><code class="highlighter-rouge">brew install llvm</code></li>
+  <li><code class="highlighter-rouge">brew install ccache</code></li>
+  <li><code class="highlighter-rouge">brew install gcc</code></li>
+  <li><code class="highlighter-rouge">brew install libgit2</code></li>
+  <li><code class="highlighter-rouge">brew install openssl</code></li>
+  <li><code class="highlighter-rouge">brew install gettext</code></li>
+</ul>
+
+<p>Note that you don’t technically need the last three libraries, but
+many R packages look for them if built from source. You’ll see that
+they are place in the compilation path in <code class="highlighter-rouge">Makevars</code> below.</p>
+
+<h3 id="set-up-rmakevars">Set up ~/.R/Makevars</h3>
+
+<p>Create <code class="highlighter-rouge">Makevars</code> file in <code class="highlighter-rouge">~/.R</code> directory that looks like this</p>
+
+<noscript><pre>400: Invalid request
+</pre></noscript>
+<script src="https://gist.github.com/81511cbc878eb08c8abcccef6c30f829.js"> </script>
+
+<h2 id="install-packages">Install packages</h2>
+
+<p>Open R and install packages like normal using <code class="highlighter-rouge">install.packages()</code>. I
+found that installing <a href="https://CRAN.R-project.org/package=Rcpp">Rcpp</a>,
+<a href="https://CRAN.R-project.org/package=data.table">data.table</a>, and
+<a href="https://CRAN.R-project.org/package=tidyverse">tidyverse</a> will give a
+good all-around indication of whether everything worked.</p>
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">&#169; 2019. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
