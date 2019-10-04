@@ -27,16 +27,28 @@ this works for me.
    - **NB** Some links to external repos may not work locally
    - The built site, which is dynamic, now lives in `_site` in the
      *source* branch.
-4. Once happy with changes, `add`, `commit`, and `push` changes to
-   *source* branch
+4. Once happy with changes, `add`, `commit`, and `push` changes to remote
+   *source* branch at GitHub
 5. Run `./_publishwebsite.sh` script  
    - Script is mostly these commands [from
-here](https://github.com/randymorris/randymorris.github.com)
+here](https://github.com/randymorris/randymorris.github.com) with a
+few changes:
+	```shell
+	#!/bin/bash
+	
+    git branch -D master
+	git checkout -b master
+	git filter-branch --subdirectory-filter _site/ -f
+	git reflog expire --expire=now --all
+	git gc --prune=now
+	git checkout source
+	git push --all origin
+	```
    - The gist is that the *master* branch is fully deleted and only
    files from `_site` are placed in it. Since GitHub isn't coverting
    `.md` files but instead reads `.html` and other files directly, all
-   dynamic features coming from javascript should work (that is, not
-   scrubbed). 
+   dynamic features coming from javascript should work (that is, they
+   aren't scrubbed during a conversion process). 
 
 Over time, the process to rebuild the *master* branch can take a while
 since you are filtering through all the changes in *source*. If you
