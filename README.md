@@ -17,15 +17,18 @@ this works for me.
    - *master* holds the built website files / serves the site
 2. When updating, make local changes on my machine in the *source*
    branch
-   - use `./_fixbib.sh ./bibliography/skinnercv.tex` to clean up
+   - use `./_fixbib.sh ./bibliography/<my_citation_bib_file>.bib` to clean up
      personal `bib` file so that it plays more nicely with
      [`jekyll-scholar`](https://github.com/inukshuk/jekyll-scholar). *This
      may no longer be necessary, but I had trouble in the past with
      Jekyll not properly parsing braces when building citations*.
-3. Build and test the site locally using `build exec jekyll serve`
+3. Build and test the site locally using `build exec jekyll serve` in
+   the command line
    - **NB** Some links to external repos may not work locally
-   - The built site, which is dynamic, now lives in `_site`
-4. Once happy, `add`, `commit`, and `push` changes to *source* branch
+   - The built site, which is dynamic, now lives in `_site` in the
+     *source* branch.
+4. Once happy with changes, `add`, `commit`, and `push` changes to
+   *source* branch
 5. Run `./_publishwebsite.sh` script  
    - Script is mostly these commands [from
 here](https://github.com/randymorris/randymorris.github.com)
