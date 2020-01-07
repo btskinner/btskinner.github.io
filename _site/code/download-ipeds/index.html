@@ -46,11 +46,19 @@
     
     <h1 id="purpose">Purpose</h1>
 
-<p>Use this script to batch download <a href="http://nces.ed.gov/ipeds/">Integrated Postsecondary Education Data System (IPEDS)</a> files. The downloaded files are not unzipped or processed in any way. This script simply saves you the trouble of having to point and click your way through the data center.</p>
+<p>Use this script to batch download <a href="http://nces.ed.gov/ipeds/">Integrated Postsecondary Education
+Data System (IPEDS)</a> files. The downloaded
+files are not unzipped or processed in any way. This script simply
+saves you the trouble of having to point and click your way through
+the data center.</p>
 
-<p>(You can also download database files <a href="https://nces.ed.gov/ipeds/Section/accessdatabase/">here</a>, but you need MS Access to open them and they only go back to 2007-2008.)</p>
+<p>(You can also download database files
+<a href="https://nces.ed.gov/ipeds/Section/accessdatabase/">here</a>, but you
+need MS Access to open them and they only go back to 2007-2008.)</p>
 
-<p>Only those files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> will be downloaded. The default behavior is to download each of the following files into their own subdirectories:</p>
+<p>Only those files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> will be
+downloaded. The default behavior is to download each of the following
+files into their own subdirectories:</p>
 
 <ol>
   <li>Data file</li>
@@ -68,24 +76,40 @@
 
 <h1 id="important-note">IMPORTANT NOTE</h1>
 
-<p>The default behavior is to download <strong>ALL OF IPEDS</strong>. If you don’t want everything, modify <code class="highlighter-rouge">ipeds_file_list.txt</code> to include only those files that you want. Simply erase those you don’t want, keeping one file name per row or comment them out using a hash symbol (#).</p>
+<p>The default behavior is to download <strong>ALL OF IPEDS</strong>. If you don’t
+want everything, modify <code class="highlighter-rouge">ipeds_file_list.txt</code> to include only those
+files that you want. Simply erase those you don’t want, keeping one
+file name per row or comment them out using a hash symbol (#). Since
+the downloading script ignores lines starting with hashes, you can add
+notes or better section headers to the file if you want.</p>
 
-<p>I try to keep <code class="highlighter-rouge">ipeds_file_list.txt</code> updated, but if I’ve missed a file or haven’t updated in a while, just add the name of the file or files, one to a line. Since the downloading script ignores lines starting with hashes, you can add notes or better section headers to the file if you want.</p>
+<p>I try to keep <code class="highlighter-rouge">ipeds_file_list.txt</code> updated, but if I’ve missed a file
+or haven’t updated in a while, just add the name of the file or files,
+one to a line. If you notice missing files, feel free to submit a pull
+request with an updated version of <code class="highlighter-rouge">ipeds_file_list.txt</code>.</p>
 
-<p>You also have the option of whether you wish to overwrite existing files.
-If you do, change the <code class="highlighter-rouge">overwrite</code> option to <code class="highlighter-rouge">TRUE</code>. The default behavior is
-to only download files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
+<p>You also have the option of whether you wish to overwrite existing
+files.  If you do, change the <code class="highlighter-rouge">overwrite</code> option to <code class="highlighter-rouge">TRUE</code>. The
+default behavior is to only download files listed in
+<code class="highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
 
 <h1 id="to-run">To Run</h1>
 
-<p>For the default options, run the script <code class="highlighter-rouge">downloadipeds.R</code> as is. It will create subdirectories as needed to store data and program files. You may wish to place the folder in its own directory. Just make sure that <code class="highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For example, let’s say you place both files in a directory called <code class="highlighter-rouge">ipeds</code>:</p>
+<p>For the default options, run the script <code class="highlighter-rouge">downloadipeds.R</code> as is. It
+will create subdirectories as needed to store data and program
+files. You may wish to place the folder in its own directory. Just
+make sure that <code class="highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For
+example, let’s say you place both files in a directory called <code class="highlighter-rouge">ipeds</code>:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
 |__ ipeds_file_list.txt
 </code></pre></div></div>
 
-<p>If you run it with the default options, two new subdirectories will be created, one for the <code class="highlighter-rouge">data</code> files and one for the <code class="highlighter-rouge">dictionary</code> files. Using the above example, your directory will look like this after it is finished:</p>
+<p>If you run it with the default options, two new subdirectories will be
+created, one for the <code class="highlighter-rouge">data</code> files and one for the <code class="highlighter-rouge">dictionary</code>
+files. Using the above example, your directory will look like this
+after it is finished:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
@@ -101,7 +125,9 @@ to only download files listed in <code class="highlighter-rouge">ipeds_file_list
     |__ &lt;...&gt;
 </code></pre></div></div>
 
-<p>To download other program scripts or Stata versions of the data, change the following commands in <code class="highlighter-rouge">downloadipeds.R</code> from <code class="highlighter-rouge">FALSE</code> to <code class="highlighter-rouge">TRUE</code>:</p>
+<p>To download other program scripts or Stata versions of the data,
+change the following commands in <code class="highlighter-rouge">downloadipeds.R</code> from <code class="highlighter-rouge">FALSE</code> to
+<code class="highlighter-rouge">TRUE</code>:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
 ## CHOOSE WHAT YOU WANT (TRUE == Yes, FALSE == No)
@@ -135,7 +161,12 @@ out_dir = '.'
 
 <h1 id="data-size">Data size</h1>
 
-<p>As of 18 January 2018, downloading all IPEDS files (setting all options to 	<code class="highlighter-rouge">TRUE</code>) requires approximately 1.64 GB of disk space. Granted, you probably don’t need both regular and Stata versions of the data files (which are the bulk of the directory size). Here are the approximate subdirectory file sizes if you download all data files from all years:</p>
+<p>As of 2 December 2019, downloading all IPEDS files (setting all
+options to <code class="highlighter-rouge">TRUE</code>) requires approximately 2.22 GB of disk
+space. Granted, you probably don’t need both regular and Stata
+versions of the data files (which are the bulk of the directory
+size). Here are the approximate subdirectory file sizes if you
+download all data files from all years:</p>
 
 <table>
   <thead>
@@ -147,34 +178,36 @@ out_dir = '.'
   <tbody>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./data</code></td>
-      <td style="text-align: center">852 MB</td>
+      <td style="text-align: center">1.07 GB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./dictionary</code></td>
-      <td style="text-align: center">20 MB</td>
+      <td style="text-align: center">30.4 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./sas_prog</code></td>
-      <td style="text-align: center">6 MB</td>
+      <td style="text-align: center">6.1 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./spss_prog</code></td>
-      <td style="text-align: center">5 MB</td>
+      <td style="text-align: center">19.5 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./stata_data</code></td>
-      <td style="text-align: center">755 MB</td>
+      <td style="text-align: center">1.09 GB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="highlighter-rouge">./stata_prog</code></td>
-      <td style="text-align: center">6 MB</td>
+      <td style="text-align: center">6.5 MB</td>
     </tr>
   </tbody>
 </table>
 
 <h1 id="combine">Combine</h1>
 
-<p>To combine multiple IPEDS data files into a single dataset, you may find the following script useful: <a href="https://gist.github.com/btskinner/f42c87507169d0ba773c">Combine IPEDS</a></p>
+<p>To combine multiple IPEDS data files into a single dataset, you may
+find the following script useful: <a href="https://gist.github.com/btskinner/f42c87507169d0ba773c">Combine
+IPEDS</a></p>
 
 
     
@@ -184,7 +217,7 @@ out_dir = '.'
   </main>
   <main>
     <div class="footer">
-      <p class="foot">&#169; 2019. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2020. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>
