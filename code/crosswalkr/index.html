@@ -80,6 +80,8 @@ team</a>.</p>
 <h2 id="usage">Usage</h2>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(crosswalkr)
+library(dplyr)
+library(haven)
 
 ## starting data frame
 df &lt;- data.frame(state = c('Kentucky','Tennessee','Virginia'),
@@ -170,7 +172,7 @@ cw
 ##  8     10 DE     Delaware                  3 South          5 South Atlantic    
 ##  9     11 DC     District of Columbia      3 South          5 South Atlantic    
 ## 10     12 FL     Florida                   3 South          5 South Atlantic    
-## # ... with 41 more rows
+## # … with 41 more rows
 </code></pre></div></div>
 
 <p>Create a new column with factor-encoded values</p>
@@ -187,7 +189,7 @@ df
 <p>Create a new column with labelled values.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## convert to tbl_df
-df &lt;- tibble::as_data_frame(df)
+df &lt;- tbl_df(df)
 df$state3 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 </code></pre></div></div>
 
@@ -199,26 +201,26 @@ is a tibble)</p>
 
 <p>Show factors with labels:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haven::as_factor(df)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>as_factor(df)
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4
-##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;chr&gt;  &lt;fct&gt; 
-## 1 Kentucky      21 South    KY     21     KY    
-## 2 Tennessee     47 South    TN     47     TN    
-## 3 Virginia      51 South    VA     51     VA
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; 
+## 1 Kentucky      21 South    KY     KY     KY    
+## 2 Tennessee     47 South    TN     TN     TN    
+## 3 Virginia      51 South    VA     VA     VA
 </code></pre></div></div>
 
 <p>Show factors without labels:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haven::zap_labels(df)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zap_labels(df)
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4
-##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;chr&gt;  &lt;fct&gt; 
-## 1 Kentucky      21 South    KY     21     KY    
-## 2 Tennessee     47 South    TN     47     TN    
-## 3 Virginia      51 South    VA     51     VA
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt; &lt;fct&gt; 
+## 1 Kentucky      21 South    KY         21 KY    
+## 2 Tennessee     47 South    TN         47 TN    
+## 3 Virginia      51 South    VA         51 VA
 </code></pre></div></div>
 
 
@@ -229,7 +231,7 @@ is a tibble)</p>
   </main>
   <main>
     <div class="footer">
-      <p class="foot">&#169; 2019. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2020. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>
