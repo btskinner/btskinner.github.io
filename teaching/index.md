@@ -22,6 +22,7 @@ syllabus:
 | University of Florida       |   |            | 
 |:--------------------------------|:---:|-----------:|
 | *Human Development and Organizational Studies in Education* ||
+| EDH 7916: Contemporary Research in Higher Education | [<i class="fa fa-external-link fa-lg"></i>]({{ site.edquanturl }}edh7916/){:class="iconlink"}| Spring 2020|  
 | EDH 6065: History of American Higher Education | [<i class="fa fa-file-text-o fa-lg"></i>]({{ site.baseurl }}{{page.syllabus.edh6065}}){:class="iconlink"}| Fall 2019|  
 | EDH 7050: Exploration of Research Literature in Higher Education | [<i class="fa fa-file-text-o fa-lg"></i>]({{ site.baseurl }}{{page.syllabus.edh7050}}){:class="iconlink"} | Fall 2019 |
 |||  
