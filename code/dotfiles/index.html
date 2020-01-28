@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Florida</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="/">Assistant Professor of Higher Education and Policy | University of Florida</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@coe.ufl.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">dotfiles</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/dotfiles" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+        &nbsp;
+        <a href="https://github.com/btskinner/dotfiles/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    <p>This repo contains the the dotfiles I use on my MacOS machine to make my life
+easier. They are heavily influenced (read: cut and paste with changes)
+by <a href="https://github.com/mathiasbynens/dotfiles">Mathias Bynens’ dotfiles
+repo</a>. Feel free to use
+mine, but this repo is more for my personal use. See his if you want
+<em>way</em> more options.</p>
+
+<p><img src="https://github.com/btskinner/dotfiles/raw/master/img/dotfiles_one.png" alt="" /></p>
+
+<h2 id="extra"><code class="highlighter-rouge">.extra</code></h2>
+
+<p>Not included in this repo is <code class="highlighter-rouge">.extra</code>, which sets up my personal git
+identity. Right now, it looks like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># name</span>
+<span class="nv">GIT_AUTHOR_NAME</span><span class="o">=</span><span class="s2">"&lt;first name&gt; &lt;last name&gt;"</span>
+<span class="nv">GIT_COMMITTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="nv">$GIT_AUTHOR_NAME</span><span class="s2">"</span>
+git config <span class="nt">--global</span> user.name <span class="s2">"</span><span class="nv">$GIT_AUTHOR_NAME</span><span class="s2">"</span>
+
+<span class="c"># email</span>
+<span class="nv">GIT_AUTHOR_EMAIL</span><span class="o">=</span><span class="s2">"&lt;email address&gt;"</span>
+<span class="nv">GIT_COMMITTER_EMAIL</span><span class="o">=</span><span class="s2">"</span><span class="nv">$GIT_AUTHOR_EMAIL</span><span class="s2">"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"</span><span class="nv">$GIT_AUTHOR_EMAIL</span><span class="s2">"</span>
+</code></pre></div></div>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">&#169; 2020. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
