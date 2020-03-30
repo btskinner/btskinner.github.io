@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'github-pages'
-gem 'jekyll-scholar'
-gem 'jekyll-gist'
-gem 'unicode'
+gem "jekyll", github: "jekyll/jekyll"
+gem 'jekyll-scholar', '~> 6.6'
+gem 'jekyll-gist', '~> 1.5'
+gem 'unicode', '~> 0.4.4.4'
 

@@ -25,24 +25,15 @@ kramdown:
 highlighter: pygments
 
 plugins:
-  - jekyll-coffeescript
   - jekyll-gist
-  - jekyll-mentions
-  - jekyll-paginate
-  - jekyll-redirect-from
 whitelist:
-  - jekyll-coffeescript
   - jekyll-gist
-  - jekyll-mentions
-  - jekyll-paginate
-  - jekyll-redirect-from
 
 # Bibliography
 scholar:
-  style: apa
+  style: apa-6th-edition
   locale: en
 
-  use_raw_bibtex_entry: true
   bibtex_filters:
   - superscript
   - latex

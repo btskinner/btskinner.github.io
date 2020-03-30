@@ -13,7 +13,7 @@ module Jekyll
       @url = url.strip
     end
     def render(context)
-      contents = open(@url, &:read)
+      contents = URI.open(@url, &:read)
       site = context.registers[:site]
       converter = Jekyll::Converters::Markdown::KramdownParser.new(site.config)
       contents = (Liquid::Template.parse contents).render site.site_payload

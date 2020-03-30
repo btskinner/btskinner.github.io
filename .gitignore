@@ -1,6 +1,8 @@
 .jekyll-metadata
+.jekyll-cache
 .sass-cache/*
 */bibliography/auto/*
 */bibliography/skinnercv.bib
 bibliography/skinnercv.bib
 .DS_Store
+
