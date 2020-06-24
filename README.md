@@ -7,14 +7,14 @@ Code for my personal website at [btskinner.io](https://btskinner.io).
 Below are the steps I use to update and publish my site. Since I want
 a dynamic site that incorporates, for example, javascript
 visualizations, it's a little more complicated than just pushing to
-the main branch. This is the solution I cobbled together using tips
+the master branch. This is the solution I cobbled together using tips
 from others who've had the same issues. I started this site a few
 years ago and it's possible that there are better solutions now, but
 this works for me.
 
-1. Have two branches: *source* and *main*
+1. Have two branches: *source* and *master*
    - *source* holds the core files used to build the site
-   - *main* holds the built website files / serves the site
+   - *master* holds the built website files / serves the site
 2. When updating, make local changes on my machine in the *source*
    branch
    - use `./_fixbib.sh ./bibliography/<my_citation_bib_file>.bib` to clean up
@@ -36,21 +36,21 @@ few changes:
 	```shell
 	#!/bin/bash
 	
-    git branch -D main
-	git checkout -b main
+    git branch -D master
+	git checkout -b master
 	git filter-branch --subdirectory-filter _site/ -f
 	git reflog expire --expire=now --all
 	git gc --prune=now
 	git checkout source
 	git push --all origin
 	```
-   - The gist is that the *main* branch is fully deleted and only
+   - The gist is that the *master* branch is fully deleted and only
    files from `_site` are placed in it. Since GitHub isn't coverting
    `.md` files but instead reads `.html` and other files directly, all
    dynamic features coming from javascript should work (that is, they
    aren't scrubbed during a conversion process). 
 
-Over time, the process to rebuild the *main* branch can take a while
+Over time, the process to rebuild the *master* branch can take a while
 since you are filtering through all the changes in *source*. If you
 don't need a full record of your website changes over time, it may
 make sense to prune or make a shallow clone of your source code every
