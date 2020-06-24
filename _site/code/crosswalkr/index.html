@@ -40,10 +40,10 @@
         <p class="post-meta">
         <a href="https://github.com/btskinner/crosswalkr" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
         &nbsp;
-        <a href="https://github.com/btskinner/crosswalkr/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+        <a href="https://github.com/btskinner/crosswalkr/archive/main.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
 	&nbsp;
-        <a href="https://www.btskinner.me/crosswalkr" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
+        <a href="https://www.btskinner.io/crosswalkr" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
 	
     
     
@@ -57,29 +57,29 @@ release" /></a>
 
 <h2 id="overview">Overview</h2>
 
-<p>This package offers a pair of functions, <code class="highlighter-rouge">renamefrom()</code> and
-<code class="highlighter-rouge">encodefrom()</code>, for renaming and encoding data frames using external
+<p>This package offers a pair of functions, <code class="language-plaintext highlighter-rouge">renamefrom()</code> and
+<code class="language-plaintext highlighter-rouge">encodefrom()</code>, for renaming and encoding data frames using external
 crosswalk files. It is especially useful when constructing master data
 sets from multiple smaller data sets that do not name or encode
-variables consistently across files. Based on <code class="highlighter-rouge">renamefrom</code> and
-<code class="highlighter-rouge">encodefrom</code> <a href="https://github.com/slhudson/rename-and-encode">Stata commands written by Sally Hudson and
+variables consistently across files. Based on <code class="language-plaintext highlighter-rouge">renamefrom</code> and
+<code class="language-plaintext highlighter-rouge">encodefrom</code> <a href="https://github.com/slhudson/rename-and-encode">Stata commands written by Sally Hudson and
 team</a>.</p>
 
 <h2 id="installation">Installation</h2>
 
 <p>Install the latest release version from CRAN with</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install.packages('crosswalkr')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install.packages('crosswalkr')
 </code></pre></div></div>
 
 <p>Install the latest development version from Github with</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/crosswalkr')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/crosswalkr')
 </code></pre></div></div>
 
 <h2 id="usage">Usage</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(crosswalkr)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(crosswalkr)
 library(dplyr)
 library(haven)
 
@@ -109,7 +109,7 @@ cw
 
 <p>Convert old variable names to new names and add labels from crosswalk.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df1 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, label = label)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df1 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, label = label)
 df1
 
 ##      stname stfips
@@ -121,7 +121,7 @@ df1
 <p>Convert old variable names to new names using old names as labels
 (ignoring labels in crosswalk).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df2 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, name_label = TRUE)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df2 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, name_label = TRUE)
 df2
 
 ##      stname stfips
@@ -133,7 +133,7 @@ df2
 <p>Convert old variable names to new names, but keep unmatched old names in
 the data frame.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df3 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, drop_extra = FALSE)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df3 &lt;- renamefrom(df, cw_file = cw, raw = old_name, clean = new_name, drop_extra = FALSE)
 df3 
 
 ##      stname stfips region
@@ -144,7 +144,7 @@ df3
 
 <h3 id="encoding">Encoding</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## starting data frame
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## starting data frame
 df &lt;- data.frame(state = c('Kentucky','Tennessee','Virginia'),
                  stfips = c(21,47,51),
                  cenregnm = c('South','South','South'))
@@ -177,7 +177,7 @@ cw
 
 <p>Create a new column with factor-encoded values</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state2 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state2 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 df
 
 ##       state stfips cenregnm state2
@@ -188,20 +188,20 @@ df
 
 <p>Create a new column with labelled values.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## convert to tbl_df
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## convert to tbl_df
 df &lt;- tbl_df(df)
 df$state3 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 </code></pre></div></div>
 
-<p>Create new column with factor-encoded values (ignores the fact that <code class="highlighter-rouge">df</code>
+<p>Create new column with factor-encoded values (ignores the fact that <code class="language-plaintext highlighter-rouge">df</code>
 is a tibble)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state4 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr, ignore_tibble = TRUE)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df$state4 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr, ignore_tibble = TRUE)
 </code></pre></div></div>
 
 <p>Show factors with labels:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>as_factor(df)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>as_factor(df)
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4
@@ -213,7 +213,7 @@ is a tibble)</p>
 
 <p>Show factors without labels:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zap_labels(df)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zap_labels(df)
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4

@@ -6,8 +6,8 @@ tag: packages
 lang: r 
 github_links:
     repo: https://github.com/btskinner/rscorecard
-    zip: https://github.com/btskinner/rscorecard/archive/master.zip
-    manual: https://www.btskinner.me/rscorecard
+    zip: https://github.com/btskinner/rscorecard/archive/main.zip
+    manual: https://www.btskinner.io/rscorecard
 ---
 
-{% linkmarkdown https://raw.githubusercontent.com/btskinner/rscorecard/master/README.md %}
+{% linkmarkdown https://raw.githubusercontent.com/btskinner/rscorecard/main/README.md %}

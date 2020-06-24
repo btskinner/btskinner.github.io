@@ -47,20 +47,20 @@
     <p><a href="https://github.com/btskinner/tex_cv">Make an academic CV using LaTeX and Biber with LaTeX +
 Biber</a>. Rather than adding new
 publications, working papers, or presentations by hand over time,
-store your work products in a <code class="highlighter-rouge">.bib</code> file—just as you would a
+store your work products in a <code class="language-plaintext highlighter-rouge">.bib</code> file—just as you would a
 bibliography of references for a paper—and compile your CV to
 update.</p>
 
-<p>Through selective use of the <code class="highlighter-rouge">Keywords</code> field in your <code class="highlighter-rouge">.bib</code> file
-(<em>e.g.</em>, <code class="highlighter-rouge">article</code>, <code class="highlighter-rouge">presentation</code>, <code class="highlighter-rouge">working</code>, <code class="highlighter-rouge">submitted</code>) and
-corresponding reference sections in your <code class="highlighter-rouge">.tex</code> file, automagically
+<p>Through selective use of the <code class="language-plaintext highlighter-rouge">Keywords</code> field in your <code class="language-plaintext highlighter-rouge">.bib</code> file
+(<em>e.g.</em>, <code class="language-plaintext highlighter-rouge">article</code>, <code class="language-plaintext highlighter-rouge">presentation</code>, <code class="language-plaintext highlighter-rouge">working</code>, <code class="language-plaintext highlighter-rouge">submitted</code>) and
+corresponding reference sections in your <code class="language-plaintext highlighter-rouge">.tex</code> file, automagically
 compile and update your CV in a consistent manner.</p>
 
 <h2 id="example-setup">Example setup</h2>
 
-<p>Using an entry in the <code class="highlighter-rouge">.bib</code> file that looks like this:</p>
+<p>Using an entry in the <code class="language-plaintext highlighter-rouge">.bib</code> file that looks like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.bib 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.bib 
 
 @article{me2016paper_one,
 	Author = {Last, First M.},
@@ -74,9 +74,9 @@ compile and update your CV in a consistent manner.</p>
 	Year = {2016}}
 </code></pre></div></div>
 
-<p>And a section in the <code class="highlighter-rouge">.tex</code> file that looks like this:</p>
+<p>And a section in the <code class="language-plaintext highlighter-rouge">.tex</code> file that looks like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.tex
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cv.tex
 
 \begin{refsection}
 \section*{Publications}
@@ -87,7 +87,7 @@ env = mybib]                        % Use mybib style
 \end{refsection}
 </code></pre></div></div>
 
-<p>You can get an entry in the complied <code class="highlighter-rouge">.pdf</code> file that looks like this
+<p>You can get an entry in the complied <code class="language-plaintext highlighter-rouge">.pdf</code> file that looks like this
 (note the link color: the title in the compiled CV links to the paper):</p>
 
 <p><img src="https://raw.githubusercontent.com/btskinner/tex_cv/master/images/example.png" alt="example" /></p>
@@ -97,7 +97,7 @@ the norms of your field. Move sections around, add or delete
 them. Regardless of the specific style, hopefully the core setup will
 be useful and save you time as you update your CV in the future.</p>
 
-<p>For reference, I don’t edit my <code class="highlighter-rouge">.bib</code> by hand, but instead use
+<p>For reference, I don’t edit my <code class="language-plaintext highlighter-rouge">.bib</code> by hand, but instead use
 <a href="https://bibdesk.sourceforge.io">BibDesk</a>, which comes with the MacTeX
 distribution. <a href="http://www.jabref.org">JabRef</a> is another one that
 works across platforms.</p>
@@ -112,14 +112,14 @@ others know when it was last updated.</li>
   <li>Citations are in reverse chronological order, including by month if
 included (<em>e.g.</em>, October will be higher than May, even though it
 comes first alphabetically).</li>
-  <li>Citations convert links in <code class="highlighter-rouge">Url</code> field (and <code class="highlighter-rouge">Doi</code> and <code class="highlighter-rouge">ISBN</code>) to
+  <li>Citations convert links in <code class="language-plaintext highlighter-rouge">Url</code> field (and <code class="language-plaintext highlighter-rouge">Doi</code> and <code class="language-plaintext highlighter-rouge">ISBN</code>) to
 linked titles in citation. Put links to your publications or working
 papers here and anyone with a digital copy of your CV will be able
 to click on the title to access them.</li>
   <li>Works can be limited to only recent publications, presentations,
-etc., using the <code class="highlighter-rouge">\recentyear{}</code> macro in the top of the file.</li>
+etc., using the <code class="language-plaintext highlighter-rouge">\recentyear{}</code> macro in the top of the file.</li>
   <li>Non-automated sections use lists or tables to make clean layout.</li>
-  <li>Comments throughout <code class="highlighter-rouge">cv.tex</code> to help you know what to change in order to
+  <li>Comments throughout <code class="language-plaintext highlighter-rouge">cv.tex</code> to help you know what to change in order to
 personalize.</li>
 </ul>
 
@@ -160,7 +160,7 @@ pdflatex cv.tex
 <h2 id="integrate-with-github-pages">Integrate with GitHub pages</h2>
 
 <p>An added benefit of building your CV this way is that you can reuse
-your <code class="highlighter-rouge">.bib</code> file to build your academic website and keep everything in
+your <code class="language-plaintext highlighter-rouge">.bib</code> file to build your academic website and keep everything in
 sync. For example, if you use GitHub Pages +
 <a href="https://jekyllrb.com">Jekyll</a> to build your site, you can use the
 <a href="https://github.com/inukshuk/jekyll-scholar">jekyll-scholar</a> extension

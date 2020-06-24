@@ -63,8 +63,8 @@
 <h2 id="supplementary-file-requirements">Supplementary file requirements</h2>
 
 <ol>
-  <li><a href="https://raw.githubusercontent.com/reingart/pyfpdf/master/tools/pdflabels.py">Requires this code</a> in the same directory saved as <code class="highlighter-rouge">pdflabels.py</code>. If not found, the script automatically downloads and saves the file.</li>
-  <li>Requires a <code class="highlighter-rouge">*.csv</code> file with participant names and any information required if sampling should be blocked within groups (e.g., classroom id, student gender, student race or ethnicity)</li>
+  <li><a href="https://raw.githubusercontent.com/reingart/pyfpdf/master/tools/pdflabels.py">Requires this code</a> in the same directory saved as <code class="language-plaintext highlighter-rouge">pdflabels.py</code>. If not found, the script automatically downloads and saves the file.</li>
+  <li>Requires a <code class="language-plaintext highlighter-rouge">*.csv</code> file with participant names and any information required if sampling should be blocked within groups (e.g., classroom id, student gender, student race or ethnicity)</li>
 </ol>
 
 <h2 id="to-use">To Use</h2>
@@ -78,14 +78,14 @@
 
 <p>or, if you want to set the Python interpreter manually:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python&lt;3&gt; randomizelabel.py
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python&lt;3&gt; randomizelabel.py
 </code></pre></div></div>
 
 <p>Note that this script requires Python 3.x.</p>
 
 <h2 id="choose-task">Choose task</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------
 What do you want to do?
 -----------------------
 
@@ -98,11 +98,11 @@ CHOICE:
 
 <h2 id="1-randomize-and-make-labels">(1) Randomize and make labels</h2>
 
-<h3 id="locate-csv-file">Locate <code class="highlighter-rouge">*.csv</code> file</h3>
+<h3 id="locate-csv-file">Locate <code class="language-plaintext highlighter-rouge">*.csv</code> file</h3>
 
-<p>You will be prompted for the location of the <code class="highlighter-rouge">*.csv</code> file. The script will first search the local directory for all <code class="highlighter-rouge">*.csv</code> files and list them:</p>
+<p>You will be prompted for the location of the <code class="language-plaintext highlighter-rouge">*.csv</code> file. The script will first search the local directory for all <code class="language-plaintext highlighter-rouge">*.csv</code> files and list them:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
 Which CSV file contains the names of those to be randomized?
 ------------------------------------------------------------
 
@@ -111,26 +111,26 @@ Which CSV file contains the names of those to be randomized?
 
 CHOICE: 
 </code></pre></div></div>
-<p>If you place the names file in the same directory, you can just choose it from here. If you don’t, you should select the number for <code class="highlighter-rouge">File not in this directory</code>. You will then be prompted with:</p>
+<p>If you place the names file in the same directory, you can just choose it from here. If you don’t, you should select the number for <code class="language-plaintext highlighter-rouge">File not in this directory</code>. You will then be prompted with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please give path to CSV file:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please give path to CSV file:
 </code></pre></div></div>
 
 <p>You can give the full or relative paths. For example, each of the below should work:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/&lt;username&gt;/randomizelabel/fakeclasslist.csv
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/&lt;username&gt;/randomizelabel/fakeclasslist.csv
 ~/randomizelabel/fakeclasslist.csv
 ./randomizelabel/fakeclasslist.csv
 </code></pre></div></div>
 
 <h3 id="set-seed">Set seed</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Give integer seed of at least 6 digits:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Give integer seed of at least 6 digits:
 </code></pre></div></div>
-<p>This seed is saved as <code class="highlighter-rouge">seed.txt</code> in the working directory. If you lose all assignment files, but have the roster and seed, you should be able to reproduce the same assignments.</p>
+<p>This seed is saved as <code class="language-plaintext highlighter-rouge">seed.txt</code> in the working directory. If you lose all assignment files, but have the roster and seed, you should be able to reproduce the same assignments.</p>
 
 <h3 id="choose-primary-unit-of-randomization">Choose primary unit of randomization</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------
 Which column contains the randomization unit?
 ---------------------------------------------
 
@@ -145,7 +145,7 @@ CHOICE:
 <p><em>NB: Randomization unit column cannot contain duplicate values.</em></p>
 
 <h3 id="decide-if-you-want-to-block-randomize">Decide if you want to block randomize</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------
 Should random assignment be blocked?
 ------------------------------------
 
@@ -154,9 +154,9 @@ Should random assignment be blocked?
 
 CHOICE: 
 </code></pre></div></div>
-<p>If you choose <code class="highlighter-rouge">yes</code> then:</p>
+<p>If you choose <code class="language-plaintext highlighter-rouge">yes</code> then:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------
 On which column(s) do you wish to block?
 ----------------------------------------
 
@@ -172,9 +172,9 @@ On which column(s) do you wish to block?
 
 <h3 id="check-your-options">Check your options</h3>
 
-<p>To make that you get what you are expecting, the program will give you some descriptive information about your randomization choices. For example, if you chose to randomize on <code class="highlighter-rouge">id</code>, group on <code class="highlighter-rouge">classid</code>, and stratify across <code class="highlighter-rouge">gender</code> and <code class="highlighter-rouge">racecat</code>, you will see the following:</p>
+<p>To make that you get what you are expecting, the program will give you some descriptive information about your randomization choices. For example, if you chose to randomize on <code class="language-plaintext highlighter-rouge">id</code>, group on <code class="language-plaintext highlighter-rouge">classid</code>, and stratify across <code class="language-plaintext highlighter-rouge">gender</code> and <code class="language-plaintext highlighter-rouge">racecat</code>, you will see the following:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>================================================================================
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>================================================================================
 
 For the randomization unit: id
 
@@ -250,7 +250,7 @@ Unique values:
 
 <h3 id="decide-the-number-of-treatment-groups">Decide the number of treatment groups</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------------------------------------------------
 How many treatment conditions, excluding control?
 -------------------------------------------------
 
@@ -265,7 +265,7 @@ CHOICE:
 
 <h3 id="choose-the-type-of-labels">Choose the type of labels</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------------------
 Which labels will you use?
 --------------------------
 
@@ -284,7 +284,7 @@ CHOICE:
 
 <h3 id="choose-what-you-want-on-the-labels">Choose what you want on the labels</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
 What do you want on the printed labels?
 ---------------------------------------
 
@@ -297,9 +297,9 @@ What do you want on the printed labels?
 CHOICE: 
 </code></pre></div></div>
 
-<p>Separate multiple options with a space keeping in mind that the order matters. For example, <code class="highlighter-rouge">3 2 1</code>, would gives labels that showed:</p>
+<p>Separate multiple options with a space keeping in mind that the order matters. For example, <code class="language-plaintext highlighter-rouge">3 2 1</code>, would gives labels that showed:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;name&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;name&gt;
 &lt;id&gt;
 &lt;classid&gt;
 </code></pre></div></div>
@@ -309,11 +309,11 @@ CHOICE:
 <p>Two primary files are placed in the working directory:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">assignment.csv</code></li>
-  <li><code class="highlighter-rouge">assignmentlabels_*.pdf</code> sheets with the labels</li>
+  <li><code class="language-plaintext highlighter-rouge">assignment.csv</code></li>
+  <li><code class="language-plaintext highlighter-rouge">assignmentlabels_*.pdf</code> sheets with the labels</li>
 </ol>
 
-<h4 id="assignmentcsv"><code class="highlighter-rouge">assignment.csv</code></h4>
+<h4 id="assignmentcsv"><code class="language-plaintext highlighter-rouge">assignment.csv</code></h4>
 
 <p>Is a long file that contains, the randomization column and the treatment condition. Example:</p>
 
@@ -350,17 +350,17 @@ CHOICE:
 
 <p>For merging purposes, it’s probably a good idea to randomize using a uniquely identifiable variable.</p>
 
-<h4 id="assignmentlabels_csv"><code class="highlighter-rouge">assignmentlabels_*.csv</code></h4>
+<h4 id="assignmentlabels_csv"><code class="language-plaintext highlighter-rouge">assignmentlabels_*.csv</code></h4>
 
-<p>There will be one <code class="highlighter-rouge">*.pdf</code> for the labels for each experimental group. If you only have one treatment and one control, the you will have two files:</p>
+<p>There will be one <code class="language-plaintext highlighter-rouge">*.pdf</code> for the labels for each experimental group. If you only have one treatment and one control, the you will have two files:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T.csv
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T.csv
 assignmentlabels_C.csv
 </code></pre></div></div>
 
 <p>If you have, for example, two treatment groups and one control, you will have:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T1.csv
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignmentlabels_T1.csv
 assignmentlabels_T2.csv
 assignemntlabels_C.csv
 </code></pre></div></div>
@@ -371,7 +371,7 @@ assignemntlabels_C.csv
 
 <p>If you have already randomized your roster and want to reprint the labels, choose the second option from the first prompt. You will be asked:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------
 Which CSV file contains the roster?
 -----------------------------------
 
@@ -383,7 +383,7 @@ CHOICE:
 </code></pre></div></div>
 <p>which should be the original roster file, and,</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------
 Which CSV file contains the assignment?
 ---------------------------------------
 
@@ -393,13 +393,13 @@ Which CSV file contains the assignment?
 
 CHOICE: 
 </code></pre></div></div>
-<p>which should be the <code class="highlighter-rouge">assigment.csv</code> file generated the first time. These two files will be merged on the randomization column. After these steps, you will once again be asked to choose the types of labels and what you want printed on them.</p>
+<p>which should be the <code class="language-plaintext highlighter-rouge">assigment.csv</code> file generated the first time. These two files will be merged on the randomization column. After these steps, you will once again be asked to choose the types of labels and what you want printed on them.</p>
 
 <h3 id="adjustments-to-labels">Adjustments to labels</h3>
 
 <p>When reprinting labels, you will able to adjust the printing placement of the labels as well as the font size.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------
 Do you want to adjust label margins and/or font size?
 -----------------------------------------------------
 
@@ -408,13 +408,13 @@ Do you want to adjust label margins and/or font size?
 </code></pre></div></div>
 <p>If you say yes, you will get the following options:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please enter horizontal adjustment (negative number for left): 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please enter horizontal adjustment (negative number for left): 
 Please enter vertical adjustment (negative number for up):
 Please enter font size from 7 to 15 (default is 11):
 </code></pre></div></div>
 <p>Horizontal/vertical adjustments are additive. A positive number moves the labels to the right and down. Negative numbers are reverse the direction. Units are in millimeters.</p>
 
-<p>Font size must be one of the following options: <code class="highlighter-rouge">7, 8, 9, 10, 11, 12, 13, 14, 15</code>.</p>
+<p>Font size must be one of the following options: <code class="language-plaintext highlighter-rouge">7, 8, 9, 10, 11, 12, 13, 14, 15</code>.</p>
 
 <h2 id="acknowledgements">Acknowledgements</h2>
 <ul>

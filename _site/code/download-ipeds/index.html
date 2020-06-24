@@ -56,7 +56,7 @@ the data center.</p>
 <a href="https://nces.ed.gov/ipeds/Section/accessdatabase/">here</a>, but you
 need MS Access to open them and they only go back to 2007-2008.)</p>
 
-<p>Only those files listed in <code class="highlighter-rouge">ipeds_file_list.txt</code> will be
+<p>Only those files listed in <code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> will be
 downloaded. The default behavior is to download each of the following
 files into their own subdirectories:</p>
 
@@ -77,41 +77,41 @@ files into their own subdirectories:</p>
 <h1 id="important-note">IMPORTANT NOTE</h1>
 
 <p>The default behavior is to download <strong>ALL OF IPEDS</strong>. If you don’t
-want everything, modify <code class="highlighter-rouge">ipeds_file_list.txt</code> to include only those
+want everything, modify <code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> to include only those
 files that you want. Simply erase those you don’t want, keeping one
 file name per row or comment them out using a hash symbol (#). Since
 the downloading script ignores lines starting with hashes, you can add
 notes or better section headers to the file if you want.</p>
 
-<p>I try to keep <code class="highlighter-rouge">ipeds_file_list.txt</code> updated, but if I’ve missed a file
+<p>I try to keep <code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> updated, but if I’ve missed a file
 or haven’t updated in a while, just add the name of the file or files,
 one to a line. If you notice missing files, feel free to submit a pull
-request with an updated version of <code class="highlighter-rouge">ipeds_file_list.txt</code>.</p>
+request with an updated version of <code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code>.</p>
 
 <p>You also have the option of whether you wish to overwrite existing
-files.  If you do, change the <code class="highlighter-rouge">overwrite</code> option to <code class="highlighter-rouge">TRUE</code>. The
+files.  If you do, change the <code class="language-plaintext highlighter-rouge">overwrite</code> option to <code class="language-plaintext highlighter-rouge">TRUE</code>. The
 default behavior is to only download files listed in
-<code class="highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
+<code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
 
 <h1 id="to-run">To Run</h1>
 
-<p>For the default options, run the script <code class="highlighter-rouge">downloadipeds.R</code> as is. It
+<p>For the default options, run the script <code class="language-plaintext highlighter-rouge">downloadipeds.R</code> as is. It
 will create subdirectories as needed to store data and program
 files. You may wish to place the folder in its own directory. Just
-make sure that <code class="highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For
-example, let’s say you place both files in a directory called <code class="highlighter-rouge">ipeds</code>:</p>
+make sure that <code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> is in the same directory. For
+example, let’s say you place both files in a directory called <code class="language-plaintext highlighter-rouge">ipeds</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
 |__ ipeds_file_list.txt
 </code></pre></div></div>
 
 <p>If you run it with the default options, two new subdirectories will be
-created, one for the <code class="highlighter-rouge">data</code> files and one for the <code class="highlighter-rouge">dictionary</code>
+created, one for the <code class="language-plaintext highlighter-rouge">data</code> files and one for the <code class="language-plaintext highlighter-rouge">dictionary</code>
 files. Using the above example, your directory will look like this
 after it is finished:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./ipeds
 |__ downloadipeds.R
 |__ ipeds_file_list.txt
 |__ /data
@@ -126,10 +126,10 @@ after it is finished:</p>
 </code></pre></div></div>
 
 <p>To download other program scripts or Stata versions of the data,
-change the following commands in <code class="highlighter-rouge">downloadipeds.R</code> from <code class="highlighter-rouge">FALSE</code> to
-<code class="highlighter-rouge">TRUE</code>:</p>
+change the following commands in <code class="language-plaintext highlighter-rouge">downloadipeds.R</code> from <code class="language-plaintext highlighter-rouge">FALSE</code> to
+<code class="language-plaintext highlighter-rouge">TRUE</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
 ## CHOOSE WHAT YOU WANT (TRUE == Yes, FALSE == No)
 ## -----------------------------------------------------------------------------
 
@@ -149,9 +149,9 @@ prog_sas  = FALSE
 overwrite = FALSE
 </code></pre></div></div>
 
-<p>To change output directory, modify <code class="highlighter-rouge">out_dir</code> (default is the current directory):</p>
+<p>To change output directory, modify <code class="language-plaintext highlighter-rouge">out_dir</code> (default is the current directory):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -----------------------------------------------------------------------------
 ## CHOOSE OUTPUT DIRECTORY (DEFAULT == '.', which is current directory)
 ## -----------------------------------------------------------------------------
 
@@ -162,7 +162,7 @@ out_dir = '.'
 <h1 id="data-size">Data size</h1>
 
 <p>As of 2 December 2019, downloading all IPEDS files (setting all
-options to <code class="highlighter-rouge">TRUE</code>) requires approximately 2.22 GB of disk
+options to <code class="language-plaintext highlighter-rouge">TRUE</code>) requires approximately 2.22 GB of disk
 space. Granted, you probably don’t need both regular and Stata
 versions of the data files (which are the bulk of the directory
 size). Here are the approximate subdirectory file sizes if you
@@ -177,27 +177,27 @@ download all data files from all years:</p>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./data</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./data</code></td>
       <td style="text-align: center">1.07 GB</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./dictionary</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./dictionary</code></td>
       <td style="text-align: center">30.4 MB</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./sas_prog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./sas_prog</code></td>
       <td style="text-align: center">6.1 MB</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./spss_prog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./spss_prog</code></td>
       <td style="text-align: center">19.5 MB</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./stata_data</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./stata_data</code></td>
       <td style="text-align: center">1.09 GB</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">./stata_prog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./stata_prog</code></td>
       <td style="text-align: center">6.5 MB</td>
     </tr>
   </tbody>

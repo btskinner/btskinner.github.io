@@ -39,7 +39,125 @@
     
     <p>Use if you have a matrix that has been stored as as CSV file and want to reformat it so that it can be used as the content of a TeX table.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre>################################################################################
+##
+## CONVERT CSV MATRIX TO TEX FORMAT
+## Benjamin Skinner
+##
+################################################################################
+
+## PURPOSE
+
+## If you have a matrix that has been stored as as csv file, e.g.,
+
+## col1,col2,col3
+## 1,a,2
+## 3,b,4
+## 5,c,7
+
+## and want to convert it to the content of a TeX table, e.g.,
+
+## col1 &amp; col2 &amp; col3 \\
+## 1 &amp; a &amp; 2 \\
+## (3) &amp; (b) &amp; (4) \\
+## 5 &amp; c &amp; 7 \\
+
+## that can be wrapped within table/tabular environments, this function
+## allows you to:
+
+## choose the csv file
+## decide if you want to keep the header
+## decide how much you want to round the cells (if any)
+## decide which row cells to add parentheses to (e.g., standard errors)
+## add rownames
+## add asterisks to lines at which you don&#39;t want a page break
+## add hlines (or booktabs midrule lines if using booktabs package)
+
+csv2tex &lt;- function(csvfile, header = FALSE, rounding = NULL,
+                    parenrows = NULL, rnames = NULL, hlines = NULL,
+                    btmidrule = NULL, nobreaks = NULL) {
+
+    ## read the csv as lines
+    foo &lt;- readLines(csvfile)
+
+    ## drop the header line (assumes yes)
+    if (!header) {
+        foo &lt;- foo[-1]
+    }
+
+    ## clean each line
+    foo &lt;- unlist(lapply(foo, function(x) {
+
+        ## split row by comma
+        x &lt;- strsplit(x, split = &#39;,&#39;)
+
+        ## convert each element to numeric so can be rounded
+        x &lt;- sapply(x, function(xx) {
+            xx &lt;- as.numeric(xx)
+            if(!is.null(rounding)) {
+                xx &lt;- round(xx, rounding)
+            }
+            xx &lt;- as.character(xx)
+        })
+
+        ## paste back together with &amp; between
+        x &lt;- paste(x, collapse = &#39;&amp;&#39;)
+
+    }))
+
+    ## add parentheses to selected rows (if any)
+    if (!is.null(parenrows)) {
+        for (r in parenrows) {
+            foo[r] &lt;- strsplit(foo[r], split = &#39;&amp;&#39;)
+            foo[[r]] &lt;- gsub(&#39;(.*)&#39;, &#39;(\\1)&#39;, foo[[r]])
+            foo[[r]] &lt;- gsub(&#39;\\(NA\\)&#39;, &#39; &#39;, foo[[r]])
+            foo[[r]] &lt;- paste(foo[[r]], collapse = &#39;&amp;&#39;)
+            foo &lt;- unlist(foo)
+        }
+    }
+
+    ## clean out NA
+    foo &lt;- unlist(lapply(foo, function(x) {gsub(&#39;NA&#39;, &#39; &#39;, x)}))
+
+    ## add rownames (if any)
+    if (!is.null(rownames)) {
+        for (n in 1:length(rnames)) {
+            foo[n] &lt;- gsub(&#39;(.*)&#39;, paste(rnames[n], &#39;\\1&#39;, sep = &#39;&amp;&#39;), foo[n])
+        }
+    }
+
+    ## add \\\\ to the end of each line
+    foo &lt;- unlist(lapply(foo, function(x) paste0(x, &#39;\\\\&#39;)))
+
+    ## try to control page breaks
+    if (!is.null(nobreaks)) {
+
+        ## append * to end of line
+        for (nb in nobreaks) {
+            foo[nb] &lt;- gsub(&#39;(.*)&#39;, &#39;\\1*&#39;, foo[nb])
+        }
+    }
+
+    ## add horizontal lines (if any wanted)
+    if (!is.null(hlines) | !is.null(btmidrule)) {
+
+        ## append hlines after rows selected
+        for (hl in hlines) {
+            foo &lt;- append(foo, &#39;\\hline&#39;, hl)
+        }
+        ## append midrule after rows selected
+        for (mr in btmidrule) {
+            foo &lt;- append(foo, &#39;\\midrule&#39;, mr)
+        }
+    }
+
+    ## return
+    return(foo)
+
+}
+
+## returned object can used within knitr chuck using writeLines() or
+## saved to a file using the same command.
 </pre></noscript>
 <script src="https://gist.github.com/c0456e163483699ff36c.js"> </script>
 
