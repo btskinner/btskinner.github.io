@@ -43,12 +43,12 @@ arguments. Initally, I just rolled with the changes since was I still
 able to set up OpenBLAS support. But after a helpful email exchange
 with <a href="https://luispuerto.net">Luis Puerto</a> in which he pointed out
 that the standard (and now optionless) Homebrew R did not have full
-<code class="highlighter-rouge">capabilities()</code>, I’ve updated this post. I broadly follow his
+<code class="language-plaintext highlighter-rouge">capabilities()</code>, I’ve updated this post. I broadly follow his
 process, which can be found
 <a href="https://luispuerto.net/blog/2018/05/11/homebrews-r-doesnt-have-all-the-capabilities/">here</a>
 and
 <a href="https://luispuerto.net/blog/2018/05/11/installing-r-with-homebrew-with-all-the-capabilities/">here</a>,
-but with the addition of my <code class="highlighter-rouge">Makevars</code> and <code class="highlighter-rouge">.Renviron</code> files. For
+but with the addition of my <code class="language-plaintext highlighter-rouge">Makevars</code> and <code class="language-plaintext highlighter-rouge">.Renviron</code> files. For
 reference, the obsolete version of these instructions can be found
 <a href="/code/install-r-with-openblas-and-openmp-on-macos-mojave-old/">here</a>.</em></p>
 
@@ -63,7 +63,7 @@ cores</a>).</p>
 <p>While the Clang compilers shipped with R finally support OpenMP for
 parallel processing, <a href="https://iscinumpy.gitlab.io/post/omp-on-high-sierra/">they require their own unique
 flags</a>. The GNU
-family of compilers (<code class="highlighter-rouge">gcc</code>, <code class="highlighter-rouge">g++</code>, etc) don’t play nice with all R
+family of compilers (<code class="language-plaintext highlighter-rouge">gcc</code>, <code class="language-plaintext highlighter-rouge">g++</code>, etc) don’t play nice with all R
 packages when building them from source. I figured both out the hard way.</p>
 
 <p>To get R to work with both OpenMP (after compiling with OpenBLAS)
@@ -87,25 +87,25 @@ default behavior, so keep that in mind if you decide to go this route.</p>
 <ul>
   <li>XCode</li>
   <li>Homebrew</li>
-  <li><code class="highlighter-rouge">~/.R/Makevars</code></li>
-  <li><code class="highlighter-rouge">~/.Renviron</code></li>
+  <li><code class="language-plaintext highlighter-rouge">~/.R/Makevars</code></li>
+  <li><code class="language-plaintext highlighter-rouge">~/.Renviron</code></li>
 </ul>
 
 <h3 id="xcode">XCode</h3>
 
 <ol>
   <li>Install Command Line Tools through XCode</li>
-  <li>You may need to type <code class="highlighter-rouge">xcode-select --install</code> in the terminal after installation,
+  <li>You may need to type <code class="language-plaintext highlighter-rouge">xcode-select --install</code> in the terminal after installation,
 but I got this message which makes me believe this is no longer necessary:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Figure out where your <a href="https://apple.stackexchange.com/questions/337940">missing header
   files</a> are
   located on your machine. Since 10.14, installing the Command Line
-  Tools doesn’t place necessary header files (<em>e.g.</em>, <code class="highlighter-rouge">math.h</code>) in
-  the <code class="highlighter-rouge">/usr/include</code> directory, where they have historically been
+  Tools doesn’t place necessary header files (<em>e.g.</em>, <code class="language-plaintext highlighter-rouge">math.h</code>) in
+  the <code class="language-plaintext highlighter-rouge">/usr/include</code> directory, where they have historically been
   and R still looks for them when you build from source. They are
   instead kept within Xcode.app.</p>
 
@@ -113,24 +113,24 @@ but I got this message which makes me believe this is no longer necessary:
 
     <ol>
       <li>At the time of this post (August 2019), you can still just
-  copy the header files to <code class="highlighter-rouge">/usr/include</code> using <a href="https://apple.stackexchange.com/a/337945">this
+  copy the header files to <code class="language-plaintext highlighter-rouge">/usr/include</code> using <a href="https://apple.stackexchange.com/a/337945">this
   process</a>. Specifically:
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
 </code></pre></div>        </div>
         <p>I don’t know that this approach will continue to work with future
   Apple updates, but it’s necessary at the moment.</p>
       </li>
       <li>Figure out the path to the SDK headers using the following
   command:
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  xcrun --show-sdk-path
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  xcrun --show-sdk-path
 </code></pre></div>        </div>
         <p>On my machine, the path is</p>
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
 </code></pre></div>        </div>
         <p>This is the standard path at the moment and so should be the same
   on your machine unless you’ve installed Xcode in a non-standard
   location. Take note of this path because we’ll add it to our
-  <code class="highlighter-rouge">Makevars</code> file.</p>
+  <code class="language-plaintext highlighter-rouge">Makevars</code> file.</p>
       </li>
     </ol>
   </li>
@@ -140,36 +140,36 @@ but I got this message which makes me believe this is no longer necessary:
 
 <ol>
   <li>Install <a href="https://brew.sh">Homebrew</a></li>
-  <li><code class="highlighter-rouge">brew install</code> some apps/libraries from homebrew-core:
+  <li><code class="language-plaintext highlighter-rouge">brew install</code> some apps/libraries from homebrew-core:
     <ul>
-      <li><code class="highlighter-rouge">brew cask install xquartz</code></li>
-      <li><code class="highlighter-rouge">brew cask install adoptopenjdk</code>
+      <li><code class="language-plaintext highlighter-rouge">brew cask install xquartz</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew cask install adoptopenjdk</code>
         <ul>
-          <li><strong>NOTE</strong>: You can also choose <code class="highlighter-rouge">oracle-jdk</code> or not to install
+          <li><strong>NOTE</strong>: You can also choose <code class="language-plaintext highlighter-rouge">oracle-jdk</code> or not to install
 Java at all; if you choose not to install Java, then drop
-the <code class="highlighter-rouge">--with-java</code> flag when installing R</li>
+the <code class="language-plaintext highlighter-rouge">--with-java</code> flag when installing R</li>
         </ul>
       </li>
-      <li><code class="highlighter-rouge">brew install openblas</code></li>
-      <li><code class="highlighter-rouge">brew install llvm</code></li>
-      <li><code class="highlighter-rouge">brew install ccache</code></li>
-      <li><code class="highlighter-rouge">brew install gcc</code> (should already install with <code class="highlighter-rouge">llvm</code>)</li>
-      <li><code class="highlighter-rouge">brew install libomp</code></li>
-      <li><code class="highlighter-rouge">brew install libgit2</code></li>
-      <li><code class="highlighter-rouge">brew install openssl</code> (should already install with <code class="highlighter-rouge">libgit2</code>)</li>
-      <li><code class="highlighter-rouge">brew install gettext</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install openblas</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install llvm</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install ccache</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install gcc</code> (should already install with <code class="language-plaintext highlighter-rouge">llvm</code>)</li>
+      <li><code class="language-plaintext highlighter-rouge">brew install libomp</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install libgit2</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install openssl</code> (should already install with <code class="language-plaintext highlighter-rouge">libgit2</code>)</li>
+      <li><code class="language-plaintext highlighter-rouge">brew install gettext</code></li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">brew install</code> some <strong>optional</strong> libraries from homebrew-core
+  <li><code class="language-plaintext highlighter-rouge">brew install</code> some <strong>optional</strong> libraries from homebrew-core
     <ul>
       <li><strong>Note</strong>: Some of these are dependencies of others so you may
 get messages saying a library is already installed, which is fine):</li>
-      <li><code class="highlighter-rouge">brew install liblwgeom</code></li>
-      <li><code class="highlighter-rouge">brew install gdal</code></li>
-      <li><code class="highlighter-rouge">brew install geos</code></li>
-      <li><code class="highlighter-rouge">brew install proj</code></li>
-      <li><code class="highlighter-rouge">brew install udunits</code></li>
-      <li><code class="highlighter-rouge">brew install qt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install liblwgeom</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install gdal</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install geos</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install proj</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install udunits</code></li>
+      <li><code class="language-plaintext highlighter-rouge">brew install qt</code></li>
     </ul>
 
     <p>Many R packages look for these libraries on your system if built
@@ -185,26 +185,26 @@ get messages saying a library is already installed, which is fine):</li>
  versions provided by homebrew-core.</p>
   </li>
   <li>Add <a href="https://github.com/sethrfore/homebrew-r-srf">Seth Fore R tap</a>:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew tap sethrfore/r-srf
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew tap sethrfore/r-srf
 </code></pre></div>    </div>
   </li>
-  <li><code class="highlighter-rouge">brew reinstall</code> Cairo from <code class="highlighter-rouge">sethrfore/r-srf</code> tap (you must
-<code class="highlighter-rouge">reinstall</code> since the Homebrew-core version of Cairo is already
+  <li><code class="language-plaintext highlighter-rouge">brew reinstall</code> Cairo from <code class="language-plaintext highlighter-rouge">sethrfore/r-srf</code> tap (you must
+<code class="language-plaintext highlighter-rouge">reinstall</code> since the Homebrew-core version of Cairo is already
 installed as a dependency above):
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew reinstall sethrfore/r-srf/cairo
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew reinstall sethrfore/r-srf/cairo
 </code></pre></div>    </div>
     <p><strong>NOTE</strong> You need to install Cairo from this tap if you want to
  have X11 support.</p>
 
-    <p>Now install R using from <code class="highlighter-rouge">sethrfore/r-srf</code> with additional arguments:</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew install sethrfore/r-srf/r --with-openblas --with-java --with-cairo --with-libtiff
+    <p>Now install R using from <code class="language-plaintext highlighter-rouge">sethrfore/r-srf</code> with additional arguments:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew install sethrfore/r-srf/r --with-openblas --with-java --with-cairo --with-libtiff
 </code></pre></div>    </div>
   </li>
 </ol>
 
 <p>If everything has gone well, you should be able to open up R and see
-the following when you run <code class="highlighter-rouge">capabilities()</code> (<em>i.e.</em>, all <code class="highlighter-rouge">TRUE</code>):</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; capabilities()
+the following when you run <code class="language-plaintext highlighter-rouge">capabilities()</code> (<em>i.e.</em>, all <code class="language-plaintext highlighter-rouge">TRUE</code>):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; capabilities()
        jpeg         png        tiff       tcltk         X11        aqua 
        TRUE        TRUE        TRUE        TRUE        TRUE        TRUE 
    http/ftp     sockets      libxml        fifo      cledit       iconv 
@@ -214,20 +214,24 @@ the following when you run <code class="highlighter-rouge">capabilities()</code>
 </code></pre></div></div>
 <h3 id="set-up-renviron-and-rmakevars">Set up ~/.Renviron and ~/.R/Makevars</h3>
 
-<p>Create <code class="highlighter-rouge">.Renviron</code> in home directory (<code class="highlighter-rouge">~</code>) and <code class="highlighter-rouge">Makevars</code> file in
-<code class="highlighter-rouge">~/.R</code> directory that looks like the files below. <strong>This step is
+<p>Create <code class="language-plaintext highlighter-rouge">.Renviron</code> in home directory (<code class="language-plaintext highlighter-rouge">~</code>) and <code class="language-plaintext highlighter-rouge">Makevars</code> file in
+<code class="language-plaintext highlighter-rouge">~/.R</code> directory that looks like the files below. <strong>This step is
 important.</strong> If you don’t add these files, you’ll not be able to
 install packages since they won’t be able to find the system libraries
 they need.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre># ---------
+# .Renviron
+# ---------
+
+PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig
 </pre></noscript>
 <script src="https://gist.github.com/98f0501ceb21e1c8e7ff9dbaa5bf7b96.js"> </script>
 
 <h2 id="install-packages">Install packages</h2>
 
-<p>Open R and install packages like normal using <code class="highlighter-rouge">install.packages()</code>. I
-would recommend using the option, <code class="highlighter-rouge">dependencies = TRUE</code>, if you want
+<p>Open R and install packages like normal using <code class="language-plaintext highlighter-rouge">install.packages()</code>. I
+would recommend using the option, <code class="language-plaintext highlighter-rouge">dependencies = TRUE</code>, if you want
 to make sure everything is compiled correctly.</p>
 
 <p>I have successfully installed the following packages (and their

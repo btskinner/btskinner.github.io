@@ -40,10 +40,10 @@
         <p class="post-meta">
         <a href="https://github.com/btskinner/rscorecard" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
         &nbsp;
-        <a href="https://github.com/btskinner/rscorecard/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+        <a href="https://github.com/btskinner/rscorecard/archive/main.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
 	&nbsp;
-        <a href="https://www.btskinner.me/rscorecard" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
+        <a href="https://www.btskinner.io/rscorecard" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
 	
     
     
@@ -58,18 +58,18 @@ release" /></a>
 <p>This package is an R wrapper for the <a href="https://collegescorecard.ed.gov">U.S. Department of Education
 College Scorecard</a> API. It allows users
 to select and filter Scorecard variables with piped commands a la
-<a href="http://github.com/hadley/dplyr"><code class="highlighter-rouge">dplyr</code></a>.</p>
+<a href="http://github.com/hadley/dplyr"><code class="language-plaintext highlighter-rouge">dplyr</code></a>.</p>
 
 <h2 id="installation">Installation</h2>
 
 <p>Install the latest released version from CRAN with</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install.packages('rscorecard')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install.packages("rscorecard")
 </code></pre></div></div>
 
 <p>Install the latest development version from Github with</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/rscorecard')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github("btskinner/rscorecard")
 </code></pre></div></div>
 
 <p>This package relies on the Scorecard data dictionary, so I will attempt
@@ -84,15 +84,15 @@ immediately following a data update.</p>
 
 <p>Get your Data.gov API key at <a href="https://api.data.gov/signup/">https://api.data.gov/signup/</a>. Save your
 key in your R environment at the start of your R session using
-<code class="highlighter-rouge">sc_key()</code>:</p>
+<code class="language-plaintext highlighter-rouge">sc_key()</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## use your real key in place of the Xs
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## use your real key in place of the Xs
 sc_key('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 </code></pre></div></div>
 
 <h3 id="request-data">Request data</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(rscorecard)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(rscorecard)
 
 df &lt;- sc_init() %&gt;% 
     sc_filter(region == 2, ccbasic == c(21,22,23), locale == 41:43) %&gt;% 
@@ -121,10 +121,10 @@ vignette</a>.</p>
 
 <h3 id="data-dictionary">Data dictionary</h3>
 
-<p>To look up information about data elements, use the <code class="highlighter-rouge">sc_dict()</code>
+<p>To look up information about data elements, use the <code class="language-plaintext highlighter-rouge">sc_dict()</code>
 function.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sc_dict('control')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sc_dict("control")
 
 ## 
 ## ---------------------------------------------------------------------

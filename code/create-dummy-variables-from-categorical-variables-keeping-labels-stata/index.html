@@ -37,7 +37,7 @@
     <h1 class="post-header">Create dummy variables from categorical variables while keeping labels</h1>
     
     
-    <p>Sometimes we want dummy variables but instead have categorical variables. While it’s no big deal to create dummy variables from categorical variables, relabeling those dummies can be a total pain if there are a lot of them. This code allows you to insert categorical variables in the local <code class="highlighter-rouge">makedummy</code> and have them:</p>
+    <p>Sometimes we want dummy variables but instead have categorical variables. While it’s no big deal to create dummy variables from categorical variables, relabeling those dummies can be a total pain if there are a lot of them. This code allows you to insert categorical variables in the local <code class="language-plaintext highlighter-rouge">makedummy</code> and have them:</p>
 
 <ol>
   <li>turned into dummies that</li>
@@ -46,7 +46,79 @@
 
 <p>It is robust to categorical variables, whether they start at 0 or 1.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre>// STATA CODE SNIPPET TO MAKE DUMMY VARIABLES FROM CATEGORICAL
+// VARIABLES WHILE RETAINING VALUE LABELS
+
+// Benjamin Skinner
+// Vanderbilt University
+
+
+// PURPOSE
+
+// Sometimes we want dummy variables but instead have categorical
+// variables. While it&#39;s no big deal to create dummy variables from
+// categorical variables, relabeling those dummies can be a total pain
+// if there are a lot of them. This code allows you to insert
+// categorical variables in the local `makedummy&#39; and have them
+
+// (1) turned into dummies that
+// (2) retain their variable and value label.
+
+// It is robust to categorical variables, whether they start at 0 or 1.
+
+
+// BEGIN CODE SNIPPET
+    
+// dummy for categorical variables
+#delimit;
+local makedummy
+// place categorical vars here
+
+;
+#delimit cr
+
+local i = 1
+
+foreach var of local makedummy {
+    // get overall label
+    local l`var&#39; : variable label `var&#39;
+    // get all values for var
+    levelsof `var&#39;, local(`var&#39;_levels)
+    // need for later
+    local frst = substr(&quot;`r(levels)&#39;&quot;,1,1)
+    // store values individually
+    foreach val of local `var&#39;_levels {
+        local `var&#39;vl`val&#39; : label `var&#39; `val&#39;
+    }
+    // create dummies from var
+    tab `var&#39;, gen(d`var&#39;)
+    // for each new dummy ...
+    foreach dum of varlist d`var&#39;* {
+        local num = substr(&quot;`dum&#39;&quot;,-1,1)
+        foreach value of local `var&#39;_levels {
+            // if 0/1 binary or cat. that starts with 0
+            if `frst&#39; == 0 {
+                // label new dummy with old value
+                if `num&#39; == `value&#39; + 1 {
+                    label variable `dum&#39; &quot;`l`var&#39;&#39; - ``var&#39;vl`value&#39;&#39;&quot;
+                }
+            }
+            // if 1/2 binary or cat. that starts with 1
+            if `frst&#39; == 1 {
+                // label new dummy with old value
+                if `num&#39; == `value&#39; {
+                    label variable `dum&#39; &quot;`l`var&#39;&#39; - ``var&#39;vl`value&#39;&#39;&quot;
+                }
+            }
+        }
+        // add dummy var name to local
+        local dumvarlist `dumvarlist&#39; `dum&#39;
+    }
+}
+
+describe `dumvarlist&#39;
+
+// END CODE SNIPPET
 </pre></noscript>
 <script src="https://gist.github.com/869b3658230cc3661c2c.js"> </script>
 

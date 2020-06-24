@@ -54,33 +54,33 @@ based on R’s <a href="https://testthat.r-lib.org">testthat</a> package /
 process. The idea is basically the same:</p>
 
 <ol>
-  <li>For every command, create a file called <code class="highlighter-rouge">test-*.do</code> where <code class="highlighter-rouge">*</code> is
-the name of the function: <em>e.g.</em>, <code class="highlighter-rouge">test-my_command.do</code>. Store all
+  <li>For every command, create a file called <code class="language-plaintext highlighter-rouge">test-*.do</code> where <code class="language-plaintext highlighter-rouge">*</code> is
+the name of the function: <em>e.g.</em>, <code class="language-plaintext highlighter-rouge">test-my_command.do</code>. Store all
 these files in a single directory.</li>
-  <li>Within each <code class="highlighter-rouge">test-*.do</code> file, use the twin helper commands,
-<code class="highlighter-rouge">test_command</code> and <code class="highlighter-rouge">test_assert</code> to first run your command and then
-test the results with <code class="highlighter-rouge">assert</code>-like expressions.</li>
-  <li>Batch process all <code class="highlighter-rouge">test-*.do</code> scripts using <code class="highlighter-rouge">run_tests</code> in a
+  <li>Within each <code class="language-plaintext highlighter-rouge">test-*.do</code> file, use the twin helper commands,
+<code class="language-plaintext highlighter-rouge">test_command</code> and <code class="language-plaintext highlighter-rouge">test_assert</code> to first run your command and then
+test the results with <code class="language-plaintext highlighter-rouge">assert</code>-like expressions.</li>
+  <li>Batch process all <code class="language-plaintext highlighter-rouge">test-*.do</code> scripts using <code class="language-plaintext highlighter-rouge">run_tests</code> in a
 primary test script. Results from passed and failed tests will be
 printed in a nice fashion in the results window. If the
-<code class="highlighter-rouge">stopiferror</code> option is used, errors will halt the test script and
+<code class="language-plaintext highlighter-rouge">stopiferror</code> option is used, errors will halt the test script and
 the problem can be investigated.</li>
 </ol>
 
 <p>More information about these commands and an outline of an example
-process are below. These commands are not part of a proper <code class="highlighter-rouge">ado</code> file,
-but rather should just be <code class="highlighter-rouge">run</code> or <code class="highlighter-rouge">include</code>d at the top of the
+process are below. These commands are not part of a proper <code class="language-plaintext highlighter-rouge">ado</code> file,
+but rather should just be <code class="language-plaintext highlighter-rouge">run</code> or <code class="language-plaintext highlighter-rouge">include</code>d at the top of the
 testing script. Someone more adept with writing Stata programs can
 definitely improve on them.</p>
 
 <h2 id="helper-functions">Helper functions</h2>
 
-<p>The following helper functions are found in <code class="highlighter-rouge">test_commands.do</code>. Simply
-<code class="highlighter-rouge">include</code> the script to use them.</p>
+<p>The following helper functions are found in <code class="language-plaintext highlighter-rouge">test_commands.do</code>. Simply
+<code class="language-plaintext highlighter-rouge">include</code> the script to use them.</p>
 
-<h4 id="test_command"><code class="highlighter-rouge">test_command</code></h4>
+<h4 id="test_command"><code class="language-plaintext highlighter-rouge">test_command</code></h4>
 
-<p>Use <code class="highlighter-rouge">test_command</code> just before your user-written command. It is a
+<p>Use <code class="language-plaintext highlighter-rouge">test_command</code> just before your user-written command. It is a
 simple wrapper that displays a message before running your command as
 if you had typed it directly.</p>
 
@@ -95,9 +95,9 @@ if you had typed it directly.</p>
 VALIDATING: my_command x y, gen(z)
 </code></pre>
 
-<h4 id="test_assert"><code class="highlighter-rouge">test_assert</code></h4>
+<h4 id="test_assert"><code class="language-plaintext highlighter-rouge">test_assert</code></h4>
 
-<p>After running your command, use <code class="highlighter-rouge">test_assert</code> to see that your command
+<p>After running your command, use <code class="language-plaintext highlighter-rouge">test_assert</code> to see that your command
 worked as expected.</p>
 
 <p><strong>USAGE</strong></p>
@@ -106,8 +106,8 @@ worked as expected.</p>
 
 <p>The first argument is a string that should be an informative message
 about your test. The second argument should be an expression like you
-would use with Stata’s <code class="highlighter-rouge">assert</code> command. In fact, <code class="highlighter-rouge">test_assert</code> is
-just a wrapper for the <code class="highlighter-rouge">assert</code> command that displays cleaner output
+would use with Stata’s <code class="language-plaintext highlighter-rouge">assert</code> command. In fact, <code class="language-plaintext highlighter-rouge">test_assert</code> is
+just a wrapper for the <code class="language-plaintext highlighter-rouge">assert</code> command that displays cleaner output
 and by default captures error codes rather than halting.</p>
 
 <p><strong>EXAMPLE</strong></p>
@@ -122,10 +122,10 @@ and by default captures error codes rather than halting.</p>
 expression you used, which should be helpful in tracking down the
 bug.</p>
 
-<h4 id="run_tests"><code class="highlighter-rouge">run_tests</code></h4>
+<h4 id="run_tests"><code class="language-plaintext highlighter-rouge">run_tests</code></h4>
 
-<p>Run all tests by calling <code class="highlighter-rouge">run_tests</code> from a separate do file. If you
-add the <code class="highlighter-rouge">stopiferror</code> option, then Stata will halt if a test
+<p>Run all tests by calling <code class="language-plaintext highlighter-rouge">run_tests</code> from a separate do file. If you
+add the <code class="language-plaintext highlighter-rouge">stopiferror</code> option, then Stata will halt if a test
 fails. Otherwise, the font color and output will change as noted
 above, but Stata will not stop.</p>
 
@@ -135,13 +135,13 @@ above, but Stata will not stop.</p>
 
 <h2 id="example-process">Example process</h2>
 
-<p>See the scripts in the <code class="highlighter-rouge">example</code> directory for an example testing
+<p>See the scripts in the <code class="language-plaintext highlighter-rouge">example</code> directory for an example testing
 process. The user-written command converts a school system-specific
 term code into a four-digit year. Two versions of the code are
 included: one that is correct and one that has a bug (indicated with
-<code class="highlighter-rouge">_bug</code> at the end of the file name). Normally, the buggy version of
+<code class="language-plaintext highlighter-rouge">_bug</code> at the end of the file name). Normally, the buggy version of
 the command would be overwritten by the patched version, but both are
-included so you can see how <code class="highlighter-rouge">run_tests</code> handles both passing and
+included so you can see how <code class="language-plaintext highlighter-rouge">run_tests</code> handles both passing and
 failing tests.</p>
 
 <p>To run:</p>
@@ -155,11 +155,11 @@ do tests
 
 <h2 id="templates">Templates</h2>
 
-<p>The <code class="highlighter-rouge">template</code> directory has two template files:</p>
+<p>The <code class="language-plaintext highlighter-rouge">template</code> directory has two template files:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">test-example.do</code></li>
-  <li><code class="highlighter-rouge">tests.do</code></li>
+  <li><code class="language-plaintext highlighter-rouge">test-example.do</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tests.do</code></li>
 </ol>
 
 <p>These can be used to build command-specific test files and the main

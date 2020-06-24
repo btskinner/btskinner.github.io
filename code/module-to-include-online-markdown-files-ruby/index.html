@@ -37,9 +37,33 @@
     <h1 class="post-header">Module to include online markdown files in Jekyll site</h1>
     
     
-    <p>This ruby module is a <a href="https://gist.github.com/mignev/7759676">fork from another module</a> that allowed one to include markdown files located in the <code class="highlighter-rouge">_includes</code> folder. My modification allows online markdown code to be included. I use it to include my GitHub-hosted README files in my code posts since there’s no point in saving them in two locations (as well as risk having them diverge over time). Place this script in the <code class="highlighter-rouge">_plugins</code> folder of the Jekyll site directory.</p>
+    <p>This ruby module is a <a href="https://gist.github.com/mignev/7759676">fork from another module</a> that allowed one to include markdown files located in the <code class="language-plaintext highlighter-rouge">_includes</code> folder. My modification allows online markdown code to be included. I use it to include my GitHub-hosted README files in my code posts since there’s no point in saving them in two locations (as well as risk having them diverge over time). Place this script in the <code class="language-plaintext highlighter-rouge">_plugins</code> folder of the Jekyll site directory.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre>=begin
+  Tag to include markdown text from linked file (e.g. Github README.md)
+  Usage:
+    {% linkmarkdown &lt;filename&gt; %}
+=end
+
+require &#39;open-uri&#39;
+
+module Jekyll
+  class MarkdownTag &lt; Liquid::Tag
+    def initialize(tag_name, url, tokens)
+      super
+      @url = url.strip
+    end
+    def render(context)
+      contents = URI.open(@url, &amp;:read)
+      site = context.registers[:site]
+      converter = Jekyll::Converters::Markdown::KramdownParser.new(site.config)
+      contents = (Liquid::Template.parse contents).render site.site_payload
+      html = converter.convert(contents)
+    end
+  end
+end
+
+Liquid::Template.register_tag(&#39;linkmarkdown&#39;, Jekyll::MarkdownTag)
 </pre></noscript>
 <script src="https://gist.github.com/4dbe92f204bee43e82c2.js"> </script>
 

@@ -46,7 +46,177 @@
 
 <p>The code assumes you’ve downloaded the zipped files you will need from the <a href="http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx">IPEDS datacenter</a> and placed this code in the same directory.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre>################################################################################
+##
+## COMBINE IPEDS DATASETS INTO A SINGLE WORKING DATASET
+## Benjamin Skinner
+##
+################################################################################
+
+## PURPOSE
+
+## The purpose of this file is automate the process of:
+##
+## (1) combining yearly versions of IPEDS survey files (e.g.,
+##     HD2010.csv, HD2011.csv)
+## (2) combining datasets created in (1) into a single master dataset
+##
+## This file assumes you&#39;ve downloaded the zipped files you will need
+## from http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx and placed
+## this file (or file that runs this code) in the same directory.
+
+## ORDER OF CODE - do not change
+
+## (1) Functions
+## (2) Build datasets (your code goes here)
+## (3) Merge datasets
+## (4) Output
+
+## clear memory
+rm(list=ls())
+
+################################################################################
+## FUNCTIONS
+################################################################################
+
+## unzip function (modified) from
+## http://stackoverflow.com/questions/8986818/automate-zip-file-reading-in-r
+read.zip &lt;- function(zipfile) {
+    # Create a name for the dir where we&#39;ll unzip
+    zipdir &lt;- tempfile()
+    # Create the dir using that name
+    dir.create(zipdir)
+    # Unzip the file into the dir
+    unzip(zipfile, exdir=zipdir)
+    # Get the files into the dir
+    files &lt;- list.files(zipdir, recursive = TRUE)
+    # Chose rv file if more than two
+    if(length(files)&gt;1) {
+        file &lt;- grep(&quot;*_rv.csv&quot;, files, value = TRUE)
+    } else {
+        file &lt;- files[1]
+    }
+    # Get the full name of the file
+    file &lt;- paste(zipdir, file, sep=&quot;/&quot;)
+    # Read the file
+    read.csv(file, header=TRUE)
+}
+
+## combine IPEDS yearly files into single file
+build.dataset &lt;- function(regexzip, conditions = NULL, vars = NULL) {
+    ## bring in list of zip files
+    zfiles &lt;- sort(grep(regexzip, list.files(), value = TRUE))
+    ## loop through files
+    for (i in 1:length(zfiles)) {
+        ## unzip data with read.zip function
+        data &lt;- read.zip(zfiles[i])
+        ## lower variable names in dataset
+        names(data) &lt;- tolower(names(data))
+        ## subset data based on conditions
+        if (!is.null(conditions)) {
+            cond &lt;- eval(parse(text = (gsub(&quot;(\\b[[:alpha:]]+\\b)&quot;,
+                                        &quot;data$\\1&quot;, conditions))))
+            data &lt;- data[cond,]
+        }
+        ## subset data based on rows needed
+        if (!is.null(vars)) {
+            data &lt;- data[,vars]
+        }
+        ## get year from file name
+        year &lt;- as.numeric(gsub(&quot;\\D&quot;, &quot;&quot;, zfiles[i]))
+        ## convert split year (e.g., 0910 to 2009)
+        if (year &lt; 2000) {
+            year &lt;- round(year/100, digits=0) + 2000
+        }
+        ## add year column
+        data$year &lt;- year
+        ## append dataset to prior data (data0)
+        if(i == 1) {
+            ## save a new data name for later rbind
+            data0 &lt;- data
+        } else if(i == 2) {
+            ## first appending
+            result &lt;- rbind(data0, data)
+        } else {
+            ## 
+            result &lt;- rbind(result, data)
+        }
+    }
+    ## sort dataset: unitid by year
+    result &lt;- result[order(result$unitid,result$year),]
+    ## return dataset
+    return(result)
+}
+
+################################################################################
+## BUILD DATASETS - INSERT YOUR CODE HERE
+################################################################################
+
+## NOTES ON CODE STRUCTURE
+
+## The build.dataset() function takes three arguments:
+## (NB: These require knowledge of the variables in the IPEDS survey files.)
+
+## (1) regexzip   --&gt; takes a regular expression of survey file names
+##                    * only one type of IPEDS survey file per function
+##                    * must take value
+
+## (2) conditions --&gt; takes conditional statement to subset by rows
+##                    * entire conditional statement as single string
+##                    * variable names only (no data$ prepend)
+##                    * can be NULL if no condition needed
+
+## (3) vars       --&gt; takes variable names to subset by columns
+##                    * variable names must be concatenated using c()
+##                    * can be NULL if no condition needed
+
+## You need to save to *.data so that the merge code below
+## works. Give a unique name to each survey dataset group.
+
+## EXAMPLE CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## IPEDS enrollment data (using EF*B.csv files)
+
+## regexzip &lt;- &quot;EF[0-9]*B.zip$&quot;
+## cond &lt;- &quot;lstudy == 1 &amp; line == 412&quot;
+## var &lt;- c(&quot;unitid&quot;,&quot;efage05&quot;,&quot;efage06&quot;,&quot;efage09&quot;)
+## enroll.data &lt;- build.dataset(regexzip = regexzip,
+##                              conditions = cond,
+##                              vars = var)
+
+## IPEDS institutional characterist data (using HH*.csv files)
+## (NB: no condition used below)
+
+## regexzip &lt;- &quot;HD[0-9]*.zip$&quot;
+## var &lt;- c(&quot;unitid&quot;,&quot;instnm&quot;,&quot;city&quot;,&quot;stabbr&quot;,&quot;zip&quot;,&quot;sector&quot;,&quot;iclevel&quot;,
+##          &quot;control&quot;,&quot;hloffer&quot;,&quot;ugoffer&quot;,&quot;groffer&quot;,&quot;carnegie&quot;)
+## attr.data &lt;- build.dataset(regexzip = regexzip,
+##                            vars = var)
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+################################################################################
+## MERGE DATASETS
+################################################################################
+
+## NB: this code requires survey datasets with *.data
+datasets &lt;- ls(pattern = &quot;.data\\b&quot;)
+for(i in 1:length(datasets)) {
+    if (i == 1) {
+        final.data &lt;- eval(parse(text = datasets[i]))
+    } else {
+        merge.data &lt;- eval(parse(text = datasets[i]))
+        final.data &lt;- merge(final.data, merge.data,
+                            by = c(&quot;unitid&quot;, &quot;year&quot;),
+                            all.x = TRUE)
+    }
+}
+
+################################################################################
+## OUTPUT FINAL DATASET AS .CSV
+################################################################################
+
+write.csv(final.data, file = &quot;ipeds.csv&quot;) 
 </pre></noscript>
 <script src="https://gist.github.com/f42c87507169d0ba773c.js"> </script>
 

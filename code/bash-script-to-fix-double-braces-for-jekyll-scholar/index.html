@@ -37,10 +37,10 @@
     <h1 class="post-header">Bash script to fix double braces for Jekyll Scholar</h1>
     
     
-    <p>This bash script corrects double braces in <code class="highlighter-rouge">bib</code> files that break Jekyll Scholar. I use BibDesk for my citations, which uses braces around all fields. When I add 
-braces to preserve formatting, double braces appear, like so (see <code class="highlighter-rouge">Title</code> field):</p>
+    <p>This bash script corrects double braces in <code class="language-plaintext highlighter-rouge">bib</code> files that break Jekyll Scholar. I use BibDesk for my citations, which uses braces around all fields. When I add 
+braces to preserve formatting, double braces appear, like so (see <code class="language-plaintext highlighter-rouge">Title</code> field):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
 	Author = {Skinner, Benjamin T.},
 	Keywords = {technical},
 	Note = {R package version 0.2.4},
@@ -49,10 +49,10 @@ braces to preserve formatting, double braces appear, like so (see <code class="h
 	Year = {2016}}
 </code></pre></div></div>
 
-<p>This is a problem for Jekyll Scholar, which cannot parse the entry. This is true even when <code class="highlighter-rouge">use_raw_bibtex_entry</code> is set to <code class="highlighter-rouge">true</code> in <code class="highlighter-rouge">_config.yml</code>. Running this script on a <code class="highlighter-rouge">bib</code> file replaces the problematic double braces,  <code class="highlighter-rouge">{{...}}</code>, with a double-quotation mark brace combination: 
-<code class="highlighter-rouge">"{...}"</code>:</p>
+<p>This is a problem for Jekyll Scholar, which cannot parse the entry. This is true even when <code class="language-plaintext highlighter-rouge">use_raw_bibtex_entry</code> is set to <code class="language-plaintext highlighter-rouge">true</code> in <code class="language-plaintext highlighter-rouge">_config.yml</code>. Running this script on a <code class="language-plaintext highlighter-rouge">bib</code> file replaces the problematic double braces,  <code class="language-plaintext highlighter-rouge">{{...}}</code>, with a double-quotation mark brace combination: 
+<code class="language-plaintext highlighter-rouge">"{...}"</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@manual{skinner2016rscorecard,
 	Author = {Skinner, Benjamin T.},
 	Keywords = {technical},
 	Note = {R package version 0.2.4},
@@ -63,7 +63,29 @@ braces to preserve formatting, double braces appear, like so (see <code class="h
 
 <p>So far, this seems to solve my problem.	Script is in the gist is below.</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre>#!/bin/bash
+
+# PURPOSE
+#
+# To fix {{...}} used by BibDesk that don&#39;t play well with Jekyll scholar.
+# Replaces {{...}} with &quot;{...}&quot;. This respects capitalization and corporation
+# names in the author field, but doesn&#39;t break Jekyll scholar.
+#
+# USAGE
+#
+# ./fixbib.sh &lt;name of bib file&gt;
+#
+# NB
+#
+# May need to make executable w/:
+#
+# chmod +x fixbib.sh
+#
+
+bib=$1
+cat $bib | sed &#39;s/{{\(.*\)}}/&quot;{\1}&quot;/g&#39; &gt; tmp
+mv tmp $bib
+
 </pre></noscript>
 <script src="https://gist.github.com/f22e53e0a840c31d21f478b7996cfa98.js"> </script>
 

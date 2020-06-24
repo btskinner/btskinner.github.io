@@ -37,7 +37,249 @@
     <h1 class="post-header">My Emacs initialization file</h1>
     
     
-    <noscript><pre>400: Invalid request
+    <noscript><pre>;; -----------------------------------------------------------------------------
+;;
+;; [ FILE ] Emacs customization file
+;; [ NAME ] .emacs
+;; [ PATH ] ~/.emacs
+;; [ AUTH ] Benjamin Skinner @btskinner
+;; [ INIT ] 2 August 2017
+;; [ REVN ] 30 March 2020
+;;
+;; -----------------------------------------------------------------------------
+
+;; ENVIRONMENT
+(unless (getenv &quot;LANG&quot;) (setenv &quot;LANG&quot; &quot;en_US.UTF-8&quot;))
+
+;; SPELLING
+;; brew install apsell
+(setq ispell-program-name &quot;/usr/local/bin/aspell&quot;)
+
+;; PACKAGES
+
+;; add MELPA packages
+(require &#39;package)
+(add-to-list &#39;package-archives
+             &#39;(&quot;melpa&quot; . &quot;https://melpa.org/packages/&quot;) t)
+(package-initialize)
+
+;; correct terminal shell from emacs
+(when (memq window-system &#39;(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; better Stata ado-mode (https://github.com/louabill/ado-mode)
+(add-to-list &#39;load-path &quot;~/.emacs.d/ado-mode/lisp&quot;)
+(require &#39;ado-mode)
+
+;; Stan mode
+(require &#39;stan-mode)
+
+;; THEME AND VISUAL SETTINGS
+
+;; high-contrast zenburn theme (M-x package-list-packages to install)
+(load-theme &#39;hc-zenburn t)
+
+;; no tool bar
+(tool-bar-mode 0)
+
+;; no scroll bars
+;; (scroll-bar-mode -1)
+
+;; no start up message
+(setq inhibit-startup-message t)
+(setq initial-scratch-message &quot;&quot;)
+
+;; removes *messages* from the buffer
+(setq-default message-log-max nil)
+(kill-buffer &quot;*Messages*&quot;)
+
+;; Removes *Completions* from buffer
+(add-hook &#39;minibuffer-exit-hook
+	  &#39;(lambda ()
+	     (let ((buffer &quot;*Completions*&quot;))
+	       (and (get-buffer buffer)
+		    (kill-buffer buffer)))))
+
+;; no audible or visual bell when emacs is mad
+(setq ring-bell-function &#39;ignore)
+
+;; font size
+(set-face-attribute &#39;default nil :height 160)
+
+;; turn on line and column numbers
+(setq line-number-mode t)
+(setq column-number-mode t)
+
+;; default frame size
+(add-to-list &#39;default-frame-alist &#39;(width . 90)
+	     &#39;(height . 100))
+
+;; quick toggle fullscreen to match MacOS (Command + Control + f)
+(global-set-key (kbd &quot;M-C-f&quot;) &#39;toggle-frame-fullscreen)
+
+;; GENERAL SETTINGS
+
+;; use the tab key to make 4 spaces
+(setq tab-width 4)
+(setq indent-tabs-mode nil)
+
+;; no backup~ files
+(setq make-backup-files nil)
+
+;; no #autosave# files
+(setq auto-save-default nil)
+
+;; allow upcase (C-x C-u) and downcase (C-x C-l) region
+(put &#39;downcase-region &#39;disabled nil)
+(put &#39;upcase-region &#39;disabled nil)
+
+;; KEY BINDINGS/MODIFICATIONS
+
+;; jump to other frame (split screen)
+(global-set-key [C-tab] &#39;other-frame)
+
+;; Mac option and command keys to meta (helps with non-Mac external keyboard)
+(setq mac-option-key-is-meta t
+      mac-command-key-is-meta t
+      mac-command-modifier &#39;meta
+      mac-option-modifier &#39;meta)
+
+;; my comment style for Stata
+(defun my-Stata-comment-style ()
+  &quot;Change comment style for ESS Stata&quot;
+  (if (string= mode-name &quot;Ado&quot;)
+      (progn
+	(setq comment-start &quot;// &quot;
+	      comment-end   &quot;&quot;))))
+
+;; add my Stata comment style to hook
+(add-hook &#39;ado-mode-hook &#39;my-Stata-comment-style)
+
+;; don&#39;t intent closing brace
+(setq ado-close-under-line-flag nil)
+
+;; intent 4 spaces with continued line (not 2)
+(setq ado-continued-statement-indent-spaces 4)
+
+;; Stata name
+(setq inferior-STA-program-name
+      &quot;/Applications/Stata/StataMP.app/Contents/MacOS/stata-mp&quot;)
+
+;; MODES
+
+;; R mode style
+(add-hook &#39;R-mode-style
+	  (lambda () (ess-set-style &#39;RRR)))
+
+;; ESS change : to smart &lt;- key in R
+(require &#39;ess-site)
+(require &#39;ess-rutils)
+
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;;&quot;) &#39;ess-insert-assign))
+(ess-toggle-underscore nil)
+
+;; ESS pipe: h/t https://emacs.stackexchange.com/a/8055
+(defun then_R_operator ()
+  &quot;R - %&gt;% operator or &#39;then&#39; pipe operator&quot;
+  (interactive)
+  (just-one-space 1)
+  (insert &quot;%&gt;%&quot;)
+  (just-one-space 1)
+  ;; (reindent-then-newline-and-indent)
+  )
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;C-;&quot;) &#39;then_R_operator))
+
+;; Rmd modes
+(require &#39;poly-R)
+(require &#39;poly-markdown)
+(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.md&quot; . poly-markdown-mode))
+(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Snw&quot; . poly-noweb+r-mode))
+(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Rnw&quot; . poly-noweb+r-mode))
+(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Rmd&quot; . poly-markdown+r-mode))
+(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.rmd&quot; . poly-markdown+r-mode))
+
+;; no Flymake
+(setq ess-use-flymake nil)
+
+;; Macros indent in C/C++ code
+(c-set-offset (quote cpp-macro) 0 nil)
+
+;; set LaTeX engine
+(setq TeX-engine (quote xetex))
+
+;; save when compiling
+(setq TeX-save-query nil)
+
+;; add synctex
+(setq LaTeX-command &quot;pdflatex -synctex=1&quot;)
+
+;; auctex parse on load and save
+(setq tex-parse-self t)
+(setq tex-auto-save t)
+
+(setq TeX-command-list
+   (quote
+    ((&quot;LaTeX&quot; &quot;%`%l%(mode)%&#39; %t&quot; TeX-run-TeX nil
+      (latex-mode doctex-mode) :help &quot;Run LaTeX&quot;)
+     (&quot;BibTeX&quot; &quot;bibtex %s&quot; TeX-run-BibTeX nil t :help &quot;Run BibTeX&quot;)
+     (&quot;Biber&quot; &quot;biber %s&quot; TeX-run-Biber t t :help &quot;Run Biber&quot;)
+     (&quot;View&quot; &quot;%V&quot; TeX-run-discard-or-function nil t :help &quot;Run Viewer&quot;))))
+
+;; set default TeX command
+(setq TeX-command-default &quot;pdflatex&quot;)
+
+;; SWV settings
+(setq ess-swv-processor (quote knitr))
+(setq ess-swv-pdflatex-commands &#39;(&quot;pdflatex&quot;))
+(define-key ess-noweb-minor-mode-map &quot;\M-nP&quot; &#39;ess-swv-weave-PDF)
+
+;; only change sectioning colour
+(setq font-latex-fontify-sectioning &#39;color)
+
+;; super-/sub-script on baseline
+(setq font-latex-script-display (quote (nil)))
+
+;; FUNCTIONS
+
+;; replace smart quotes (h/t https://superuser.com/a/604264)
+(defun replace-smart-quotes (beg end)
+  &quot;Replace &#39;smart quotes&#39; in buffer or region with ascii quotes.&quot;
+  (interactive &quot;r&quot;)
+  (format-replace-strings &#39;((&quot;\x201C&quot; . &quot;\&quot;&quot;)
+                            (&quot;\x201D&quot; . &quot;\&quot;&quot;)
+                            (&quot;\x2018&quot; . &quot;&#39;&quot;)
+                            (&quot;\x2019&quot; . &quot;&#39;&quot;))
+                          nil beg end))
+
+;; do not change super-/sub-script font
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won&#39;t work right.
+ &#39;(font-latex-subscript-face ((t nil)))
+ &#39;(font-latex-superscript-face ((t nil))))
+
+;; exclude bold/italic from keywords
+(setq font-latex-deactivated-keyword-classes
+    &#39;(&quot;italic-command&quot; &quot;bold-command&quot; &quot;italic-declaration&quot; &quot;bold-declaration&quot;))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won&#39;t work right.
+ &#39;(package-selected-packages
+   (quote
+    (zmq jupyter exec-path-from-shell gruvbox-theme poly-R markdown-mode stan-mode xkcd julia-mode auctex writeroom-mode hc-zenburn-theme))))
+
+;; -----------------------------------------------------------------------------
+;; END FILE
+;; -----------------------------------------------------------------------------
+
+
 </pre></noscript>
 <script src="https://gist.github.com/d6bb7131fb4b20e6db31.js"> </script>
 

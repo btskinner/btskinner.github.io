@@ -53,7 +53,7 @@ cores</a>).</p>
 <p>While the Clang compilers shipped with R finally support OpenMP for
 parallel processing, <a href="https://iscinumpy.gitlab.io/post/omp-on-high-sierra/">they require their own unique
 flags</a>. The GNU
-family of compilers (<code class="highlighter-rouge">gcc</code>, <code class="highlighter-rouge">g++</code>, etc) don’t play nice with all R
+family of compilers (<code class="language-plaintext highlighter-rouge">gcc</code>, <code class="language-plaintext highlighter-rouge">g++</code>, etc) don’t play nice with all R
 packages when building them from source. I figured both out the hard way.</p>
 
 <p>To get R to work with both OpenMP (after compiling with OpenBLAS)
@@ -76,26 +76,26 @@ but YMMV.</p>
 <ul>
   <li>XCode</li>
   <li>Homebrew</li>
-  <li><code class="highlighter-rouge">~/.R/Makevars</code></li>
+  <li><code class="language-plaintext highlighter-rouge">~/.R/Makevars</code></li>
 </ul>
 
 <h3 id="xcode">XCode</h3>
 
 <ol>
   <li>Install Command Line Tools through XCode</li>
-  <li>You may need to type <code class="highlighter-rouge">xcode-select --install</code> in the terminal after installation,
+  <li>You may need to type <code class="language-plaintext highlighter-rouge">xcode-select --install</code> in the terminal after installation,
 but I got this message which makes me believe this is no longer necessary:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select: error: command line tools are already installed, use "Software Update" to install updates
 </code></pre></div>    </div>
   </li>
   <li>Install <a href="https://silvae86.github.io/sysadmin/mac/osx/mojave/beta/libxml2/2018/07/05/fixing-missing-headers-for-homebrew-in-mac-osx-mojave.html">missing header
 files</a>
 using:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg ~/Desktop
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg ~/Desktop
 </code></pre></div>    </div>
     <p>Once saved, double click on the install package (which is now on
-your Desktop). This will place header files (<em>e.g.</em>, <code class="highlighter-rouge">math.h</code>) in
-the <code class="highlighter-rouge">/usr/include</code> directory, where they have historically been and
+your Desktop). This will place header files (<em>e.g.</em>, <code class="language-plaintext highlighter-rouge">math.h</code>) in
+the <code class="language-plaintext highlighter-rouge">/usr/include</code> directory, where they have historically been and
 R still looks for them.</p>
   </li>
 </ol>
@@ -111,31 +111,74 @@ may not be necessary.</p>
 </ol>
 
 <ul>
-  <li><code class="highlighter-rouge">brew install openblas</code></li>
-  <li><code class="highlighter-rouge">brew install r</code></li>
-  <li><code class="highlighter-rouge">brew install llvm</code></li>
-  <li><code class="highlighter-rouge">brew install ccache</code></li>
-  <li><code class="highlighter-rouge">brew install gcc</code></li>
-  <li><code class="highlighter-rouge">brew install libgit2</code></li>
-  <li><code class="highlighter-rouge">brew install openssl</code></li>
-  <li><code class="highlighter-rouge">brew install gettext</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install openblas</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install r</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install llvm</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install ccache</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install gcc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install libgit2</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install openssl</code></li>
+  <li><code class="language-plaintext highlighter-rouge">brew install gettext</code></li>
 </ul>
 
 <p>Note that you don’t technically need the last three libraries, but
 many R packages look for them if built from source. You’ll see that
-they are place in the compilation path in <code class="highlighter-rouge">Makevars</code> below.</p>
+they are place in the compilation path in <code class="language-plaintext highlighter-rouge">Makevars</code> below.</p>
 
 <h3 id="set-up-rmakevars">Set up ~/.R/Makevars</h3>
 
-<p>Create <code class="highlighter-rouge">Makevars</code> file in <code class="highlighter-rouge">~/.R</code> directory that looks like this</p>
+<p>Create <code class="language-plaintext highlighter-rouge">Makevars</code> file in <code class="language-plaintext highlighter-rouge">~/.R</code> directory that looks like this</p>
 
-<noscript><pre>400: Invalid request
+<noscript><pre># --------
+# Makevars
+# --------
+
+# Homebrew bin / opt / lib locations
+HB=/usr/local/bin
+HO=/usr/local/opt
+HL=/usr/local/lib
+
+# ccache
+CCACHE=$(HB)/ccache
+
+# Make using all cores (set number to your number of cores)
+MAKE=make -j8
+
+# GNU version (assumes latest in Homebrew as of May 2019)
+VER=9
+
+# LLVM (Clang) compiler options
+CC=$(CCACHE) $(HO)/llvm/bin/clang
+CXX=$(CC)++
+
+# FORTRAN
+FC=$(CCACHE) $(HB)/gfortran-$(VER)
+F77=$(FC)
+FLIBS=-L$(HL)/gcc/$(VER) -lgfortran -lquadmath -lm
+
+# STD libraries
+CXX1XSTD=-std=c++0x
+CXX11STD=-std=c++11
+CXX14STD=-std=c++14
+CXX17STD=-std=c++17
+
+# FLAGS
+CFLAGS=-g -O3 -Wall -pedantic -mtune=native -pipe
+CXXFLAGS=-g -O3 -Wall -pedantic -mtune=native -pipe 
+CPPFLAGS=-I$(HO)/llvm/include -I$(HO)/openssl/include -I$(HO)/gettext/include 
+LDFLAGS=-L$(HO)/llvm/lib -L$(HO)/openssl/lib -L$(HO)/gettext/lib
+
+# R-specific flags for OpenMP support
+SHLIB_OPENMP_CFLAGS=-fopenmp
+SHLIB_OPENMP_CXXFLAGS=-fopenmp
+SHLIB_OPENMP_FCFLAGS=-fopenmp
+SHLIB_OPENMP_FFLAGS=-fopenmp
 </pre></noscript>
 <script src="https://gist.github.com/81511cbc878eb08c8abcccef6c30f829.js"> </script>
 
 <h2 id="install-packages">Install packages</h2>
 
-<p>Open R and install packages like normal using <code class="highlighter-rouge">install.packages()</code>. I
+<p>Open R and install packages like normal using <code class="language-plaintext highlighter-rouge">install.packages()</code>. I
 found that installing <a href="https://CRAN.R-project.org/package=Rcpp">Rcpp</a>,
 <a href="https://CRAN.R-project.org/package=data.table">data.table</a>, and
 <a href="https://CRAN.R-project.org/package=tidyverse">tidyverse</a> will give a

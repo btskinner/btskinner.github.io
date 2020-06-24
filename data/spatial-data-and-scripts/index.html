@@ -44,7 +44,7 @@
 	
     
     
-    <p>This directory contains spatial data files and the scripts that produce them. The data files are linked both to their GitHub repository location and a raw version to facilitate easy download. Scripts to produce the datasets can be found in the <code class="highlighter-rouge">./scripts</code> subdirectory of the repository.</p>
+    <p>This directory contains spatial data files and the scripts that produce them. The data files are linked both to their GitHub repository location and a raw version to facilitate easy download. Scripts to produce the datasets can be found in the <code class="language-plaintext highlighter-rouge">./scripts</code> subdirectory of the repository.</p>
 
 <h2 id="data">Data</h2>
 
@@ -59,20 +59,20 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></td>
-      <td style="text-align: left"><code class="highlighter-rouge">neighborcounties.py</code></td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="language-plaintext highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">neighborcounties.py</code></td>
       <td style="text-align: left">Python 3.5</td>
       <td style="text-align: left">Long data file that lists all adjacent counties (2010)</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></td>
-      <td style="text-align: left"><code class="highlighter-rouge">popcenters.r</code></td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="language-plaintext highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">popcenters.r</code></td>
       <td style="text-align: left">R 3.2.3</td>
       <td style="text-align: left">Geocoordinates for geographic and population-weighted centers in all counties (2000 and 2010)</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></td>
-      <td style="text-align: left"><code class="highlighter-rouge">nearesthei.r</code></td>
+      <td style="text-align: left"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="language-plaintext highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">nearesthei.r</code></td>
       <td style="text-align: left">R 3.2.3</td>
       <td style="text-align: left">Nearest higher education institution (HEI) to every county, by sector (2010-2014)</td>
     </tr>
@@ -81,7 +81,7 @@
 
 <h2 id="detail">Detail</h2>
 
-<h3 id="neighborcountiescsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></h3>
+<h3 id="neighborcountiescsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/neighborcounties.csv"><code class="language-plaintext highlighter-rouge">neighborcounties.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/neighborcounties.csv">[Raw]</a></h3>
 
 <p>This long file links every county in the United States (as of the 2010 Census) with all of its contiguous counties. Five-digit county-level <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards">FIPS</a> codes are used to identify the counties. These codes uniquely identify each county and can be used to link with other datasets such as the <a href="https://www.census.gov/programs-surveys/acs/">American Community Survey</a>.</p>
 
@@ -96,21 +96,21 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">orgfips</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">orgfips</code></td>
       <td style="text-align: left">Origin county FIPS code</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">adjfips</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">adjfips</code></td>
       <td style="text-align: left">Adjacent county FIPS code</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">instate</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">instate</code></td>
       <td style="text-align: left">==1 if adjacent county is in the same state</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="county_centerscsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></h3>
+<h3 id="county_centerscsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/county_centers.csv"><code class="language-plaintext highlighter-rouge">county_centers.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/county_centers.csv">[Raw]</a></h3>
 
 <p>This wide file gives the latitude and longitude for the spatial and population centers of every county in the United States for the Census years 2000 and 2010. These coordinates are given by the U.S. Census; this file simply collects them in a single easy-to-use file. Five-digit county-level <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards">FIPS</a> codes are used to identify the counties.</p>
 
@@ -125,47 +125,47 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">fips</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">fips</code></td>
       <td style="text-align: left">Unique county-level five-digit FIPS code</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">clon00</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">clon00</code></td>
       <td style="text-align: left">Longitude of spatial center, 2000</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">clat00</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">clat00</code></td>
       <td style="text-align: left">Latitude of spatial center, 2000</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">clon10</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">clon10</code></td>
       <td style="text-align: left">Longitude of spatial center, 2010</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">clat10</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">clat10</code></td>
       <td style="text-align: left">Latitude of spatial center, 2010</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">pclon00</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">pclon00</code></td>
       <td style="text-align: left">Longitude of population-weighted center, 2000</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">pclat00</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">pclat00</code></td>
       <td style="text-align: left">Latitude of population-weighted center, 2000</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">pclon10</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">pclon10</code></td>
       <td style="text-align: left">Longitude of population-weighted center, 2010</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">pclat10</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">pclat10</code></td>
       <td style="text-align: left">Latitude of population-weighted center, 2010</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="nearest_heicsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></h3>
+<h3 id="nearest_heicsv-raw"><a href="https://github.com/btskinner/spatial/blob/master/data/nearest_hei.csv"><code class="language-plaintext highlighter-rouge">nearest_hei.csv</code></a> <a href="https://raw.githubusercontent.com/btskinner/spatial/master/data/nearest_hei.csv">[Raw]</a></h3>
 
-<p>This long file gives the nearest highest education institution (HEI) to each county population center across a number of years and higher education sectors. Each row gives the nearest institution’s <a href="http://nces.ed.gov/ipeds/datacenter/Default.aspx">IPEDS</a> unique <code class="highlighter-rouge">unitid</code>, the distance in miles, and indicators for the year and subset of included schools (<em>e.g.,</em> nearest public four-year, nearest public two-year, etc.).</p>
+<p>This long file gives the nearest highest education institution (HEI) to each county population center across a number of years and higher education sectors. Each row gives the nearest institution’s <a href="http://nces.ed.gov/ipeds/datacenter/Default.aspx">IPEDS</a> unique <code class="language-plaintext highlighter-rouge">unitid</code>, the distance in miles, and indicators for the year and subset of included schools (<em>e.g.,</em> nearest public four-year, nearest public two-year, etc.).</p>
 
 <h5 id="columns-2">COLUMNS</h5>
 
@@ -178,47 +178,47 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">fips</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">fips</code></td>
       <td style="text-align: left">Unique county-level five-digit FIPS code</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">unitid</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">unitid</code></td>
       <td style="text-align: left">Unique IPEDS identifier for nearest HEI</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">miles</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">miles</code></td>
       <td style="text-align: left">Distance in miles between county population center and nearest HEI</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_instate</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_instate</code></td>
       <td style="text-align: left">==1 if sample of schools is limited to those in same state as county</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">year</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">year</code></td>
       <td style="text-align: left">Year of match</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">any</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">any</code></td>
       <td style="text-align: left">==1 if any type of HEI is included in sample</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_fouryr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_fouryr</code></td>
       <td style="text-align: left">==1 if only four-year HEIs are included in sample</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_twoyr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_twoyr</code></td>
       <td style="text-align: left">==1 if only two-year HEIS are included in sample</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_pub</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_pub</code></td>
       <td style="text-align: left">==1 if only public HEIs are included in sample</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_pnp</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_pnp</code></td>
       <td style="text-align: left">==1 if only private, non-profit HEIs are included in sample</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code class="highlighter-rouge">limit_pfp</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">limit_pfp</code></td>
       <td style="text-align: left">==1 if only private, for-profit HEIs are inluced in sample</td>
     </tr>
   </tbody>
@@ -229,19 +229,19 @@
 <p><em>Absolute nearest HEI (regardless of sector and crossing state lines)</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 0</code> and <code class="highlighter-rouge">any == 1</code></li>
+  <li>Rows in which <code class="language-plaintext highlighter-rouge">limit_instate == 0</code> and <code class="language-plaintext highlighter-rouge">any == 1</code></li>
 </ul>
 
 <p><em>Nearest instate public four-year HEI</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_fouryr == 1</code> and <code class="highlighter-rouge">limit_pub == 1</code></li>
+  <li>Rows in which <code class="language-plaintext highlighter-rouge">limit_instate == 1</code> and <code class="language-plaintext highlighter-rouge">limit_fouryr == 1</code> and <code class="language-plaintext highlighter-rouge">limit_pub == 1</code></li>
 </ul>
 
 <p><em>Nearest instate private, for-profit two-year HEI</em></p>
 
 <ul>
-  <li>Rows in which <code class="highlighter-rouge">limit_instate == 1</code> and <code class="highlighter-rouge">limit_twoyr == 1</code> and <code class="highlighter-rouge">limit_pfp == 1</code></li>
+  <li>Rows in which <code class="language-plaintext highlighter-rouge">limit_instate == 1</code> and <code class="language-plaintext highlighter-rouge">limit_twoyr == 1</code> and <code class="language-plaintext highlighter-rouge">limit_pfp == 1</code></li>
 </ul>
 
 

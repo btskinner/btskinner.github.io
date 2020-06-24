@@ -40,10 +40,10 @@
         <p class="post-meta">
         <a href="https://github.com/btskinner/distRcpp" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
         &nbsp;
-        <a href="https://github.com/btskinner/distRcpp/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+        <a href="https://github.com/btskinner/distRcpp/archive/main.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
 	&nbsp;
-        <a href="https://github.com/btskinner/distRcpp/raw/master/man/distRcpp-manual.pdf" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
+        <a href="https://github.com/btskinner/distRcpp/raw/main/man/distRcpp-manual.pdf" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
 	
     
     
@@ -64,18 +64,18 @@ install this package and use these functions.</p>
 
 <p>Install the latest development version from Github with</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/distRcpp')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devtools::install_github('btskinner/distRcpp')
 </code></pre></div></div>
 
 <p><strong>NB</strong> This package is still in early beta stages. It does not have much
 in the way of error handling. Data must be pre-processed so that no
-missing (<code class="highlighter-rouge">NA</code>) values are given to the functions.</p>
+missing (<code class="language-plaintext highlighter-rouge">NA</code>) values are given to the functions.</p>
 
 <h2 id="available-functions">Available functions</h2>
 
 <h3 id="weighted-measures">Weighted measures</h3>
 
-<h4 id="dist_weighted_mean"><code class="highlighter-rouge">dist_weighted_mean()</code></h4>
+<h4 id="dist_weighted_mean"><code class="language-plaintext highlighter-rouge">dist_weighted_mean()</code></h4>
 
 <p>Interpolate values for a vector of locations (<strong>X</strong>) that are the
 inverse-distance-weighted average of measures taken at surrounding
@@ -83,7 +83,7 @@ locations (<strong>Y</strong>). For each point, <em>x</em>, nearby values of the
 taken at <strong>Y</strong> are weighted more heavily than those from locations that
 are farther away.</p>
 
-<h4 id="popdist_weighted_mean"><code class="highlighter-rouge">popdist_weighted_mean()</code></h4>
+<h4 id="popdist_weighted_mean"><code class="language-plaintext highlighter-rouge">popdist_weighted_mean()</code></h4>
 
 <p>Interpolate values for a vector of locations (<strong>X</strong>) that are the
 population/inverse-distance-weighted average of measures taken at
@@ -97,36 +97,36 @@ account.</p>
 
 <h3 id="distances">Distances</h3>
 
-<h4 id="dist_1to1"><code class="highlighter-rouge">dist_1to1()</code></h4>
+<h4 id="dist_1to1"><code class="language-plaintext highlighter-rouge">dist_1to1()</code></h4>
 
 <p>Compute and return the geodesic distance between two spatial points.
 Returns distance in meters.</p>
 
-<h4 id="dist_1tom"><code class="highlighter-rouge">dist_1tom()</code></h4>
+<h4 id="dist_1tom"><code class="language-plaintext highlighter-rouge">dist_1tom()</code></h4>
 
 <p>Compute and return the geodesic distance between one location and a
 vector of other locations. Returns vector of distances in meters.</p>
 
-<h4 id="dist_mtom"><code class="highlighter-rouge">dist_mtom()</code></h4>
+<h4 id="dist_mtom"><code class="language-plaintext highlighter-rouge">dist_mtom()</code></h4>
 
 <p>Compute and return the geodesic distance between each coordinate pair in
 two vectors. Returns <em>n x k</em> matrix of distances in meters, where <em>n</em> =
 # of locations in first vector and <em>k</em> = # of locations in second
 vector.</p>
 
-<h4 id="dist_df"><code class="highlighter-rouge">dist_df()</code></h4>
+<h4 id="dist_df"><code class="language-plaintext highlighter-rouge">dist_df()</code></h4>
 
 <p>Compute distance between corresponding coordinate pairs and return
-vector of distances in meters. For use when creating a new <code class="highlighter-rouge">data.frame</code>
-or <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> <code class="highlighter-rouge">tbl_df()</code> column.</p>
+vector of distances in meters. For use when creating a new <code class="language-plaintext highlighter-rouge">data.frame</code>
+or <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> <code class="language-plaintext highlighter-rouge">tbl_df()</code> column.</p>
 
-<h4 id="dist_min"><code class="highlighter-rouge">dist_min()</code></h4>
+<h4 id="dist_min"><code class="language-plaintext highlighter-rouge">dist_min()</code></h4>
 
 <p>Compute minimum distance between each starting point, <em>x</em>, and possible
 end points, <strong>Y</strong>. Returns vector of minimum distances in meters that
 equals # of starting points (size of <strong>X</strong>).</p>
 
-<h4 id="dist_max"><code class="highlighter-rouge">dist_max()</code></h4>
+<h4 id="dist_max"><code class="language-plaintext highlighter-rouge">dist_max()</code></h4>
 
 <p>Compute maximum distance between each starting point, <em>x</em>, and possible
 end points, <strong>Y</strong>. Returns vector of maximum distances in meters that
@@ -140,7 +140,7 @@ every United States population-weighted county centroid as measured in
 
 <h3 id="load-data">Load data</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## libraries
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## libraries
 libs &lt;- c('dplyr','microbenchmark','geosphere','distRcpp')
 lapply(libs, require, character.only = TRUE)
 
@@ -169,7 +169,7 @@ p &lt;- df %&gt;% select(pclon10, pclat10) %&gt;% na.omit %&gt;% data.frame()
 
 <h3 id="check-for-equality">Check for equality</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dist_R &lt;- distm(p)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dist_R &lt;- distm(p)
 dist_Rcpp &lt;- dist_mtom(p[,1],p[,2],p[,1],p[,2])
 
 dist_R[1:5,1:5]
@@ -199,7 +199,7 @@ all.equal(dist_R, dist_Rcpp)
 
 <p>Mid-2012 MacBook Air, 2 GHz Intel Core i7, 8 GB 1600 MHz DDR3 SDRAM</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>microbenchmark(
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>microbenchmark(
     dist_R = distm(p),
     dist_Rcpp = dist_mtom(p[,1],p[,2],p[,1],p[,2]),
     times = 100
