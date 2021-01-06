@@ -91,7 +91,10 @@ request with an updated version of <code class="language-plaintext highlighter-r
 <p>You also have the option of whether you wish to overwrite existing
 files.  If you do, change the <code class="language-plaintext highlighter-rouge">overwrite</code> option to <code class="language-plaintext highlighter-rouge">TRUE</code>. The
 default behavior is to only download files listed in
-<code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded.</p>
+<code class="language-plaintext highlighter-rouge">ipeds_file_list.txt</code> that have not already been downloaded. Keep in
+mind that NCES revises old files from time to time, so it may be best
+to overwrite old files unless you have a reason to prefer the old
+version.</p>
 
 <h1 id="to-run">To Run</h1>
 
@@ -161,8 +164,8 @@ out_dir = '.'
 
 <h1 id="data-size">Data size</h1>
 
-<p>As of 2 December 2019, downloading all IPEDS files (setting all
-options to <code class="language-plaintext highlighter-rouge">TRUE</code>) requires approximately 2.22 GB of disk
+<p>As of 15 October 2020, downloading all IPEDS files (setting all
+options to <code class="language-plaintext highlighter-rouge">TRUE</code>) requires approximately 2.25 GB of disk
 space. Granted, you probably don’t need both regular and Stata
 versions of the data files (which are the bulk of the directory
 size). Here are the approximate subdirectory file sizes if you
@@ -178,27 +181,27 @@ download all data files from all years:</p>
   <tbody>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./data</code></td>
-      <td style="text-align: center">1.07 GB</td>
+      <td style="text-align: center">1.08 GB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./dictionary</code></td>
-      <td style="text-align: center">30.4 MB</td>
+      <td style="text-align: center">31.6 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./sas_prog</code></td>
-      <td style="text-align: center">6.1 MB</td>
+      <td style="text-align: center">6.3 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./spss_prog</code></td>
-      <td style="text-align: center">19.5 MB</td>
+      <td style="text-align: center">19.7 MB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./stata_data</code></td>
-      <td style="text-align: center">1.09 GB</td>
+      <td style="text-align: center">1.1 GB</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">./stata_prog</code></td>
-      <td style="text-align: center">6.5 MB</td>
+      <td style="text-align: center">6.7 MB</td>
     </tr>
   </tbody>
 </table>
@@ -217,7 +220,7 @@ IPEDS</a></p>
   </main>
   <main>
     <div class="footer">
-      <p class="foot">&#169; 2020. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2021. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>

@@ -22,7 +22,7 @@ this works for me.
      [`jekyll-scholar`](https://github.com/inukshuk/jekyll-scholar). *This
      may no longer be necessary, but I had trouble in the past with
      Jekyll not properly parsing braces when building citations*.
-3. Build and test the site locally using `build exec jekyll serve` in
+3. Build and test the site locally using `bundle exec jekyll serve` in
    the command line
    - **NB** Some links to external repos may not work locally
    - The built site, which is dynamic, now lives in `_site` in the
