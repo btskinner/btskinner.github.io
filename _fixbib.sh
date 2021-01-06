@@ -12,6 +12,6 @@
 #
 
 bib=$1
-cat $bib | sed 's/{{\(.*\)}}/"{\1}"/g; s/^.*Url.*,//; s/^.*Doi.*,//' > tmp
+cat $bib | sed 's/{{\(.*\)}}/"{\1}"/g; s/^.*url =.*,//; s/^.*doi =.*,//' > tmp
 mv tmp ${bib%.bib}_web.bib
 

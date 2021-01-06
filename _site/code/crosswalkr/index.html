@@ -40,7 +40,7 @@
         <p class="post-meta">
         <a href="https://github.com/btskinner/crosswalkr" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
         &nbsp;
-        <a href="https://github.com/btskinner/crosswalkr/archive/main.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+        <a href="https://github.com/btskinner/crosswalkr/archive/master.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
 	
 	&nbsp;
         <a href="https://www.btskinner.io/crosswalkr" class="iconlink" manual><i class="fa fa-book fa-3x"></i></a></p>
@@ -49,8 +49,8 @@
     
     <h1 id="crosswalkr-">crosswalkr <img src="man/figures/logo.png" align="right" /></h1>
 
-<p><a href="https://travis-ci.org/btskinner/crosswalkr"><img src="https://travis-ci.org/btskinner/crosswalkr.svg?branch=master" alt="Travis-CI Build
-Status" /></a>
+<p><a href="https://github.com/btskinner/crosswalkr/actions"><img src="https://github.com/btskinner/crosswalkr/workflows/R-CMD-check/badge.svg" alt="R build
+status" /></a>
 <a href="https://github.com/btskinner/crosswalkr"><img src="https://img.shields.io/github/release/btskinner/crosswalkr.svg" alt="GitHub
 release" /></a>
 <a href="http://cran.r-project.org/package=crosswalkr"><img src="http://www.r-pkg.org/badges/version/crosswalkr" alt="CRAN_Status_Badge" /></a></p>
@@ -189,7 +189,7 @@ df
 <p>Create a new column with labelled values.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## convert to tbl_df
-df &lt;- tbl_df(df)
+df &lt;- tibble::as_tibble(df)
 df$state3 &lt;- encodefrom(df, var = state, cw_file = cw, raw = stname, clean = stfips, label = stabbr)
 </code></pre></div></div>
 
@@ -205,7 +205,7 @@ is a tibble)</p>
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4
-##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; 
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; 
 ## 1 Kentucky      21 South    KY     KY     KY    
 ## 2 Tennessee     47 South    TN     TN     TN    
 ## 3 Virginia      51 South    VA     VA     VA
@@ -217,7 +217,7 @@ is a tibble)</p>
 
 ## # A tibble: 3 x 6
 ##   state     stfips cenregnm state2 state3 state4
-##   &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt; &lt;fct&gt; 
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;    &lt;fct&gt;   &lt;int&gt; &lt;fct&gt; 
 ## 1 Kentucky      21 South    KY         21 KY    
 ## 2 Tennessee     47 South    TN         47 TN    
 ## 3 Virginia      51 South    VA         51 VA
@@ -231,7 +231,7 @@ is a tibble)</p>
   </main>
   <main>
     <div class="footer">
-      <p class="foot">&#169; 2020. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+      <p class="foot">&#169; 2021. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
 
     </div>
   </main>
