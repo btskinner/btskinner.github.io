@@ -44,46 +44,32 @@
 ;; [ PATH ] ~/.emacs
 ;; [ AUTH ] Benjamin Skinner @btskinner
 ;; [ INIT ] 2 August 2017
-;; [ REVN ] 30 March 2020
+;; [ REVN ] 8 May 2020
 ;;
 ;; -----------------------------------------------------------------------------
 
-;; ENVIRONMENT
+;; -- ENVIRONMENT ------------------------------------------
+
 (unless (getenv &quot;LANG&quot;) (setenv &quot;LANG&quot; &quot;en_US.UTF-8&quot;))
+(setq default-directory &quot;~/&quot; )
 
-;; SPELLING
-;; brew install apsell
-(setq ispell-program-name &quot;/usr/local/bin/aspell&quot;)
+;; -- PACKAGES (MELPA) -------------------------------------
 
-;; PACKAGES
-
-;; add MELPA packages
 (require &#39;package)
 (add-to-list &#39;package-archives
              &#39;(&quot;melpa&quot; . &quot;https://melpa.org/packages/&quot;) t)
 (package-initialize)
 
-;; correct terminal shell from emacs
-(when (memq window-system &#39;(mac ns x))
-  (exec-path-from-shell-initialize))
+;; -- THEME AND VISUAL SETTINGS ----------------------------
 
-;; better Stata ado-mode (https://github.com/louabill/ado-mode)
-(add-to-list &#39;load-path &quot;~/.emacs.d/ado-mode/lisp&quot;)
-(require &#39;ado-mode)
-
-;; Stan mode
-(require &#39;stan-mode)
-
-;; THEME AND VISUAL SETTINGS
-
-;; high-contrast zenburn theme (M-x package-list-packages to install)
+;; high-contrast zenburn theme (melpa)
 (load-theme &#39;hc-zenburn t)
 
 ;; no tool bar
 (tool-bar-mode 0)
 
 ;; no scroll bars
-;; (scroll-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; no start up message
 (setq inhibit-startup-message t)
@@ -117,7 +103,19 @@
 ;; quick toggle fullscreen to match MacOS (Command + Control + f)
 (global-set-key (kbd &quot;M-C-f&quot;) &#39;toggle-frame-fullscreen)
 
-;; GENERAL SETTINGS
+;; unique buffer names (with directory)
+(setq uniquify-buffer-name-style &#39;post-forward-angle-brackets)
+
+;; correct shell path
+(setq explicit-shell-file-name &quot;/usr/local/bin/bash&quot;)
+(define-key global-map (kbd &quot;C-M-t&quot;)
+  (lambda () (interactive) (term explicit-shell-file-name)))
+
+;; -- GENERAL SETTINGS -------------------------------------
+
+;; SPELLING (brew install hunspell)
+;; (setq-default ispell-program-name &quot;/usr/local/bin/hunspell&quot;)
+;; (setq ispell-really-hunspell t)
 
 ;; use the tab key to make 4 spaces
 (setq tab-width 4)
@@ -133,16 +131,31 @@
 (put &#39;downcase-region &#39;disabled nil)
 (put &#39;upcase-region &#39;disabled nil)
 
-;; KEY BINDINGS/MODIFICATIONS
+;; -- OTHER KEY BINDINGS/MODIFICATIONS ---------------------
 
-;; jump to other frame (split screen)
-(global-set-key [C-tab] &#39;other-frame)
+;; jump to other window (split screen)
+(global-set-key [C-tab] &#39;other-window)
+
+;; jump to other frame (split window)
+(global-set-key (kbd &quot;C-\`&quot;) &#39;other-frame)
 
 ;; Mac option and command keys to meta (helps with non-Mac external keyboard)
 (setq mac-option-key-is-meta t
       mac-command-key-is-meta t
       mac-command-modifier &#39;meta
       mac-option-modifier &#39;meta)
+
+;; -- MODES ------------------------------------------------
+
+;; -- STATA --------
+
+;; Stata name
+(setq inferior-STA-program-name
+      &quot;/Applications/Stata/StataMP.app/Contents/MacOS/stata-mp&quot;)
+
+;; better Stata ado-mode (https://github.com/louabill/ado-mode)
+(add-to-list &#39;load-path &quot;~/.emacs.d/ado-mode/lisp&quot;)
+(require &#39;ado-mode)
 
 ;; my comment style for Stata
 (defun my-Stata-comment-style ()
@@ -155,17 +168,13 @@
 ;; add my Stata comment style to hook
 (add-hook &#39;ado-mode-hook &#39;my-Stata-comment-style)
 
-;; don&#39;t intent closing brace
+;; don&#39;t indent closing brace
 (setq ado-close-under-line-flag nil)
 
 ;; intent 4 spaces with continued line (not 2)
 (setq ado-continued-statement-indent-spaces 4)
 
-;; Stata name
-(setq inferior-STA-program-name
-      &quot;/Applications/Stata/StataMP.app/Contents/MacOS/stata-mp&quot;)
-
-;; MODES
+;; -- R ------------
 
 ;; R mode style
 (add-hook &#39;R-mode-style
@@ -186,7 +195,6 @@
   (just-one-space 1)
   (insert &quot;%&gt;%&quot;)
   (just-one-space 1)
-  ;; (reindent-then-newline-and-indent)
   )
 (dolist (map (list ess-mode-map inferior-ess-mode-map))
   (define-key map (kbd &quot;C-;&quot;) &#39;then_R_operator))
@@ -194,17 +202,35 @@
 ;; Rmd modes
 (require &#39;poly-R)
 (require &#39;poly-markdown)
-(add-to-list &#39;auto-mode-alist &#39;(&quot;\\.md&quot; . poly-markdown-mode))
 (add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Snw&quot; . poly-noweb+r-mode))
 (add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Rnw&quot; . poly-noweb+r-mode))
 (add-to-list &#39;auto-mode-alist &#39;(&quot;\\.Rmd&quot; . poly-markdown+r-mode))
 (add-to-list &#39;auto-mode-alist &#39;(&quot;\\.rmd&quot; . poly-markdown+r-mode))
 
-;; no Flymake
-(setq ess-use-flymake nil)
+;; -- Markdown -----
 
-;; Macros indent in C/C++ code
-(c-set-offset (quote cpp-macro) 0 nil)
+(autoload &#39;markdown-mode &quot;markdown-mode&quot;
+   &quot;Major mode for editing Markdown files&quot; t)
+(add-to-list &#39;auto-mode-alist
+             &#39;(&quot;\\.md&quot; . markdown-mode))
+(autoload &#39;gfm-mode &quot;markdown-mode&quot;
+   &quot;Major mode for editing GitHub Flavored Markdown files&quot; t)
+(add-to-list &#39;auto-mode-alist &#39;(&quot;README\\.md\\&#39;&quot; . gfm-mode))
+
+;; open current file in Marked 2
+(defun markdown-preview-file ()
+  &quot;use Marked 2 to preview the current file&quot;
+  (interactive)
+  (shell-command 
+   (format &quot;open -a &#39;Marked 2.app&#39; %s&quot; 
+       (shell-quote-argument (buffer-file-name))))
+)
+(global-set-key &quot;\C-cm&quot; &#39;markdown-preview-file)
+
+(add-hook &#39;markdown-mode-hook &#39;pandoc-mode)
+(add-hook &#39;pandoc-mode-hook &#39;pandoc-load-default-settings)
+
+;; -- LaTeX --------
 
 ;; set LaTeX engine
 (setq TeX-engine (quote xetex))
@@ -228,7 +254,7 @@
      (&quot;View&quot; &quot;%V&quot; TeX-run-discard-or-function nil t :help &quot;Run Viewer&quot;))))
 
 ;; set default TeX command
-(setq TeX-command-default &quot;pdflatex&quot;)
+(setq TeX-command-default &quot;xelatex&quot;)
 
 ;; SWV settings
 (setq ess-swv-processor (quote knitr))
@@ -241,7 +267,18 @@
 ;; super-/sub-script on baseline
 (setq font-latex-script-display (quote (nil)))
 
-;; FUNCTIONS
+;; -- Other --------
+
+;; no Flymake
+(setq ess-use-flymake nil)
+
+;; Macros indent in C/C++ code
+(c-set-offset (quote cpp-macro) 0 nil)
+
+;; Stan mode
+(require &#39;stan-mode)
+
+;; -- FUNCTIONS --------------------------------------------
 
 ;; replace smart quotes (h/t https://superuser.com/a/604264)
 (defun replace-smart-quotes (beg end)
@@ -264,7 +301,10 @@
 
 ;; exclude bold/italic from keywords
 (setq font-latex-deactivated-keyword-classes
-    &#39;(&quot;italic-command&quot; &quot;bold-command&quot; &quot;italic-declaration&quot; &quot;bold-declaration&quot;))
+      &#39;(&quot;italic-command&quot;
+	&quot;bold-command&quot;
+	&quot;italic-declaration&quot;
+	&quot;bold-declaration&quot;))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -273,7 +313,7 @@
  ;; If there is more than one, they won&#39;t work right.
  &#39;(package-selected-packages
    (quote
-    (zmq jupyter exec-path-from-shell gruvbox-theme poly-R markdown-mode stan-mode xkcd julia-mode auctex writeroom-mode hc-zenburn-theme))))
+    (pandoc-mode dash ess use-package xterm-color zmq jupyter exec-path-from-shell poly-R markdown-mode stan-mode xkcd julia-mode auctex writeroom-mode hc-zenburn-theme))))
 
 ;; -----------------------------------------------------------------------------
 ;; END FILE
