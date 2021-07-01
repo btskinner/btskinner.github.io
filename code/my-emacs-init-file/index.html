@@ -44,7 +44,7 @@
 ;; [ PATH ] ~/.emacs
 ;; [ AUTH ] Benjamin Skinner @btskinner
 ;; [ INIT ] 2 August 2017
-;; [ REVN ] 8 May 2020
+;; [ REVN ] 22 May 2021
 ;;
 ;; -----------------------------------------------------------------------------
 
@@ -176,19 +176,10 @@
 
 ;; -- R ------------
 
-;; R mode style
-(add-hook &#39;R-mode-style
-	  (lambda () (ess-set-style &#39;RRR)))
-
-;; ESS change : to smart &lt;- key in R
 (require &#39;ess-site)
-(require &#39;ess-rutils)
 
-(dolist (map (list ess-mode-map inferior-ess-mode-map))
-  (define-key map (kbd &quot;;&quot;) &#39;ess-insert-assign))
-(ess-toggle-underscore nil)
-
-;; ESS pipe: h/t https://emacs.stackexchange.com/a/8055
+;; functions for R pipes
+;; (h/t https://emacs.stackexchange.com/a/8055)
 (defun then_R_operator ()
   &quot;R - %&gt;% operator or &#39;then&#39; pipe operator&quot;
   (interactive)
@@ -196,8 +187,25 @@
   (insert &quot;%&gt;%&quot;)
   (just-one-space 1)
   )
+(defun base_R_pipe ()
+  &quot;R - |&gt; operator or &#39;base&#39; pipe operator&quot;
+  (interactive)
+  (just-one-space 1)
+  (insert &quot;|&gt;&quot;)
+  (just-one-space 1)
+  )
+
+;; remap &quot;;&quot; key:
+;; ;                      --&gt;     &quot;&lt;-&quot;
+;; Control + ;            --&gt;     &quot;|&gt;&quot;
+;; Control + Meta + ;     --&gt;     &quot;%&gt;%&quot;
+;; NB: quick tap ; to get semicolon
 (dolist (map (list ess-mode-map inferior-ess-mode-map))
-  (define-key map (kbd &quot;C-;&quot;) &#39;then_R_operator))
+  (define-key map (kbd &quot;;&quot;) &#39;ess-insert-assign))
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;C-M-;&quot;) &#39;then_R_operator))
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;C-;&quot;) &#39;base_R_pipe))
 
 ;; Rmd modes
 (require &#39;poly-R)
@@ -259,7 +267,6 @@
 ;; SWV settings
 (setq ess-swv-processor (quote knitr))
 (setq ess-swv-pdflatex-commands &#39;(&quot;pdflatex&quot;))
-(define-key ess-noweb-minor-mode-map &quot;\M-nP&quot; &#39;ess-swv-weave-PDF)
 
 ;; only change sectioning colour
 (setq font-latex-fontify-sectioning &#39;color)
