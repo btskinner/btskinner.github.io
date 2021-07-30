@@ -26,6 +26,7 @@ syllabus:
 | *School of Human Development and Organizational Studies in Education* ||  
 | EDH 6065: History of American Higher Education ||  
 | EDH 6931: (Special Topics) Advanced Writing Workshop||  
+| EDH 6931: (Special Topics) Causal Inference in Higher Education Research||  
 | EDH 6931: (Special Topics) Innovation in Higher Education||  
 | EDH 7050: Exploration of Research Literature in Higher Education ||   
 | EDH 7636: Organizational Theory in Higher Education||  
