@@ -61,7 +61,7 @@ code { font-family: 'Courier New',Consolas,monopace; }
 
 hr { border: none; border-top: 2px solid #ddd; }
 
-main { max-width: 51rem; margin: 0 auto 3rem; padding: 0 2rem; }
+main { max-width: 60rem; margin: 0 auto 3rem; padding: 0 2rem; }
 
 .site-header .site-title { font-weight: 300; }
 

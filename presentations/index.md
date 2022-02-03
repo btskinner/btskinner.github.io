@@ -2,7 +2,7 @@
 layout: page
 ---
 
-## Peer-reviewed conference
+## Peer-reviewed conference presentations
 
 {% bibliography --query @*[keywords ~= conference && keywords ~= peer && keywords != working] %}
 

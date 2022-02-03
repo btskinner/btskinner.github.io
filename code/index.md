@@ -2,7 +2,7 @@
 layout: page
 ---
 
-## Packages
+## Software packages
 
 <div class="home">
     <ul class="posts">
@@ -21,7 +21,7 @@ layout: page
 </div>
 
 
-## Data Analysis
+## Data analysis
 
 <div class="home">
     <ul class="posts">
@@ -39,7 +39,7 @@ layout: page
     </ul>
 </div>
 
-## Document Preparation
+## Document preparation
 
 <div class="home">
     <ul class="posts">

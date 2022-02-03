@@ -2,13 +2,13 @@
 layout: page
 ---
 
-## Peer reviewed
+## Peer reviewed publications
 
 {% bibliography --query @article[keywords ^= article] %}
 
-## Software packages
+## Policy reports, briefs, and other writing
 
-{% bibliography --query @manual[keywords ^= software] %}
+{% bibliography --query @article[keywords ^= otherpub] %}
 
 ## Analyst
 

@@ -2,7 +2,7 @@
 layout: page
 ---
 
-## Maps
+## Interactive maps
 
 <div class="home">
 	<ul class="posts">
