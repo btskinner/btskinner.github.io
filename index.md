@@ -17,11 +17,11 @@ Higher Education at the University of Florida.
 <!-- like distance and cost when choosing a college; and the economic and -->
 <!-- social outcomes of college attendance. --> 
 
-My research interests center on college access, the outcomes of college
-participation, and using tools of data science such as machine
+My research interests center on college access, the outcomes of
+college participation, and using tools of data science such as machine
 learning and Bayesian statistics to rigorously examine higher
-education policy questions that are difficult or impossible to answer
-with conventional econometric tools.
+education policy questions that are difficult to answer with
+conventional econometric tools.
 
 In my work I have examined how students weigh factors like [distance
 and cost](https://link.springer.com/article/10.1007/s11162-018-9507-1)
