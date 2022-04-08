@@ -3,6 +3,7 @@ layout: page
 ---
 
 ## Peer-reviewed conference presentations
+**_Co-author presenter_
 
 {% bibliography --query @*[keywords ~= conference && keywords ~= peer && keywords != working] %}
 
