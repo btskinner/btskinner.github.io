@@ -2,20 +2,12 @@
 layout: page
 ---
 
-<img class="centerpic" src="{{ site.baseurl }}/images/btskinner.jpg"
+<img class="centerpic" src="{{ site.baseurl }}/images/btskinner_2.jpg"
 style="width: 300px;"/> 
 
 I am an assistant professor of higher education and policy at
 the University of Florida. I am also an affiliate of the Institute of
 Higher Education at the University of Florida.
-
-<!-- My research interests center on the policies and practices that affect -->
-<!-- students who attend community colleges and broad access -->
-<!-- universities. In my work I have focused on the relationships -->
-<!-- between online course delivery and student enrollments, course -->
-<!-- outcomes, and degree attainment; how students weigh factors -->
-<!-- like distance and cost when choosing a college; and the economic and -->
-<!-- social outcomes of college attendance. --> 
 
 My research interests center on college access, the outcomes of
 college participation, and using tools of data science such as machine
