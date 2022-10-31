@@ -11,7 +11,7 @@ Higher Education at the University of Florida.
 
 My research interests center on college access, the outcomes of
 college participation, and using tools of data science such as machine
-learning and Bayesian statistics to rigorously examine higher
+learning and Bayesian statistics to critically examine higher
 education policy questions that are difficult to answer with
 conventional econometric tools.
 
