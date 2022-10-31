@@ -86,15 +86,15 @@ simple wrapper that displays a message before running your command as
 if you had typed it directly.</p>
 
 <p><strong>USAGE</strong></p>
-<pre><code class="language-stata">. test_command &lt; command to test &gt;
-</code></pre>
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="w"> </span><span class="n">test_command</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">&gt;</span>
+</code></pre></div></div>
 
 <p><strong>EXAMPLE</strong></p>
-<pre><code class="language-stata">// EXAMPLE: to test "my_command x y, gen(z)"
-. test_command my_command x y, gen(z)
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// EXAMPLE: to test "my_command x y, gen(z)"</span>
+<span class="o">.</span><span class="w"> </span><span class="n">test_command</span><span class="w"> </span><span class="n">my_command</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">gen</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 
-VALIDATING: my_command x y, gen(z)
-</code></pre>
+<span class="n">VALIDATING</span><span class="o">:</span><span class="w"> </span><span class="n">my_command</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">gen</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h4 id="test_assert"><code class="language-plaintext highlighter-rouge">test_assert</code></h4>
 
@@ -102,8 +102,8 @@ VALIDATING: my_command x y, gen(z)
 worked as expected.</p>
 
 <p><strong>USAGE</strong></p>
-<pre><code class="language-stata">test_assert " &lt; testing message string &gt; " &lt; assertion to test &gt;
-</code></pre>
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_assert</span><span class="w"> </span><span class="s2">" &lt; testing message string &gt; "</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">assertion</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">&gt;</span>
+</code></pre></div></div>
 
 <p>The first argument is a string that should be an informative message
 about your test. The second argument should be an expression like you
@@ -112,11 +112,11 @@ just a wrapper for the <code class="language-plaintext highlighter-rouge">assert
 and by default captures error codes rather than halting.</p>
 
 <p><strong>EXAMPLE</strong></p>
-<pre><code class="language-stata">// EXAMPLE: expect that new variable z is x + y
-. test_assert "New variable z equals x plus y" z = x + y 
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// EXAMPLE: expect that new variable z is x + y</span>
+<span class="o">.</span><span class="w"> </span><span class="n">test_assert</span><span class="w"> </span><span class="s2">"New variable z equals x plus y"</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span>
 
-&gt; PASS: New variable z equals x plus y
-</code></pre>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">PASS</span><span class="o">:</span><span class="w"> </span><span class="n">New</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">equals</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">plus</span><span class="w"> </span><span class="n">y</span>
+</code></pre></div></div>
 
 <p>If the test fails, the font color will change to that of error codes
 (red by default). The return message simply repeats the assertion
@@ -131,8 +131,8 @@ fails. Otherwise, the font color and output will change as noted
 above, but Stata will not stop.</p>
 
 <p><strong>USAGE</strong></p>
-<pre><code class="language-stata">run_tests, testfiledirectory(path/to/test-*.do) [ stopiferror ]
-</code></pre>
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">run_tests</span><span class="p">,</span><span class="w"> </span><span class="n">testfiledirectory</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="kr">to</span><span class="o">/</span><span class="n">test</span><span class="o">-*.</span><span class="n">do</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">stopiferror</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div></div>
 
 <h2 id="example-process">Example process</h2>
 
@@ -147,12 +147,12 @@ failing tests.</p>
 
 <p>To run:</p>
 
-<pre><code class="language-stata">// change into example directy
-cd ./examples
+<div class="language-stata highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// change into example directy</span>
+<span class="k">cd</span><span class="w"> </span><span class="o">./</span><span class="n">examples</span>
 
-// run
-do tests
-</code></pre>
+<span class="c1">// run</span>
+<span class="k">do</span><span class="w"> </span><span class="n">tests</span>
+</code></pre></div></div>
 
 <h2 id="templates">Templates</h2>
 
