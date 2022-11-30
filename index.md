@@ -5,9 +5,9 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner_2.jpg"
 style="width: 300px;"/> 
 
-I am an assistant professor of higher education and policy at
-the University of Florida. I am also an affiliate of the Institute of
-Higher Education at the University of Florida.
+I am an assistant professor of higher education and policy with an
+affiliation in the Institute of Higher Education at the University of
+Florida.
 
 My research interests center on college access, the outcomes of
 college participation, and using tools of data science such as machine
@@ -22,13 +22,22 @@ both [economic
 outcomes](http://www.sciencedirect.com/science/article/pii/S0272775715300303)
 and
 [civic](http://www.tandfonline.com/doi/full/10.1080/00221546.2017.1291258)
-[behaviors](https://www.muse.jhu.edu/article/796979). I have a
-particular interest in students' access to broadband: how it varies
-across student populations, its connection to past housing policy, and
-its relationship to [online course
+[behaviors](https://www.btskinner.io/repository/skinner2021civicii.pdf). I have also used
+poststratification techniques to improve the representativeness of
+survey responses among [former students who exited
+early](https://doi.org/10.1177/23328584211065724) and to produce
+state-level estimates of [low-income college
+enrollment](https://ssrn.com/abstract=3054231) using
+non-representative data. I have a particular interest in students'
+access to broadband: how it varies across [student
+populations](https://www.edworkingpapers.com/ai22-667), its connection
+to [past housing policy](https://www.edworkingpapers.com/ai21-471),
+and its relationship to [online course
 enrollments](https://link.springer.com/article/10.1007/s11162-018-9539-6). See
 my [publications](https://www.btskinner.io/publications/) and [working
-papers](https://www.btskinner.io/working/) pages for a complete list.
+papers](https://www.btskinner.io/working/) pages for a complete list
+of my papers and my [GitHub profile](https://github.com/btskinner) for
+links to replication files for many of my projects.
 
 I am the author and maintainer of a number of software packages,
 including [rscorecard](https://www.btskinner.io/rscorecard/), which
@@ -43,9 +52,10 @@ files according to a data use agreement; and [GitRoom
 Manager](https://www.btskinner.io/grm/), a program that allows
 instructors to more easily manage a GitHub-based virtual classroom
 from the command line. Other small scripts that I share can be found
-[here](https://www.btskinner.io/code/).
+on my [code page](https://www.btskinner.io/code/).
 
 I earned my doctorate in leadership and policy studies from Vanderbilt
-University in 2017, master’s from the University of Chicago in
-2008, and bachelor’s from Vanderbilt in 2006.
+University in 2017, master’s in the humanities from the University of
+Chicago in 2008, and bachelor’s in music and English from Vanderbilt
+in 2006.
 
