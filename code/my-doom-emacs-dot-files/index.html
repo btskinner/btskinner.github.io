@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<title>Benjamin T. Skinner | University of Florida</title>
+
+
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <h6 class="site-subtitle"><a href="/">Assistant Professor of Higher Education and Policy | University of Florida</a></h6>
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+	<a href="/media/" class="">Media</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<a href="https://twitter.com/btskinner"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="mailto:btskinner@coe.ufl.edu"><i class="fa fa-envelope-o fa-2x"></i></a>
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">My Doom emacs dotfiles</h1>
+    
+    
+    <noscript><pre>;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; -- GENERAL SETTINGS ---------------------------------------------------------
+
+;; identity
+(setq user-full-name &quot;Benjamin Skinner&quot;
+      user-mail-address &quot;btskinner@coe.ufl.edu&quot;)
+
+;; fonts
+(setq doom-font (font-spec :family &quot;iA Writer Mono S&quot; :size 16.0 :weight &#39;semi-light)
+      doom-variable-pitch-font (font-spec :family &quot;iA Writer Duospace&quot;)
+      doom-unicode-font (font-spec :family &quot;iA Writer Mono S&quot; :size 16.0)
+      doom-big-font (font-spec :family &quot;iA Writer Mono S&quot; :size 24.0))
+
+;; theme
+(setq doom-theme &#39;doom-zenburn)
+
+;; yes to line numbers
+(setq display-line-numbers-type t)
+
+;; directory for org files
+(setq org-directory &quot;~/org/&quot;)
+
+;; remove doom dashboard items
+(remove-hook &#39;+doom-dashboard-functions #&#39;doom-dashboard-widget-shortmenu)
+(remove-hook &#39;+doom-dashboard-functions #&#39;doom-dashboard-widget-footer)
+(remove-hook &#39;+doom-dashboard-functions #&#39;doom-dashboard-widget-loaded)
+
+;; default frame size
+(add-to-list &#39;default-frame-alist &#39;(left . 300))
+(add-to-list &#39;default-frame-alist &#39;(top . 0))
+(add-to-list &#39;default-frame-alist &#39;(height . 60))
+(add-to-list &#39;default-frame-alist &#39;(width . 120))
+
+;; no audible or visual bell when emacs is mad
+(setq ring-bell-function &#39;ignore)
+
+;; use the tab key to make 2 spaces
+(setq tab-width 2)
+(setq indent-tabs-mode nil)
+
+;; no backup~ files
+(setq make-backup-files nil)
+
+;; no #autosave# files
+(setq auto-save-default nil)
+
+;; -- GENERAL KEYBINDINGS ----------------------------------
+
+;; allow upcase (C-x C-u) and downcase (C-x C-l) region
+(put &#39;downcase-region &#39;disabled nil)
+(put &#39;upcase-region &#39;disabled nil)
+
+;; jump to other window (split screen)
+(map! [C-tab] #&#39;other-window)
+
+;; jump to other frame (split window)
+(map! &quot;C-\`&quot; #&#39;other-frame)
+
+;; Mac option and command keys to meta (helps with non-Mac external keyboard)
+(setq mac-option-key-is-meta t
+      mac-command-key-is-meta t
+      mac-command-modifier &#39;meta
+      mac-option-modifier &#39;meta)
+
+;; -- MODES ------------------------------------------------
+
+;; -- STATA --------
+
+;; Stata name
+(setq inferior-STA-program-name
+      &quot;/Applications/Stata/StataMP.app/Contents/MacOS/stata-mp&quot;)
+
+;; better Stata ado-mode
+(require &#39;ado-mode)
+
+;; my comment style for Stata
+(defun my-Stata-comment-style ()
+  &quot;Change comment style for ESS Stata&quot;
+  (if (string= mode-name &quot;Ado&quot;)
+      (progn
+	(setq comment-start &quot;// &quot;
+	      comment-end   &quot;&quot;))))
+
+;; add my Stata comment style to hook
+(add-hook &#39;ado-mode-hook &#39;my-Stata-comment-style)
+
+;; don&#39;t indent closing brace
+(setq ado-close-under-line-flag nil)
+
+;; intent 4 spaces with continued line (not 2)
+(setq ado-continued-statement-indent-spaces 2)
+
+;; -- R ------------
+
+(require &#39;ess-site)
+(setq ess-style &#39;RStudio)
+&#39;(ess-smart-S-assign-key nil)
+
+;; functions for R pipes
+;; (h/t https://emacs.stackexchange.com/a/8055)
+(defun then_R_pipe ()
+  &quot;R - %&gt;% operator or &#39;then&#39; pipe operator&quot;
+  (interactive)
+  (just-one-space 1)
+  (insert &quot;%&gt;%&quot;)
+  (just-one-space 1)
+  )
+(defun base_R_pipe ()
+  &quot;R - |&gt; operator or &#39;base&#39; pipe operator&quot;
+  (interactive)
+  (just-one-space 1)
+  (insert &quot;|&gt;&quot;)
+  (just-one-space 1)
+  )
+
+;; remap &quot;;&quot; key:
+;; ;                      --&gt;     &quot;&lt;-&quot;
+;; Control + ;            --&gt;     &quot;|&gt;&quot;
+;; Control + Meta + ;     --&gt;     &quot;%&gt;%&quot;
+;; NB: quick tap ; to get semicolon
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;;&quot;) &#39;ess-insert-assign))
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;C-M-;&quot;) &#39;then_R_pipe))
+(dolist (map (list ess-mode-map inferior-ess-mode-map))
+  (define-key map (kbd &quot;C-;&quot;) &#39;base_R_pipe))
+
+;; -- Stan ---------
+
+(require &#39;stan-mode)
+
+;; END config.el
+</pre></noscript>
+<script src="https://gist.github.com/59a49abe932b49e568a6e709b6edc29f.js"> </script>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">&#169; 2023. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
