@@ -2,7 +2,7 @@
 layout: post
 title: Make Emacs.app from Homebrew emacs-mac
 category: code
-lang: emacs 
+lang: shell
 tag: misc
 ---
 
