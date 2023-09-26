@@ -4,6 +4,7 @@ courselink:
   lpo9951: /lpo9951/
   rworkshop: /rworkshop/
   edh7916: /edh7916/
+  bayes: /bayes_workshop
 syllabus:
   eng101: /repository/ENG101_syllabus_example_skinner.pdf
   eng201: /repository/ENG201_syllabus_example_skinner.pdf
@@ -46,6 +47,7 @@ syllabus:
 
 |          |   ||            | 
 |:---------------|:-----------------|:---:|-----------:|   
+| A Gentle Introduction to Bayesian Analysis with Applications to QuantCrit | ASHE |[<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.bayes}}){:class="iconlink"}| November 2023 |   
 | Workshop on R | University of Virginia |[<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.rworkshop}}){:class="iconlink"}| January 2018 |   
 ||||  
 

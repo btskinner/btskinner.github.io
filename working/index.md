@@ -4,7 +4,7 @@ layout: page
 
 ## Submitted
 
-{% bibliography --query @article[keywords ^= submitted] %}
+{% bibliography --query @article[keywords ^= submitted] @incollection[keywords ^= submitted] %}
 
 ## In progress
 
