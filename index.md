@@ -5,9 +5,9 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner_2.jpg"
 style="width: 300px;"/> 
 
-I am an assistant professor of higher education and policy with an
-affiliation in the Institute of Higher Education at the University of
-Florida.
+<!-- I am an assistant professor of higher education and policy with an -->
+<!-- affiliation in the Institute of Higher Education at the University of -->
+<!-- Florida. -->
 
 My research interests center on college access, the outcomes of
 college participation, and using tools of data science such as machine

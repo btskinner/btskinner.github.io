@@ -4,7 +4,7 @@ courselink:
   lpo9951: /lpo9951/
   rworkshop: /rworkshop/
   edh7916: /edh7916/
-  bayes: /bayes_workshop
+  bayes: /ashe_bayes
 syllabus:
   eng101: /repository/ENG101_syllabus_example_skinner.pdf
   eng201: /repository/ENG201_syllabus_example_skinner.pdf
@@ -20,22 +20,18 @@ syllabus:
 </style>
 
 # Instructor
-### Current
+### Past
 
-| University of Florida|||  
+| **University of Florida**|||  
 |:---------------------|:---:|---:|  
-| *School of Human Development and Organizational Studies in Education* ||  
+| *School of Human Development and Organizational Studies in Education* ||2019-2023|  
 | EDH 6065: History of American Higher Education ||  
 | EDH 6931: (Special Topics) Advanced Writing Workshop||  
 | EDH 6931: (Special Topics) Innovation in Higher Education||  
 | EDH 7050: Exploration of Research Literature in Higher Education ||   
 | EDH 7636: Organizational Theory in Higher Education||  
 | EDH 7916: Contemporary Research in Higher Education | [<i class="fa fa-external-link fa-lg"></i>]({{ site.edquanturl }}{{ page.courselink.edh7916 }}){:class="iconlink"}|  
-
-### Past
-
 | **Vanderbilt University**|||  
-|:-------------------------|:-:|----:|  
 | *Department of Leadership, Policy, & Organizations* ||2015|  
 | LPO 9951: Research Practicum (PhD) | [<i class="fa fa-external-link fa-lg"></i>]({{ site.baseurl }}{{page.courselink.lpo9951}}){:class="iconlink"}||   
 | **University of Southern Indiana**|||  
