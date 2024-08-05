@@ -13,7 +13,7 @@ data dashboards, visualizations, and research projects.
 Prior to my position with the NEH, I was an assistant professor of higher
 education and policy at the University of Florida and a research assistant
 professor of education and policy at the University of Virginia. My research
-interested centered on college access, the outcomes of college participation,
+interests centered on college access, the outcomes of college participation,
 and using tools of data science such as machine learning and Bayesian statistics
 to critically examine higher education policy questions that are difficult to
 answer with conventional econometric tools.
