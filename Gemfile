@@ -6,4 +6,4 @@ gem 'jekyll-gist', '~> 1.5'
 gem 'unicode', '~> 0.4.4.4'
 
 
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.8"
