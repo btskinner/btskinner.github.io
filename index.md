@@ -5,10 +5,16 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner_2.jpg"
 style="width: 300px;"/> 
 
-I am a data scientist for the National Endowment for the Humanities in the
-Office of Data and Evaluation. In my role I support the internal work of the
-agency and evaluations of its impact on the humanities across the nation via
-data dashboards, visualizations, and research projects.
+Until recently, I was a data scientist for the National Endowment for the
+Humanities in the Office of Data and Evaluation. In my role I supported the
+internal work of the agency and evaluations of its impact on the humanities
+across the nation via data dashboards, visualizations, and research projects.
+Some public output included,
+[ripeds](https://nehgov.github.io/ripeds/index.html), an R package to download
+and work with IPEDS, [state/territory mapping
+tiles](https://github.com/btskinner/staterbin), and scripts to convert [census
+shapefiles to lightweight TOPOJSON
+files](https://github.com/btskinner/usa_territory_topojson).
 
 Prior to my position with the NEH, I was an assistant professor of higher
 education and policy at the University of Florida and a research assistant

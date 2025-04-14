@@ -6,6 +6,6 @@ layout: page
 
 {% bibliography --query @article[keywords ^= submitted] @incollection[keywords ^= submitted] %}
 
-## In progress
+<!-- ## In progress -->
 
-{% bibliography --query @article[keywords ^= working] %}
+<!-- {% bibliography --query @article[keywords ^= working] %} -->

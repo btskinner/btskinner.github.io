@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+
+<!-- <title>Benjamin T. Skinner | University of Florida</title> -->
+<title>Benjamin T. Skinner</title>
+
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <h1 class="site-title"><a href="/">Benjamin T. Skinner</a></h1>
+      <!-- <h6 class="site-subtitle"><a href="/"></a></h6> -->
+      <nav class="site-nav">
+	<a href="/publications/" class="">Publications</a>
+        <a href="/presentations/" class="">Presentations</a>
+        <a href="/working/" class="">Working</a>
+	<a href="/media/" class="">Media</a>
+        <a href="/teaching/" class="">Teaching</a>
+        <a href="/code/" class="">Code</a>
+	<a href="/data/" class="">Data</a>
+        <a href="/visualizations/" class="">Visualizations</a>
+        <a href="/repository/skinnercv.pdf">CV</a>
+        <a href="https://github.com/btskinner"><i class="fa fa-github fa-2x"></i></a>
+	<!-- <a href=""><i class="fa fa-twitter fa-2x"></i></a> -->
+  <!--       <a href="mailto:"><i class="fa fa-envelope-o fa-2x"></i></a> -->
+	
+      </nav>
+    </header>
+    <article class="post">
+    <br>
+    <h1 class="post-header">USA states + territories from SHP to TOPOJSON</h1>
+    
+        <br>
+        <p class="post-meta">
+        <a href="https://github.com/btskinner/usa_territory_topojson" class="iconlink"><i class="fa fa-github fa-3x"></i></a>
+        &nbsp;
+        <a href="https://github.com/btskinner/usa_territory_topojson/archive/main.zip" class="iconlink" download><i class="fa fa-file-archive-o fa-3x"></i></a>
+	
+    
+    
+    <p><em><strong>NOTE</strong>: This is work completed as part of my tenure as data scientist at the
+National Endowment for the Humanities. It is in the public domain under a CC0
+license. I have linked to the fork I made for purposes of stability.</em></p>
+
+<h1 id="usa-states--territories-from-shp-to-topojson">USA states + territories from SHP to TOPOJSON</h1>
+
+<p>This repository contains scripts that will convert <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">US Census cartographic
+  boundary</a>
+  shapefiles to lightweight topojson files, which include all 50 states, the
+  District of Columbia, and five permanently inhabited territories: American
+  Samoa, Guam, Northern Mariana Islands, Puerto Rico, and the U.S. Virgin
+  Islands.</p>
+
+<p>Pre-built topojson files for the years 2014 to 2023 are contained in the
+repository:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/data/json/unproj</code> - unprojected files</li>
+  <li><code class="language-plaintext highlighter-rouge">/data/json/proj</code> - files projected using a <a href="https://github.com/stamen/geo-albers-usa-territories">modified version of the
+Albers</a> projection that
+relocates Alaska, Hawaii, and territories to areas under the contiguous 48 states</li>
+</ul>
+
+<p>Files are at three geographic levels (state, county, and congressional district)
+and three resolutions (500k, 5m, and 20m).</p>
+
+<h1 id="building-the-files">Building the files</h1>
+<h2 id="dependencies">Dependencies</h2>
+
+<p>In order to build the maps, you will need the following Javascript libraries
+installed on your machine:</p>
+
+<ul>
+  <li>shapefile</li>
+  <li>ndjson-cli</li>
+  <li>topojson-server</li>
+  <li>topojson-simplify</li>
+  <li>topojson-client</li>
+  <li>d3-geo-projection</li>
+  <li>geo-albers-usa-territories</li>
+</ul>
+
+<p>You can get them each through npm: <code class="language-plaintext highlighter-rouge">npm install &lt;package&gt;</code></p>
+
+<p>You will also need the following scripts in the <code class="language-plaintext highlighter-rouge">js</code> directory:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">condist_properties.js</code></li>
+  <li><code class="language-plaintext highlighter-rouge">county_properties.js</code></li>
+</ul>
+
+<h2 id="to-build-maps">To build maps</h2>
+
+<p>To build all topojson files, run the following command inside the <code class="language-plaintext highlighter-rouge">scripts/bash</code>
+directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">&gt;</span> <span class="nb">cd</span> ./scripts/bash
+<span class="nv">$ </span><span class="o">&gt;</span> ./batch <span class="nt">-s</span> YYYY <span class="nt">-e</span> YYYY <span class="nt">-r</span> 500k,5m,20m 
+</code></pre></div></div>
+<p>where</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span><span class="nt">-s</span><span class="o">]</span>       Survey year start
+<span class="o">[</span><span class="nt">-e</span><span class="o">]</span>       Survey year end <span class="o">(</span><span class="k">if </span>blank, assumed same as start<span class="o">)</span>
+<span class="o">[</span><span class="nt">-r</span><span class="o">]</span>       Resolution: 500k, 5m, 20m
+<span class="o">[</span><span class="nt">-p</span><span class="o">]</span>       Project <span class="o">(</span>AlbersUsaTerritories<span class="o">)</span>
+</code></pre></div></div>
+
+<p>For example,</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">&gt;</span> ./batch <span class="nt">-s</span> 2014 <span class="nt">-e</span> 2023 <span class="nt">-r</span> 5m 
+</code></pre></div></div>
+
+<p>will build unprojected 5m resolution files for all years between 2014 and 2023,
+inclusive. You can build all resolutions by separating each resolution after the
+<code class="language-plaintext highlighter-rouge">-r</code> flag with commas:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">&gt;</span> ./batch <span class="nt">-s</span> 2020 <span class="nt">-e</span> 2021 <span class="nt">-r</span> 500k,5m,20m
+</code></pre></div></div>
+
+<p>If you leave out the <code class="language-plaintext highlighter-rouge">-e</code> flag, the script will build only the year after the
+<code class="language-plaintext highlighter-rouge">-s</code> flag.</p>
+
+<p>If you wish to pre-project the file using the <a href="https://github.com/stamen/geo-albers-usa-territories">AlbersUsaTerritories
+projection</a>,
+which can save the processing required to make projections at runtime (speed
+up), then add the <code class="language-plaintext highlighter-rouge">-p</code> flag:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">&gt;</span> ./batch <span class="nt">-s</span> 2020 <span class="nt">-e</span> 2021 <span class="nt">-r</span> 5m <span class="nt">-p</span>
+</code></pre></div></div>
+
+<p>In all cases, final topojson files will be saved in either the
+<code class="language-plaintext highlighter-rouge">data/json/unprojected</code> or <code class="language-plaintext highlighter-rouge">data/json/projected</code> directory as determined by the
+<code class="language-plaintext highlighter-rouge">-p</code> flag.</p>
+
+<h2 id="boundaries">Boundaries</h2>
+
+<p>Files are at three levels:</p>
+
+<ul>
+  <li>State</li>
+  <li>County</li>
+  <li>Congressional district</li>
+</ul>
+
+<p>Each file contains boundaries for its level as well as those above it.</p>
+
+<ul>
+  <li>State levels:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">state</code></li>
+      <li><code class="language-plaintext highlighter-rouge">nation</code></li>
+    </ul>
+  </li>
+  <li>County levels:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">county</code></li>
+      <li><code class="language-plaintext highlighter-rouge">state</code></li>
+      <li><code class="language-plaintext highlighter-rouge">nation</code></li>
+    </ul>
+  </li>
+  <li>Congressional district levels:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cdistrict</code></li>
+      <li><code class="language-plaintext highlighter-rouge">state</code></li>
+      <li><code class="language-plaintext highlighter-rouge">nation</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="projections">Projections</h1>
+
+<p>To project the unprojected topojson data files to match the pre-projected files
+(non-contiguous states and territories are moved for easier mapping), you will
+need to use the JSON scripts located in <code class="language-plaintext highlighter-rouge">assets/js</code>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d3.v7.min.js</code></li>
+  <li><code class="language-plaintext highlighter-rouge">topojson.min.js</code></li>
+  <li><code class="language-plaintext highlighter-rouge">geoalbersuster.js</code></li>
+</ul>
+
+<p>The first two scripts are general libraries necessary for working with D3 and
+topojson files. The third file contains the scripts necessary for projecting the
+unprojected maps with the key function:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">projection</span> <span class="o">=</span> <span class="nx">geoAlbersUsaTerritories</span><span class="p">.</span><span class="nf">geoAlbersUsaTerritories</span><span class="p">()</span>
+  <span class="p">.</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1280</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">translate</span><span class="p">([</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]);</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">geoPath</span><span class="p">().</span><span class="nf">projection</span><span class="p">(</span><span class="nx">projection</span><span class="p">);</span>
+</code></pre></div></div>
+<p>The unprojected files, however, can be projected using any other projection 
+available via the <a href="https://d3js.org/d3-geo/projection">D3 projection library</a>.</p>
+
+<h1 id="visualizing-built-maps">Visualizing built maps</h1>
+
+<p>If you would like to visualize the projected maps, start a local server in the
+root directory (see: <a href="https://www.npmjs.com/package/local-web-server"><code class="language-plaintext highlighter-rouge">npm
+local-web-server</code></a>) and visit
+the localhost page in your browser. From there, you can select the various maps
+via a drop down menu.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">&gt;</span> npm <span class="nb">install </span>local-web-server
+<span class="nv">$ </span><span class="o">&gt;</span> npx ws
+</code></pre></div></div>
+<p>Paste <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000</code> in your browser.</p>
+
+<p><img src="https://raw.githubusercontent.com/btskinner/usa_territory_topojson/main/img/check_map.png" alt="View maps locally" /></p>
+
+<h2 id="using-maps-in-other-projects">Using maps in other projects</h2>
+
+<p>The script section in <code class="language-plaintext highlighter-rouge">index.html</code> can be modified / reused in order to use
+these maps in other projects.</p>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+
+<ul>
+  <li><a href="https://github.com/stamen/geo-albers-usa-territories">Projection</a></li>
+  <li><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command line cartography</a></li>
+</ul>
+
+<h1 id="disclaimer">Disclaimer</h1>
+
+<p>This software is licensed under the CC0 license. It is provided “as is” without
+any warranty of any kind, either expressed, implied, or statutory, including,
+but not limited to, any warranty that the subject software will conform to
+specifications, any implied warranties of merchantability, fitness for a
+particular purpose, or freedom from infringement, any warranty that the subject
+software will be error free, or any warranty that documentation, if provided,
+will conform to the subject software. This agreement does not, in any manner,
+constitute an endorsement by the National Endowment for the Humanities (NEH) or
+any prior recipient of any results, resulting designs, hardware, software
+products or any other applications resulting from use of the subject software.
+Further, NEH disclaims all warranties and liabilities regarding third-party
+software, if present in the original software, and distributes it “as is.”</p>
+
+<p>The recipient agrees to waive any and all claims against the United States
+government, its contractors and subcontractors, as well as any prior recipient.
+If recipient’s use of the subject software results in any liabilities, demands,
+damages, expenses or losses arising from such use, including any damages from
+products based on, or resulting from, recipient’s use of the subject software,
+recipient shall indemnify and hold harmless the United States government, its
+contractors and subcontractors, as well as any prior recipient, to the extent
+permitted by law. Recipient’s sole remedy for any such matter shall be the
+immediate, unilateral termination of this agreement.</p>
+
+
+    
+</article>
+
+    <br>
+  </main>
+  <main>
+    <div class="footer">
+      <p class="foot">&#169; 2025. This site powered by <a href="http://jekyllrb.com">Jekyll</a> + <a href="https://github.com/syaning/vida">vida</a> + <a href="https://pages.github.com">GitHub</a>.</p>
+
+    </div>
+  </main>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-63981025-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+</html>
