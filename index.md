@@ -5,7 +5,9 @@ layout: page
 <img class="centerpic" src="{{ site.baseurl }}/images/btskinner_2.jpg"
 style="width: 300px;"/> 
 
-Until recently, I was a data scientist for the National Endowment for the
+I am a senior data analyst with the Guttmacher Institute. I work on a number of research projects focused on reproductive and sexual health and rights worldwide.
+
+Formerly, I was a data scientist for the National Endowment for the
 Humanities in the Office of Data and Evaluation. In my role I supported the
 internal work of the agency and evaluations of its impact on the humanities
 across the nation via data dashboards, visualizations, and research projects.
