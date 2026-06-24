@@ -45,7 +45,7 @@ GEM
       csl (~> 2.0)
       observer (< 1.0)
     colorator (1.1.0)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.7)
     csl (2.1.0)
       forwardable (~> 1.3)
       namae (~> 1.2)
